@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jake Kasper — Systems Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:        #06080b;
+    --bg-soft:   #0b0f15;
+    --panel:     rgba(13, 18, 26, 0.72);
+    --panel-brd: rgba(126, 231, 199, 0.14);
+    --ink:       #e6edf3;
+    --ink-dim:   #9aa7b4;
+    --ink-faint: #5f6b78;
+    --accent:    #7ee7c7;   /* phosphor teal */
+    --accent-2:  #38bdf8;   /* sky */
+    --warn:      #f5c451;
+    --err:       #ff6b6b;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- scrolling log-trace background ---------- */
+  #logbg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    contain: strict;
+  }
+  #logbg pre {
+    margin: 0;
+    padding: 2rem 3vw;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.85;
+    white-space: pre;
+    color: var(--ink-faint);
+    opacity: 0.34;
+    will-change: transform;
+    transform: translateY(0);
+  }
+  /* token colors inside the log */
+  .lt-ts   { color: #3f4b57; }
+  .lt-info { color: var(--accent-2); }
+  .lt-dbg  { color: #6b7784; }
+  .lt-warn { color: var(--warn); }
+  .lt-err  { color: var(--err); }
+  .lt-ok   { color: var(--accent); }
+  .lt-tag  { color: var(--accent); }
+  .lt-hex  { color: #7c9cc4; }
+
+  /* overlay: darken + vignette so foreground text stays readable */
+  #logveil {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(120% 80% at 50% -10%, rgba(126,231,199,0.06), transparent 55%),
+      radial-gradient(140% 120% at 50% 50%, transparent 45%, rgba(6,8,11,0.80) 100%),
+      linear-gradient(180deg, rgba(6,8,11,0.46), rgba(6,8,11,0.26) 30%, rgba(6,8,11,0.46));
+  }
+
+  /* ---------- layout scaffolding ---------- */
+  .wrap { position: relative; z-index: 2; }
+  .container { width: min(1080px, 92vw); margin: 0 auto; }
+  section { padding: 7rem 0; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.15rem clamp(1rem, 4vw, 2.5rem);
+    background: rgba(6,8,11,0);
+    border-bottom: 1px solid transparent;
+    transition: background .3s ease, border-color .3s ease, padding .3s ease, backdrop-filter .3s ease;
+  }
+  nav.scrolled {
+    background: rgba(6,8,11,0.72);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding-top: .8rem; padding-bottom: .8rem;
+  }
+  .brand { font-family: var(--mono); font-weight: 600; letter-spacing: -.01em; font-size: .95rem; }
+  .brand .dot { color: var(--accent); }
+  .navlinks { display: flex; gap: 2rem; font-size: .9rem; color: var(--ink-dim); }
+  .navlinks a { position: relative; transition: color .2s; }
+  .navlinks a:hover { color: var(--ink); }
+  .navlinks a::after {
+    content:""; position:absolute; left:0; bottom:-4px; height:1px; width:0; background:var(--accent);
+    transition: width .25s ease;
+  }
+  .navlinks a:hover::after { width:100%; }
+  @media (max-width: 680px){ .navlinks { display:none; } }
+
+  /* ---------- hero ---------- */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 6rem; }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: .55rem;
+    font-family: var(--mono); font-size: .78rem; color: var(--ink-dim);
+    border: 1px solid rgba(255,255,255,0.09); border-radius: 999px;
+    padding: .4rem .85rem; margin-bottom: 1.8rem; width: fit-content;
+    background: rgba(13,18,26,0.5); backdrop-filter: blur(6px);
+  }
+  .status-pill .led {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(126,231,199,.7); animation: pulse 2.4s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(126,231,199,.55);}
+    70%{ box-shadow: 0 0 0 8px rgba(126,231,199,0);}
+    100%{ box-shadow: 0 0 0 0 rgba(126,231,199,0);}
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 6.5vw, 5rem);
+    font-weight: 800; letter-spacing: -0.035em; line-height: 1.02;
+    margin-bottom: 1.4rem;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(100deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .lede {
+    font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--ink-dim);
+    max-width: 40ch; margin-bottom: 2.4rem;
+  }
+  .hero .lede strong { color: var(--ink); font-weight: 600; }
+  .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  .btn {
+    font-family: var(--mono); font-size: .9rem; font-weight: 500;
+    padding: .8rem 1.4rem; border-radius: 10px; transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+    display: inline-flex; align-items: center; gap: .55rem;
+  }
+  .btn-primary { background: var(--accent); color: #04120d; font-weight: 600; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(126,231,199,.5); }
+  .btn-ghost { border: 1px solid rgba(255,255,255,0.14); color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .scroll-hint {
+    margin-top: 4rem; font-family: var(--mono); font-size: .75rem; color: var(--ink-faint);
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .scroll-hint .bar { width: 34px; height: 1px; background: var(--ink-faint); position: relative; overflow: hidden; }
+  .scroll-hint .bar::after { content:""; position:absolute; inset:0; width:40%; background:var(--accent); animation: slide 2.2s infinite; }
+  @keyframes slide { 0%{transform:translateX(-100%);} 100%{transform:translateX(300%);} }
+
+  /* ---------- section heads ---------- */
+  .sec-head { margin-bottom: 3rem; }
+  .sec-kicker {
+    font-family: var(--mono); font-size: .8rem; color: var(--accent);
+    display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem;
+  }
+  .sec-kicker::before { content:""; width: 22px; height:1px; background: var(--accent); display:inline-block; }
+  .sec-head h2 { font-size: clamp(1.8rem, 4vw, 2.7rem); font-weight: 700; letter-spacing: -0.02em; }
+  .sec-head p { color: var(--ink-dim); max-width: 54ch; margin-top: .9rem; }
+
+  /* ---------- featured project ---------- */
+  .feature {
+    background: var(--panel); border: 1px solid var(--panel-brd);
+    border-radius: 18px; overflow: hidden; backdrop-filter: blur(14px);
+    box-shadow: 0 30px 80px -40px rgba(0,0,0,.8);
+  }
+  .feature-top { display: grid; grid-template-columns: 1.1fr 1fr; gap: 0; }
+  @media (max-width: 820px){ .feature-top { grid-template-columns: 1fr; } }
+  .feature-copy { padding: 2.6rem; }
+  .feature-copy .tags { display:flex; flex-wrap: wrap; gap:.5rem; margin-bottom: 1.4rem; }
+  .tag {
+    font-family: var(--mono); font-size: .72rem; color: var(--ink-dim);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: .28rem .55rem;
+  }
+  .feature-copy h3 { font-size: 1.9rem; font-weight: 700; letter-spacing:-.02em; margin-bottom: .5rem; }
+  .feature-copy .sub { font-family: var(--mono); font-size:.85rem; color: var(--accent); margin-bottom: 1.2rem; }
+  .feature-copy p { color: var(--ink-dim); margin-bottom: 1rem; }
+  .feature-copy .links { display:flex; gap:1.3rem; margin-top: 1.6rem; font-family: var(--mono); font-size:.85rem; }
+  .feature-copy .links a { color: var(--accent); display:inline-flex; align-items:center; gap:.4rem; }
+  .feature-copy .links a:hover { text-decoration: underline; }
+
+  /* terminal window inside feature */
+  .term {
+    background: #05070a; border-left: 1px solid rgba(255,255,255,0.06);
+    font-family: var(--mono); font-size: 12.5px; line-height: 1.75; display:flex; flex-direction:column;
+  }
+  .term-bar { display:flex; align-items:center; gap:.5rem; padding:.75rem 1rem; border-bottom:1px solid rgba(255,255,255,0.06); color: var(--ink-faint); }
+  .term-bar .dots { display:flex; gap:.4rem; }
+  .term-bar .dots i { width:11px; height:11px; border-radius:50%; display:block; }
+  .term-bar .dots i:nth-child(1){ background:#ff5f57;} .term-bar .dots i:nth-child(2){ background:#febc2e;} .term-bar .dots i:nth-child(3){ background:#28c840;}
+  .term-bar span { font-size:.75rem; }
+  .term-body { padding: 1rem 1.1rem; overflow: hidden; flex:1; }
+  .term-body .l { white-space: pre-wrap; word-break: break-word; }
+
+  .metrics { display:grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid rgba(255,255,255,0.06); }
+  @media (max-width: 620px){ .metrics { grid-template-columns: repeat(2,1fr);} }
+  .metric { padding: 1.6rem; border-right: 1px solid rgba(255,255,255,0.06); }
+  .metric:last-child { border-right: none; }
+  .metric .n { font-family: var(--mono); font-size: 1.6rem; font-weight: 600; color: var(--accent); }
+  .metric .k { font-size: .82rem; color: var(--ink-dim); margin-top:.25rem; }
+
+  /* ---------- project grid ---------- */
+  .grid { display:grid; grid-template-columns: repeat(2, 1fr); gap: 1.3rem; }
+  @media (max-width: 720px){ .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--panel); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 1.8rem; backdrop-filter: blur(12px);
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .card:hover { transform: translateY(-4px); border-color: var(--panel-brd); box-shadow: 0 24px 60px -30px rgba(0,0,0,.9); }
+  .card .ic { font-family: var(--mono); color: var(--accent); font-size: .9rem; margin-bottom: 1rem; }
+  .card h4 { font-size: 1.2rem; font-weight: 650; margin-bottom: .5rem; }
+  .card p { color: var(--ink-dim); font-size: .95rem; }
+  .card .stack { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1.2rem; }
+  .card .stack span { font-family:var(--mono); font-size:.7rem; color:var(--ink-faint); border:1px solid rgba(255,255,255,.08); border-radius:5px; padding:.2rem .45rem;}
+
+  /* ---------- skills ---------- */
+  .skills { display:grid; grid-template-columns: repeat(3,1fr); gap: 1.3rem; }
+  @media (max-width: 720px){ .skills { grid-template-columns: 1fr; } }
+  .skillcol h5 { font-family: var(--mono); font-size: .8rem; color: var(--accent); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .08em; }
+  .skillcol ul { list-style: none; }
+  .skillcol li { padding: .55rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: var(--ink-dim); font-size:.95rem; }
+
+  /* ---------- about ---------- */
+  .about-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items:center; }
+  @media (max-width: 720px){ .about-grid { grid-template-columns: 1fr; } }
+  .about p { color: var(--ink-dim); margin-bottom: 1.1rem; }
+  .about p strong { color: var(--ink); }
+
+  /* ---------- contact ---------- */
+  .contact { text-align:center; }
+  .contact h2 { font-size: clamp(2rem,5vw,3.4rem); font-weight: 800; letter-spacing:-.03em; margin-bottom:1.2rem; }
+  .contact h2 .grad { background: linear-gradient(100deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .contact p { color: var(--ink-dim); max-width: 44ch; margin: 0 auto 2.2rem; }
+
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.06); padding: 2.5rem 0;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    font-family: var(--mono); font-size:.8rem; color: var(--ink-faint);
+  }
+  footer a:hover { color: var(--accent); }
+
+  /* reveal on scroll */
+  .reveal { opacity:0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity:1; transform:none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { scroll-behavior: auto !important; }
+    .reveal { opacity:1 !important; transform:none !important; }
+    .led, .scroll-hint .bar::after { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- scrolling OS log-trace background -->
+<div id="logbg" aria-hidden="true"><pre id="logpre"></pre></div>
+<div id="logveil" aria-hidden="true"></div>
+
+<div class="wrap">
+  <nav id="nav">
+    <div class="brand">jake<span class="dot">.</span>kasper<span style="color:var(--accent)">_</span></div>
+    <div class="navlinks">
+      <a href="#work">work</a>
+      <a href="#projects">projects</a>
+      <a href="#skills">skills</a>
+      <a href="#about">about</a>
+      <a href="#contact">contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero container">
+    <div class="status-pill"><span class="led"></span> currently building rpos · a bare-metal kernel</div>
+    <h1>Systems engineer<br>working <span class="grad">close to the metal.</span></h1>
+    <p class="lede">I'm <strong>Jake Kasper</strong> — I build low-level software: kernels, allocators, schedulers, and the unglamorous plumbing that makes hardware do useful things.</p>
+    <div class="cta-row">
+      <a href="#work" class="btn btn-primary">▸ view featured work</a>
+      <a href="#contact" class="btn btn-ghost">get in touch</a>
+    </div>
+    <div class="scroll-hint"><span class="bar"></span> scroll — the boot log runs behind you</div>
+  </header>
+
+  <!-- FEATURED WORK -->
+  <section id="work" class="container">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">featured project</div>
+      <h2>rpos — a bare-metal OS for the Raspberry Pi 4B</h2>
+      <p>A hobby kernel written from scratch in C and AArch64 assembly. No Linux, no bootloader shortcuts — it comes up at EL3, brings up the MMU, and runs its own userland.</p>
+    </div>
+
+    <div class="feature reveal">
+      <div class="feature-top">
+        <div class="feature-copy">
+          <div class="tags">
+            <span class="tag">C</span><span class="tag">AArch64 asm</span><span class="tag">ARMv8-A</span><span class="tag">BCM2711</span>
+          </div>
+          <h3>rpos</h3>
+          <div class="sub">v0.3.0-dev · ~14k LOC · single-author</div>
+          <p>Boots on real hardware and QEMU. Implements a 4-level virtual memory system, a buddy + slab allocator, a preemptive scheduler, copy-on-write <code>fork()</code>, an ext4 driver over EMMC, and an ELF loader that runs real user binaries through a small syscall layer.</p>
+          <p>Debuggable over JTAG with J-Link + OpenOCD + GDB against a running board — the same trace scrolling behind this page.</p>
+          <div class="links">
+            <a href="https://github.com/jbkasper5" target="_blank" rel="noopener">◈ source ↗</a>
+            <a href="#work">✎ write-up ↗</a>
+          </div>
+        </div>
+
+        <div class="term" aria-hidden="true">
+          <div class="term-bar">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <span>serial0 · 115200 8N1 — rpos boot</span>
+          </div>
+          <div class="term-body" id="miniterm"></div>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric"><div class="n">EL3→EL1</div><div class="k">boots & drops exception level</div></div>
+        <div class="metric"><div class="n">4-level</div><div class="k">page tables + COW fork</div></div>
+        <div class="metric"><div class="n">ext4</div><div class="k">read driver over EMMC</div></div>
+        <div class="metric"><div class="n">ELF</div><div class="k">loads real user binaries</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OTHER PROJECTS -->
+  <section id="projects" class="container">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">selected work</div>
+      <h2>Other things I've built</h2>
+      <p>More bare-metal systems work — plus neural nets and game AI, built from scratch.</p>
+    </div>
+    <div class="grid">
+      <a class="card reveal" href="https://github.com/jbkasper5/rtscheduler" target="_blank" rel="noopener">
+        <div class="ic">[01]</div>
+        <h4>rtscheduler — real-time scheduling on bare RISC-V</h4>
+        <p>A custom RISC-V bootloader brings up an empty board, then runs two coordinated harts: a scheduler that builds offline <strong>Rate-Monotonic</strong> and <strong>Earliest-Deadline-First</strong> schedules, and a task manager — talking over a hand-defined inter-hart messaging zone.</p>
+        <div class="stack"><span>C</span><span>RISC-V asm</span><span>QEMU</span><span>RMS / EDF</span></div>
+      </a>
+      <a class="card reveal" href="https://github.com/jbkasper5/ArtificialNeuralNetwork" target="_blank" rel="noopener">
+        <div class="ic">[02]</div>
+        <h4>Neural network in pure C</h4>
+        <p>A feed-forward net with <strong>zero dependencies</strong>: a hand-written matrix library, ReLU / sigmoid / softmax activations, MSE and cross-entropy losses, and full backpropagation — including softmax Jacobians for batched training.</p>
+        <div class="stack"><span>C</span><span>from scratch</span><span>backprop</span></div>
+      </a>
+      <a class="card reveal" href="https://github.com/jbkasper5/AudioClassifier" target="_blank" rel="noopener">
+        <div class="ic">[03]</div>
+        <h4>Audio classifier → maze game</h4>
+        <p>A neural-network audio classifier that recognizes a small vocabulary of spoken words and uses them to drive a simple maze game.</p>
+        <div class="stack"><span>Python</span><span>ML</span><span>audio</span></div>
+      </a>
+      <a class="card reveal" href="https://github.com/jbkasper5/ChessEngine" target="_blank" rel="noopener">
+        <div class="ic">[04]</div>
+        <h4>Minimax chess engine <span style="color:var(--ink-faint);font-weight:400;font-size:.7em;letter-spacing:.02em;">· in progress</span></h4>
+        <p>A minimax chess engine pairing a Python front end with a C backend over <code>ctypes</code> shared objects — a study in game search and Python/C interop. Early, and still being built.</p>
+        <div class="stack"><span>Python</span><span>C</span><span>minimax</span><span>ctypes FFI</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="container">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">toolbox</div>
+      <h2>What I work with</h2>
+    </div>
+    <div class="skills reveal">
+      <div class="skillcol">
+        <h5>Systems</h5>
+        <ul><li>C / C++</li><li>Rust</li><li>AArch64 · x86-64 · RISC-V asm</li><li>ARMv8-A architecture</li><li>Linker scripts &amp; ELF</li></ul>
+      </div>
+      <div class="skillcol">
+        <h5>Low-level</h5>
+        <ul><li>Virtual memory / MMU</li><li>Interrupt controllers (GIC)</li><li>Schedulers &amp; concurrency</li><li>Device drivers</li><li>Filesystems (ext4, FAT)</li></ul>
+      </div>
+      <div class="skillcol">
+        <h5>Tooling</h5>
+        <ul><li>GDB / OpenOCD / JTAG</li><li>QEMU</li><li>Make / CMake</li><li>Linux &amp; Git</li><li>Python / TypeScript</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="container">
+    <div class="about-grid">
+      <div class="about reveal">
+        <div class="sec-kicker">about</div>
+        <h2 style="font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;letter-spacing:-.02em;margin:1rem 0 1.6rem;">I like understanding things all the way down.</h2>
+        <p>Most of my work starts with a question like <strong>"but how does that actually work?"</strong> — which is how I ended up writing an operating system for fun.</p>
+        <p>I care about correctness, small dependency footprints, and code that a future maintainer can actually read. I'm happiest somewhere between the hardware and the abstraction.</p>
+        <p>Outside of kernels, I'm interested in compilers, storage engines, and developer tooling.</p>
+      </div>
+      <div class="reveal">
+        <div class="feature" style="padding:2rem;">
+          <div style="font-family:var(--mono);font-size:.8rem;color:var(--ink-dim);line-height:2;">
+            <div><span class="lt-tag">whoami</span> → jake kasper</div>
+            <div><span class="lt-tag">role</span> → software / systems engineer</div>
+            <div><span class="lt-tag">focus</span> → kernels · runtimes · tooling</div>
+            <div><span class="lt-tag">editor</span> → nvim + a lot of gdb</div>
+            <div><span class="lt-tag">uptime</span> → building since boot</div>
+            <div><span class="lt-tag">status</span> → <span class="lt-ok">open to opportunities</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="container contact reveal">
+    <div class="sec-kicker" style="justify-content:center;">contact</div>
+    <h2>Let's build something <span class="grad">low-level.</span></h2>
+    <p>Whether it's a role, a collaboration, or you just want to talk about page tables — my inbox is open.</p>
+    <div class="cta-row" style="justify-content:center;">
+      <a href="mailto:hello@example.com" class="btn btn-primary">✉ hello@example.com</a>
+      <a href="https://github.com/jbkasper5" target="_blank" rel="noopener" class="btn btn-ghost">github ↗</a>
+    </div>
+  </section>
+
+  <footer class="container">
+    <div>© <span id="yr"></span> jake kasper — built from scratch, like everything else.</div>
+    <div>rpos 0.3.0-dev · aarch64-none-elf</div>
+  </footer>
+</div>
+
+<!-- Embedded snapshot of boot.log so the page also works when opened directly (file://).
+     Refresh after editing boot.log by running:  python3 sync-log.py  -->
+<script type="text/plain" id="bootlog">
+[INFO 9.594068s] Initializing device drivers...
+[DEBUG 9.597588s] Allocating 32 bytes...
+[DEBUG 9.601282s] PFN: 262127
+[DEBUG 9.603996s] Buddy PFN: 262129
+[DEBUG 9.607249s] PFN: 262127
+[DEBUG 9.609967s] Buddy PFN: 262128
+[INFO 9.613241s] Found free block at index 0
+[INFO 9.617255s] Allocated address 0xFFFF80003FFEF040
+[DEBUG 9.622088s] Allocating 32 bytes...
+[INFO 9.625778s] Found free block at index 1
+[INFO 9.629811s] Allocated address 0xFFFF80003FFEF060
+[DEBUG 9.634645s] Allocating 32 bytes...
+[INFO 9.638334s] Found free block at index 2
+[INFO 9.642367s] Allocated address 0xFFFF80003FFEF080
+[DEBUG 9.647200s] Allocating 32 bytes...
+[INFO 9.650891s] Found free block at index 3
+[INFO 9.654923s] Allocated address 0xFFFF80003FFEF0A0
+[DEBUG 9.659755s] Allocating 32 bytes...
+[INFO 9.663448s] Found free block at index 4
+[INFO 9.667479s] Allocated address 0xFFFF80003FFEF0C0
+[DEBUG 9.672310s] Allocating 32 bytes...
+[INFO 9.676004s] Found free block at index 5
+[INFO 9.680036s] Allocated address 0xFFFF80003FFEF0E0
+[DEBUG 9.684866s] Allocating 32 bytes...
+[INFO 9.688562s] Found free block at index 6
+[INFO 9.692591s] Allocated address 0xFFFF80003FFEF100
+[DEBUG 9.697422s] Allocating 32 bytes...
+[INFO 9.701118s] Found free block at index 7
+[INFO 9.705147s] Allocated address 0xFFFF80003FFEF120
+[DEBUG 9.709978s] Allocating 32 bytes...
+[INFO 9.713676s] Found free block at index 8
+[INFO 9.717703s] Allocated address 0xFFFF80003FFEF140
+[DEBUG 9.722550s] Allocating 32 bytes...
+[INFO 9.726232s] Found free block at index 9
+[INFO 9.730259s] Allocated address 0xFFFF80003FFEF160
+[DEBUG 9.735091s] Allocating 32 bytes...
+[INFO 9.738790s] Found free block at index 10
+[INFO 9.742903s] Allocated address 0xFFFF80003FFEF180
+[DEBUG 9.747735s] Allocating 32 bytes...
+[INFO 9.751434s] Found free block at index 11
+[INFO 9.755546s] Allocated address 0xFFFF80003FFEF1A0
+[DEBUG 9.760378s] Allocating 32 bytes...
+[INFO 9.764078s] Found free block at index 12
+[INFO 9.768192s] Allocated address 0xFFFF80003FFEF1C0
+[DEBUG 9.773021s] Allocating 32 bytes...
+[INFO 9.776723s] Found free block at index 13
+[INFO 9.780834s] Allocated address 0xFFFF80003FFEF1E0
+[INFO 9.785667s] Initializing keyboard handler...
+[DEBUG 9.790145s] Allocating 4096 bytes...
+[INFO 9.794025s] Enabling physical timer...
+[INFO 9.797955s] Enabling virtual timer...
+[INFO 9.801819s] Priming physical timer...
+[INFO 9.805682s] Enabling IRQ interrupts...
+[INFO 9.809634s] Hardware initialization complete.
+
+[DEBUG 9.814378s] Allocating 512 bytes...
+[DEBUG 9.818158s] PFN: 262129
+[DEBUG 9.820872s] Buddy PFN: 262130
+[INFO 9.824147s] Found free block at index 0
+[INFO 9.828160s] Allocated address 0xFFFF80003FFF1200
+[DEBUG 9.833065s] PFN: 262091
+[DEBUG 9.835712s] Buddy PFN: 262107
+[DEBUG 9.838966s] PFN: 262091
+[DEBUG 9.841682s] Buddy PFN: 262099
+[DEBUG 9.844935s] PFN: 262091
+[DEBUG 9.847652s] Buddy PFN: 262095
+[DEBUG 9.850906s] PFN: 262091
+[DEBUG 9.853623s] Buddy PFN: 262093
+[DEBUG 9.857106s] Allocating 64 bytes...
+[INFO 9.860584s] Found free block at index 0
+[INFO 9.864599s] Allocated address 0xFFFF80003FFF2040
+[DEBUG 9.869431s] Allocating 64 bytes...
+[INFO 9.873121s] Found free block at index 1
+[INFO 9.877155s] Allocated address 0xFFFF80003FFF2080
+[DEBUG 9.881985s] Allocating 64 bytes...
+[INFO 9.885678s] Found free block at index 2
+[INFO 9.889711s] Allocated address 0xFFFF80003FFF20C0
+[DEBUG 9.901719s] Allocating 64 bytes...
+[INFO 9.904630s] Found free block at index 3
+[INFO 9.908663s] Allocated address 0xFFFF80003FFF2100
+ls
+[DEBUG 13.456529s] Allocating 512 bytes...
+[INFO 13.459677s] Found free block at index 1
+[INFO 13.463796s] Allocated address 0xFFFF80003FFF1400
+[DEBUG 13.468724s] PFN: 262095
+[DEBUG 13.471523s] Buddy PFN: 262097
+[DEBUG 13.474907s] PFN: 262097
+[DEBUG 13.477669s] Buddy PFN: 262098
+[DEBUG 13.481101s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
+[DEBUG 13.486761s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
+[DEBUG 13.492700s] PFN: 262099
+[DEBUG 13.495230s] Buddy PFN: 262103
+[DEBUG 13.498572s] PFN: 262099
+[DEBUG 13.501376s] Buddy PFN: 262101
+[DEBUG 13.504718s] PFN: 262099
+[DEBUG 13.507522s] Buddy PFN: 262100
+[DEBUG 13.511779s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
+[DEBUG 13.516881s] PFN: 262101
+[DEBUG 13.519687s] Buddy PFN: 262102
+[DEBUG 13.523077s] CLONE L3[511] marked COW, PTE=0x8000003FFCCFC3
+[DEBUG 13.529458s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
+[DEBUG 13.536115s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 13.543045s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
+[DEBUG 13.549277s] COW recognized at L3[511], PTE=0x8000003FFCCFC3
+[DEBUG 13.555252s] PFN: 262103
+[DEBUG 13.558057s] Buddy PFN: 262105
+[DEBUG 13.561399s] PFN: 262103
+[DEBUG 13.564204s] Buddy PFN: 262104
+[DEBUG 13.567596s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 13.574479s] L2 entry: type=1 (1=table, 3=block) value=0x3FFD5003
+[DEBUG 13.580887s] COW recognized at L3[511], PTE=0x8000003FFCCFC3
+[DEBUG 13.586905s] Timer request value: 0x256586C
+[DEBUG 13.942460s] Handling interrupt 27...
+[DEBUG 13.945633s] Rescheduling 2
+[DEBUG 13.948700s] No more sleep requests, clearing virtual timer. 
+[DEBUG 13.954772s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
+[DEBUG 13.961170s] L2 entry: type=1 (1=table, 3=block) value=0x3FFD2003
+[DEBUG 13.967578s] COW recognized at L3[1], PTE=0x8000000090CFC3
+[DEBUG 13.973376s] PFN: 262105
+[DEBUG 13.976182s] Buddy PFN: 262106
+Attempting to open binary '/bin/ls'
+[INFO 13.982773s] Opening path '/bin/ls'
+[DEBUG 13.986461s] Allocating 32 bytes...
+[INFO 13.990252s] Found free block at index 14
+[INFO 13.994446s] Allocated address 0xFFFF80003FFEF200
+[DEBUG 13.999379s] Allocating 128 bytes...
+[INFO 14.003233s] Found free block at index 1
+[INFO 14.007353s] Allocated address 0xFFFF80003FFEC100
+[INFO 14.012274s] Looking up 'bin'...
+[INFO 14.357037s] Found inode number: 7340033
+[INFO 14.701477s] Looking up 'ls'...
+[INFO 15.045366s] Found inode number: 7340034
+[DEBUG 15.389800s] kmalloc freeing slab allocation at address 0xFFFF80003FFEF000
+[INFO 15.396220s] '/bin/ls' resolved successfully.
+[DEBUG 15.400783s] Allocating 64 bytes...
+[INFO 15.404568s] Found free block at index 4
+[INFO 15.408684s] Allocated address 0xFFFF80003FFF2140
+[DEBUG 15.413603s] kmalloc freeing slab allocation at address 0xFFFF80003FFEC000
+[DEBUG 15.420810s] Allocating 4096 bytes...
+[INFO 15.766933s] ELF Header:
+[INFO 15.768871s]   Type: 2
+[INFO 15.771417s]   Machine: 183
+[INFO 15.774403s]   Version: 1
+[INFO 15.777212s]   Entry point: 0x400030
+[INFO 15.780988s]   Program header offset: 64
+[INFO 15.785115s]   Section header offset: 70072
+[INFO 15.789505s]   Flags: 0x0
+[INFO 15.792315s]   ELF header size: 64
+[INFO 15.795915s]   Program header entry size: 56
+[INFO 15.800392s]   Program header entry count: 3
+[INFO 15.804871s]   Section header entry size: 64
+[INFO 15.809348s]   Section header entry count: 6
+[INFO 15.813827s]   Section header string table index: 5
+[DEBUG 15.818926s] PFN: 262107
+[DEBUG 15.821729s] Buddy PFN: 262115
+[DEBUG 15.825070s] PFN: 262107
+[DEBUG 15.827875s] Buddy PFN: 262111
+[DEBUG 15.831217s] PFN: 262107
+[DEBUG 15.834022s] Buddy PFN: 262109
+[DEBUG 15.837363s] PFN: 262107
+[DEBUG 15.840168s] Buddy PFN: 262108
+[INFO 15.843559s] Program header 1:
+[INFO 15.846753s]   Type: 1
+[INFO 15.849299s]   Flags: 0x5
+[INFO 15.852109s]   Offset: 65536
+[INFO 15.855182s]   Virtual address: 0x400000
+[DEBUG 15.859333s] Allocating 4096 bytes...
+[DEBUG 15.863268s] PFN: 262109
+[DEBUG 15.866070s] Buddy PFN: 262110
+[DEBUG 16.552605s] kmalloc freeing buddy allocation at address 0xFFFF80003FFDD000
+[DEBUG 16.559111s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
+[INFO 16.565463s] Program header 2:
+[INFO 16.568503s]   Type: 1
+[INFO 16.571049s]   Flags: 0x4
+[INFO 16.573859s]   Offset: 69632
+[INFO 16.576932s]   Virtual address: 0x401000
+[DEBUG 16.581083s] Allocating 4096 bytes...
+[DEBUG 17.268254s] kmalloc freeing buddy allocation at address 0xFFFF80003FFDE000
+[DEBUG 17.274759s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
+[INFO 17.280923s] Program header 3:
+[INFO 17.284152s]   Type: 1
+[INFO 17.286699s]   Flags: 0x6
+[INFO 17.289508s]   Offset: 232
+[INFO 17.292406s]   Virtual address: 0x0
+[DEBUG 17.638340s] PFN: 262111
+[DEBUG 17.640366s] Buddy PFN: 262113
+Executing 'ls'...
+[INFO 17.645374s] Current running process number: 2
+pwd
+[DEBUG 19.711961s] Allocating 512 bytes...
+[INFO 19.715107s] Found free block at index 1
+[INFO 19.719228s] Allocated address 0xFFFF80003FFF1400
+[DEBUG 19.724194s] PFN: 262115
+[DEBUG 19.726954s] Buddy PFN: 262119
+[DEBUG 19.730296s] PFN: 262115
+[DEBUG 19.733100s] Buddy PFN: 262117
+[DEBUG 19.736442s] PFN: 262115
+[DEBUG 19.739246s] Buddy PFN: 262116
+[DEBUG 19.742677s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
+[DEBUG 19.748340s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
+[DEBUG 19.754276s] PFN: 262117
+[DEBUG 19.756807s] Buddy PFN: 262118
+[DEBUG 19.761063s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
+[DEBUG 19.766165s] PFN: 262119
+[DEBUG 19.768971s] Buddy PFN: 262121
+[DEBUG 19.772313s] PFN: 262119
+[DEBUG 19.775117s] Buddy PFN: 262120
+[DEBUG 19.778507s] CLONE L3[511] marked COW, PTE=0x8000003FFD7FC3
+[DEBUG 19.784888s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
+[DEBUG 19.791544s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 19.798476s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
+[DEBUG 19.804708s] COW recognized at L3[511], PTE=0x8000003FFD7FC3
+[DEBUG 19.810681s] PFN: 262121
+[DEBUG 19.813487s] Buddy PFN: 262122
+[DEBUG 19.816877s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 19.823763s] L2 entry: type=1 (1=table, 3=block) value=0x3FFE7003
+[DEBUG 19.830171s] COW recognized at L3[511], PTE=0x8000003FFD7FC3
+[DEBUG 19.836185s] Timer request value: 0x3628910
+[DEBUG 20.191740s] Handling interrupt 27...
+[DEBUG 20.194911s] Rescheduling 3
+[DEBUG 20.197980s] No more sleep requests, clearing virtual timer. 
+[DEBUG 20.204054s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
+[DEBUG 20.210451s] L2 entry: type=1 (1=table, 3=block) value=0x3FFE4003
+[DEBUG 20.216859s] COW recognized at L3[1], PTE=0x8000000090CFC3
+[DEBUG 20.222661s] PFN: 262027
+[DEBUG 20.225463s] Buddy PFN: 262059
+[DEBUG 20.228804s] PFN: 262027
+[DEBUG 20.231609s] Buddy PFN: 262043
+[DEBUG 20.234950s] PFN: 262027
+[DEBUG 20.237755s] Buddy PFN: 262035
+[DEBUG 20.241097s] PFN: 262027
+[DEBUG 20.243901s] Buddy PFN: 262031
+[DEBUG 20.247242s] PFN: 262027
+[DEBUG 20.250048s] Buddy PFN: 262029
+[DEBUG 20.253388s] PFN: 262027
+[DEBUG 20.256194s] Buddy PFN: 262028
+Attempting to open binary '/bin/pwd'
+[INFO 20.262872s] Opening path '/bin/pwd'
+[DEBUG 20.266649s] Allocating 32 bytes...
+[INFO 20.270438s] Found free block at index 14
+[INFO 20.274633s] Allocated address 0xFFFF80003FFEF200
+[DEBUG 20.279564s] Allocating 128 bytes...
+[INFO 20.283420s] Found free block at index 1
+[INFO 20.287541s] Allocated address 0xFFFF80003FFEC100
+[INFO 20.292461s] Looking up 'bin'...
+[INFO 20.637249s] Found inode number: 7340033
+[INFO 20.981933s] Looking up 'pwd'...
+[INFO 21.325925s] Found inode number: 7340035
+[DEBUG 21.670591s] kmalloc freeing slab allocation at address 0xFFFF80003FFEF000
+[INFO 21.677011s] '/bin/pwd' resolved successfully.
+[DEBUG 21.681662s] Allocating 64 bytes...
+[INFO 21.685447s] Found free block at index 5
+[INFO 21.689564s] Allocated address 0xFFFF80003FFF2180
+[DEBUG 21.694482s] kmalloc freeing slab allocation at address 0xFFFF80003FFEC000
+[DEBUG 21.701689s] Allocating 4096 bytes...
+[INFO 22.046969s] ELF Header:
+[INFO 22.048906s]   Type: 2
+[INFO 22.051452s]   Machine: 183
+[INFO 22.054438s]   Version: 1
+[INFO 22.057247s]   Entry point: 0x400030
+[INFO 22.061022s]   Program header offset: 64
+[INFO 22.065149s]   Section header offset: 70072
+[INFO 22.069540s]   Flags: 0x0
+[INFO 22.072349s]   ELF header size: 64
+[INFO 22.075949s]   Program header entry size: 56
+[INFO 22.080427s]   Program header entry count: 3
+[INFO 22.084905s]   Section header entry size: 64
+[INFO 22.089383s]   Section header entry count: 6
+[INFO 22.093861s]   Section header string table index: 5
+[DEBUG 22.098957s] PFN: 262029
+[DEBUG 22.101764s] Buddy PFN: 262030
+[INFO 22.105152s] Program header 1:
+[INFO 22.108349s]   Type: 1
+[INFO 22.110895s]   Flags: 0x5
+[INFO 22.113705s]   Offset: 65536
+[INFO 22.116778s]   Virtual address: 0x400000
+[DEBUG 22.120927s] Allocating 4096 bytes...
+[DEBUG 22.124863s] PFN: 262031
+[DEBUG 22.127666s] Buddy PFN: 262033
+[DEBUG 22.131007s] PFN: 262031
+[DEBUG 22.133812s] Buddy PFN: 262032
+[DEBUG 22.819787s] kmalloc freeing buddy allocation at address 0xFFFF80003FF8F000
+[DEBUG 22.826292s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
+[INFO 22.832643s] Program header 2:
+[INFO 22.835685s]   Type: 1
+[INFO 22.838231s]   Flags: 0x4
+[INFO 22.841041s]   Offset: 69632
+[INFO 22.844114s]   Virtual address: 0x401000
+[DEBUG 22.848263s] Allocating 4096 bytes...
+[DEBUG 23.534775s] kmalloc freeing buddy allocation at address 0xFFFF80003FF90000
+[DEBUG 23.541281s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
+[INFO 23.547442s] Program header 3:
+[INFO 23.550674s]   Type: 1
+[INFO 23.553220s]   Flags: 0x6
+[INFO 23.556030s]   Offset: 232
+[INFO 23.558928s]   Virtual address: 0x0
+Executing 'pwd'...
+[INFO 23.905127s] Current running process number: 3
+exit
+[DEBUG 52.244827s] Allocating 512 bytes...
+[INFO 52.247972s] Found free block at index 1
+[INFO 52.252093s] Allocated address 0xFFFF80003FFF1400
+[DEBUG 52.257019s] PFN: 262035
+[DEBUG 52.259819s] Buddy PFN: 262039
+[DEBUG 52.263161s] PFN: 262035
+[DEBUG 52.265965s] Buddy PFN: 262037
+[DEBUG 52.269348s] PFN: 262037
+[DEBUG 52.272111s] Buddy PFN: 262038
+[DEBUG 52.275543s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
+[DEBUG 52.281204s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
+[DEBUG 52.287142s] PFN: 262039
+[DEBUG 52.289672s] Buddy PFN: 262041
+[DEBUG 52.293014s] PFN: 262039
+[DEBUG 52.295819s] Buddy PFN: 262040
+[DEBUG 52.300075s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
+[DEBUG 52.305176s] PFN: 262041
+[DEBUG 52.307983s] Buddy PFN: 262042
+[DEBUG 52.311373s] CLONE L3[511] marked COW, PTE=0x8000003FFE9FC3
+[DEBUG 52.317752s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
+[DEBUG 52.324412s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 52.331342s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
+[DEBUG 52.337574s] COW recognized at L3[511], PTE=0x8000003FFE9FC3
+[DEBUG 52.343549s] PFN: 262043
+[DEBUG 52.346354s] Buddy PFN: 262051
+[DEBUG 52.349696s] PFN: 262043
+[DEBUG 52.352500s] Buddy PFN: 262047
+[DEBUG 52.355842s] PFN: 262043
+[DEBUG 52.358646s] Buddy PFN: 262045
+[DEBUG 52.361988s] PFN: 262043
+[DEBUG 52.364792s] Buddy PFN: 262044
+[DEBUG 52.368184s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 52.375068s] L2 entry: type=1 (1=table, 3=block) value=0x3FF99003
+[DEBUG 52.381476s] COW recognized at L3[511], PTE=0x8000003FFE9FC3
+[DEBUG 52.387492s] Timer request value: 0x8D77C66
+[DEBUG 52.743046s] Handling interrupt 27...
+[DEBUG 52.746217s] Rescheduling 4
+[DEBUG 52.749287s] No more sleep requests, clearing virtual timer. 
+[DEBUG 52.755360s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
+[DEBUG 52.761757s] L2 entry: type=1 (1=table, 3=block) value=0x3FF96003
+[DEBUG 52.768164s] COW recognized at L3[1], PTE=0x8000000090CFC3
+[DEBUG 52.773962s] PFN: 262045
+[DEBUG 52.776769s] Buddy PFN: 262046
+Attempting to open binary '/bin/exit'
+[INFO 52.783534s] Opening path '/bin/exit'
+[DEBUG 52.787400s] Allocating 32 bytes...
+[INFO 52.791187s] Found free block at index 14
+[INFO 52.795384s] Allocated address 0xFFFF80003FFEF200
+[DEBUG 52.800314s] Allocating 128 bytes...
+[INFO 52.804171s] Found free block at index 1
+[INFO 52.808291s] Allocated address 0xFFFF80003FFEC100
+[INFO 52.813212s] Looking up 'bin'...
+[INFO 53.158019s] Found inode number: 7340033
+[INFO 53.502571s] Looking up 'exit'...
+[WARNING 53.846680s] FILE NOT FOUND. Could not resolve 'exit' in '/bin/exit'.
+Opened file at -8
+[INFO 53.854504s] Current running process number: 4
+jsh
+[DEBUG 57.479546s] Allocating 512 bytes...
+[INFO 57.482692s] Found free block at index 1
+[INFO 57.486814s] Allocated address 0xFFFF80003FFF1400
+[DEBUG 57.491738s] PFN: 262047
+[DEBUG 57.494540s] Buddy PFN: 262049
+[DEBUG 57.498012s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
+[DEBUG 57.503586s] PFN: 262049
+[DEBUG 57.506393s] Buddy PFN: 262050
+[DEBUG 57.509782s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
+[DEBUG 57.516014s] PFN: 262051
+[DEBUG 57.518247s] Buddy PFN: 262055
+[DEBUG 57.521588s] PFN: 262051
+[DEBUG 57.524393s] Buddy PFN: 262053
+[DEBUG 57.527735s] PFN: 262051
+[DEBUG 57.530539s] Buddy PFN: 262052
+[DEBUG 57.534499s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
+[DEBUG 57.539809s] CLONE L3[511] marked COW, PTE=0x8000003FF9BFC3
+[DEBUG 57.545645s] PFN: 262053
+[DEBUG 57.548451s] Buddy PFN: 262054
+[DEBUG 57.552335s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
+[DEBUG 57.558995s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 57.565927s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
+[DEBUG 57.572159s] COW recognized at L3[511], PTE=0x8000003FF9BFC3
+[DEBUG 57.578181s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 57.585068s] L2 entry: type=1 (1=table, 3=block) value=0x3FFA4003
+[DEBUG 57.591476s] COW recognized at L3[511], PTE=0x8000003FF9BFC3
+[DEBUG 57.597451s] PFN: 262055
+[DEBUG 57.600256s] Buddy PFN: 262057
+[DEBUG 57.603597s] PFN: 262055
+[DEBUG 57.606402s] Buddy PFN: 262056
+[DEBUG 57.609787s] Timer request value: 0x9B79A3F
+[DEBUG 57.965341s] Handling interrupt 27...
+[DEBUG 57.968511s] Rescheduling 5
+[DEBUG 57.971581s] No more sleep requests, clearing virtual timer. 
+[DEBUG 57.977656s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
+[DEBUG 57.984052s] L2 entry: type=1 (1=table, 3=block) value=0x3FFA1003
+[DEBUG 57.990460s] COW recognized at L3[1], PTE=0x8000000090CFC3
+Attempting to open binary '/bin/jsh'
+[INFO 57.999595s] Opening path '/bin/jsh'
+[DEBUG 58.003373s] Allocating 32 bytes...
+[INFO 58.007163s] Found free block at index 15
+[INFO 58.011357s] Allocated address 0xFFFF80003FFEF220
+[DEBUG 58.016287s] Allocating 128 bytes...
+[INFO 58.020145s] Found free block at index 2
+[INFO 58.024264s] Allocated address 0xFFFF80003FFEC180
+[INFO 58.029184s] Looking up 'bin'...
+[INFO 58.373895s] Found inode number: 7340033
+[INFO 58.718383s] Looking up 'jsh'...
+[INFO 59.062312s] Found inode number: 7340036
+[DEBUG 59.406790s] kmalloc freeing slab allocation at address 0xFFFF80003FFEF000
+[INFO 59.413210s] '/bin/jsh' resolved successfully.
+[DEBUG 59.417860s] Allocating 64 bytes...
+[INFO 59.421647s] Found free block at index 6
+[INFO 59.425762s] Allocated address 0xFFFF80003FFF21C0
+[DEBUG 59.430680s] kmalloc freeing slab allocation at address 0xFFFF80003FFEC000
+[DEBUG 59.437888s] Allocating 4096 bytes...
+[DEBUG 59.441837s] PFN: 262057
+[DEBUG 59.444639s] Buddy PFN: 262058
+[INFO 59.790114s] ELF Header:
+[INFO 59.792051s]   Type: 2
+[INFO 59.794598s]   Machine: 183
+[INFO 59.797584s]   Version: 1
+[INFO 59.800393s]   Entry point: 0x40004C
+[INFO 59.804169s]   Program header offset: 64
+[INFO 59.808295s]   Section header offset: 66264
+[INFO 59.812686s]   Flags: 0x0
+[INFO 59.815495s]   ELF header size: 64
+[INFO 59.819095s]   Program header entry size: 56
+[INFO 59.823573s]   Program header entry count: 3
+[INFO 59.828051s]   Section header entry size: 64
+[INFO 59.832529s]   Section header entry count: 5
+[INFO 59.837007s]   Section header string table index: 4
+[INFO 59.842149s] Program header 1:
+[INFO 59.845348s]   Type: 1
+[INFO 59.847895s]   Flags: 0x5
+[INFO 59.850705s]   Offset: 65536
+[INFO 59.853778s]   Virtual address: 0x400000
+[DEBUG 59.857914s] PFN: 262059
+[DEBUG 59.860714s] Buddy PFN: 262075
+[DEBUG 59.864056s] PFN: 262059
+[DEBUG 59.866861s] Buddy PFN: 262067
+[DEBUG 59.870201s] PFN: 262059
+[DEBUG 59.873007s] Buddy PFN: 262063
+[DEBUG 59.876348s] PFN: 262059
+[DEBUG 59.879153s] Buddy PFN: 262061
+[DEBUG 59.882494s] PFN: 262059
+[DEBUG 59.885299s] Buddy PFN: 262060
+[DEBUG 59.888664s] Allocating 4096 bytes...
+[DEBUG 60.575863s] kmalloc freeing buddy allocation at address 0xFFFF80003FFAC000
+[DEBUG 60.582369s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
+[INFO 60.588726s] Program header 2:
+[INFO 60.591762s]   Type: 1
+[INFO 60.594308s]   Flags: 0x4
+[INFO 60.597118s]   Offset: 232
+[INFO 60.600015s]   Virtual address: 0x0
+[INFO 60.945886s] Program header 3:
+[INFO 60.948350s]   Type: 1
+[INFO 60.950896s]   Flags: 0x6
+[INFO 60.953706s]   Offset: 232
+[INFO 60.956604s]   Virtual address: 0x0
+[DEBUG 60.960296s] PFN: 262061
+[DEBUG 60.963101s] Buddy PFN: 262062
+[DEBUG 61.307845s] PFN: 262063
+[DEBUG 61.309871s] Buddy PFN: 262065
+[INFO 61.313453s] Current running process number: 5
+ls
+   7.16 [sdcard] pieeprom.upd not found
+  7.16 [sdcard] recover4.elf not found
+  7.16 [sdcard] recovery.elf not found
+  7.98 Read start4.elf bytes  2305632 hnd 0x4dce
+  7.02 Read fixup4.dat bytes     5499 hnd 0x958
+  7.03 0x00b03115 0x00000000 0x00003fff
+  7.07 MEM GPU: 76 ARM: 948 TOTAL: 1024
+  7.00 Starting start4.elf @ 0xfec00200 partition 1
+  7.45 XHCI-STOP
+  7.45 xHC0 ver: 256 HCS: 05000420 fc000031 00e70004 HCC: 002841eb
+  7.46 USBSTS 18
+  7.46 PCI0 reset
+  7.55 +
+
+MESS:00:00:07.567570:0: arasan: arasan_emmc_open
+MESS:00:00:07.569227:0: arasan: arasan_emmc_set_clock C0: 0x00800000 C1: 0x000e0047 emmc: 200000000 actual: 390625 div: 0x00000100 target: 400000 min: 400000 max: 400000 delay: 5
+MESS:00:00:07.689460:0: arasan: arasan_emmc_set_clock C0: 0x00800000 C1: 0x000e0047 emmc: 200000000 actual: 390625 div: 0x00000100 target: 400000 min: 400000 max: 400000 delay: 5
+MESS:00:00:07.702330:0: arasan: arasan_emmc_set_clock C0: 0x00800f00 C1: 0x000e0047 emmc: 200000000 actual: 390625 div: 0x00000100 target: 400000 min: 390000 max: 400000 delay: 5
+MESS:00:00:07.735847:0: boot-part: 1 fs-type: 0
+MESS:00:00:07.737259:0: boot-part: 1 fs-type: 3
+MESS:00:00:07.741638:0: arasan: arasan_emmc_set_clock C0: 0x00800f06 C1: 0x000e0207 emmc: 200000000 actual: 50000000 div: 0x00000002 target: 50000000 min: 0 max: 50000000 delay: 1
+MESS:00:00:08.040214:0: brfs: File read: /mfs/sd/config.txt
+MESS:00:00:08.042998:0: board: boardrev b03115 otp b03115
+MESS:00:00:08.047875:0: brfs: File read: 283 bytes
+�MESS:00:00:08.074233:0: HDMI0:EDID error reading EDID block 0 attempt 0
+MESS:00:00:08.078741:0: HDMI0:EDID giving up on reading EDID block 0
+MESS:00:00:08.095939:0: HDMI1:EDID error reading EDID block 0 attempt 0
+MESS:00:00:08.100440:0: HDMI1:EDID giving up on reading EDID block 0
+MESS:00:00:08.106465:0: brfs: File read: /mfs/sd/config.txt
+MESS:00:00:08.601544:0: gpioman: gpioman_get_pin_num: pin DISPLAY_DSI_PORT not defined
+MESS:00:00:08.607095:0: gpioman: gpioman_get_pin_num: pin DISPLAY_DSI_PORT not defined
+MESS:00:00:08.616130:0: *** Restart logging
+MESS:00:00:08.617901:0: brfs: File read: 283 bytes
+MESS:00:00:08.627562:0: hdmi: HDMI0:EDID error reading EDID block 0 attempt 0
+MESS:00:00:08.632592:0: hdmi: HDMI0:EDID giving up on reading EDID block 0
+MESS:00:00:08.643215:0: hdmi: HDMI0:EDID error reading EDID block 0 attempt 0
+MESS:00:00:08.648238:0: hdmi: HDMI0:EDID giving up on reading EDID block 0
+MESS:00:00:08.653837:0: hdmi: HDMI:hdmi_get_state is deprecated, use hdmi_get_display_state instead
+MESS:00:00:08.667628:0: hdmi: HDMI1:EDID error reading EDID block 0 attempt 0
+MESS:00:00:08.672649:0: hdmi: HDMI1:EDID giving up on reading EDID block 0
+MESS:00:00:08.683271:0: hdmi: HDMI1:EDID error reading EDID block 0 attempt 0
+MESS:00:00:08.688299:0: hdmi: HDMI1:EDID giving up on reading EDID block 0
+MESS:00:00:08.693898:0: hdmi: HDMI:hdmi_get_state is deprecated, use hdmi_get_display_state instead
+MESS:00:00:08.702663:0: HDMI0: hdmi_pixel_freq_limit: 300000000
+MESS:00:00:08.708304:0: HDMI1: hdmi_pixel_freq_limit: 300000000
+MESS:00:00:08.730062:0: brfs: File read: /mfs/sd/bcm2711-rpi-4-b.dtb
+MESS:00:00:08.733311:0: Loaded 'bcm2711-rpi-4-b.dtb' to 0x10000 size 0xdc57
+MESS:00:00:08.753631:0: brfs: File read: 56407 bytes
+MESS:00:00:08.781618:0: brfs: File read: /mfs/sd/config.txt
+MESS:00:00:08.784110:0: brfs: File read: 283 bytes
+MESS:00:00:08.788959:0: brfs: File read: /mfs/sd/overlays/vc4-kms-v3d.dtbo
+MESS:00:00:08.813333:0: Failed to open command line file 'cmdline.txt'
+MESS:00:00:08.939169:0: brfs: File read: /mfs/sd/armstub.bin
+MESS:00:00:08.941720:0: Loaded 'armstub.bin' to 0x0 size 0x100
+MESS:00:00:08.947291:0: brfs: File read: 256 bytes
+MESS:00:00:09.719985:0: brfs: File read: /mfs/sd/kernel8-pi4.img
+MESS:00:00:09.722891:0: Loaded 'kernel8-pi4.img' to 0x200000 size 0x88d000
+MESS:00:00:09.738150:0: Kernel relocated to 0x80000
+MESS:00:00:09.739915:0: Device tree loaded to 0x10000 (size 0xe1f9)
+MESS:00:00:09.748158:0: uart: Set PL011 baud rate to 103448.300000 Hz
+MESS:00:00:09.754976:0: uart: Baud rate change done...
+MESS:00:00:09.756998:0:[INFO 12.409819s] Mapping 345 frontside pages at address 0xFFFF8000000A7000
+[INFO 12.416938s] Mapping 3 blocks at address 0xFFFF800000200000
+[INFO 12.421963s] Mapping 167 backside pages at address 0xFFFF800000800000
+[DEBUG 12.499315s] Initializing buddy allocator for 0x3F6F5 available pages...
+[DEBUG 12.505589s] _binary_font_psf_start: 0xFFFF800000090530
+[DEBUG 12.511088s] _binary_font_psf_end: 0xFFFF8000000930B1
+[DEBUG 12.516445s] _binary_font_psf_size: 0x2B81
+[DEBUG 12.520835s] Loaded PSF2 font.
+[DEBUG 12.524219s] Frame buffer address: 0x0
+[INFO 12.528211s] Enabling interrupt controller...
+[INFO 12.532776s] Enabling system timers...
+[INFO 12.536728s] Enabling system scheduler...
+[DEBUG 12.540946s] PFN: 262139
+[DEBUG 12.543751s] Buddy PFN: 262141
+[INFO 12.547171s] Enabling SD...
+[DEBUG 12.550090s] Resetting SD card...
+[DEBUG 14.865815s] EMMC_WARN: emmc_issue_command timed out
+[DEBUG 14.870300s] EMMC_WARNING: APP CMD OCR CHECK TRY 1 FAILED.
+[DEBUG 16.889472s] EMMC_WARN: emmc_issue_command timed out
+[DEBUG 16.893957s] EMMC_WARNING: APP CMD OCR CHECK TRY 2 FAILED.
+[DEBUG 18.913761s] EMMC_WARN: emmc_issue_command timed out
+[DEBUG 18.918246s] EMMC_WARNING: APP CMD OCR CHECK TRY 3 FAILED.
+[DEBUG 20.937404s] EMMC_WARN: emmc_issue_command timed out
+[DEBUG 20.941889s] EMMC_WARNING: APP CMD OCR CHECK TRY 4 FAILED.
+[DEBUG 22.961721s] EMMC_WARN: emmc_issue_command timed out
+[DEBUG 22.966206s] EMMC_WARNING: APP CMD OCR CHECK TRY 5 FAILED.
+[DEBUG 22.972001s] EMMC_ERR: CMD 41 FAILED
+[DEBUG 23.075868s] WARNING: Failed to reset card, trying again...
+[DEBUG 23.080967s] Resetting SD card...
+[DEBUG 25.396686s] EMMC_WARN: emmc_issue_command timed out
+[DEBUG 25.401172s] EMMC_WARNING: APP CMD OCR CHECK TRY 1 FAILED.
+[DEBUG 27.420335s] EMMC_WARN: emmc_issue_command timed out
+[DEBUG 27.424820s] EMMC_WARNING: APP CMD OCR CHECK TRY 2 FAILED.
+[DEBUG 29.444675s] EMMC_WARN: emmc_issue_command timed out
+[DEBUG 29.449159s] EMMC_WARNING: APP CMD OCR CHECK TRY 3 FAILED.
+[DEBUG 31.468340s] EMMC_WARN: emmc_issue_command timed out
+[DEBUG 31.472825s] EMMC_WARNING: APP CMD OCR CHECK TRY 4 FAILED.
+[DEBUG 33.492653s] EMMC_WARN: emmc_issue_command timed out
+[DEBUG 33.497137s] EMMC_WARNING: APP CMD OCR CHECK TRY 5 FAILED.
+[DEBUG 33.502932s] EMMC_ERR: CMD 41 FAILED
+[DEBUG 33.606797s] WARNING: Failed to reset card, trying again...
+[DEBUG 33.611896s] Resetting SD card...
+[DEBUG 33.933573s] MEMORY OCR: FF80
+[DEBUG 33.956051s] EMMC_SLEEPING: 0xFF8000
+[DEBUG 34.548215s] EMMC Card reset!
+[INFO 34.550681s] Initializing kernel heap...
+[INFO 34.554821s] Initializing filesystem...
+[DEBUG 34.558850s] Allocating 4096 bytes...
+[DEBUG 34.562808s] PFN: 262123
+[DEBUG 34.565607s] Buddy PFN: 262131
+[DEBUG 34.568948s] PFN: 262123
+[DEBUG 34.571753s] Buddy PFN: 262127
+[DEBUG 34.575094s] PFN: 262123
+[DEBUG 34.577900s] Buddy PFN: 262125
+[DEBUG 34.581240s] PFN: 262123
+[DEBUG 34.584046s] Buddy PFN: 262124
+[DEBUG 34.587404s] Allocating 1024 bytes...
+[INFO 34.591366s] Found free block at index 0
+[INFO 34.595462s] Allocated address 0xFFFF80003FFED400
+[DEBUG 34.600383s] Allocating 32768 bytes...
+[DEBUG 34.692782s] Allocating 128 bytes...
+[INFO 34.695886s] Found free block at index 0
+[INFO 34.699988s] Allocated address 0xFFFF80003FFEC080
+[INFO 34.704905s] Parsing ext4 filesystem...
+[INFO 34.708944s] SUPERBLOCK VOLUME: rootfs
+[INFO 34.712894s] SUPERBLOCK MAGIC: 0xEF53
+[INFO 34.716758s] BLOCK SIZE: 0x1000
+[INFO 34.720094s] INODE SIZE: 0x80
+[INFO 34.723255s] INODES PER BLOCK: 32
+[INFO 37.773724s] Initializing device drivers...
+[DEBUG 37.777331s] Allocating 32 bytes...
+[DEBUG 37.781112s] PFN: 262127
+[DEBUG 37.783914s] Buddy PFN: 262129
+[DEBUG 37.787255s] PFN: 262127
+[DEBUG 37.790061s] Buddy PFN: 262128
+[INFO 37.793421s] Found free block at index 0
+[INFO 37.797526s] Allocated address 0xFFFF80003FFEF040
+[DEBUG 37.802445s] Allocating 32 bytes...
+[INFO 37.806224s] Found free block at index 1
+[INFO 37.810344s] Allocated address 0xFFFF80003FFEF060
+[DEBUG 37.815266s] Allocating 32 bytes...
+[INFO 37.819043s] Found free block at index 2
+[INFO 37.823163s] Allocated address 0xFFFF80003FFEF080
+[DEBUG 37.828084s] Allocating 32 bytes...
+[INFO 37.831864s] Found free block at index 3
+[INFO 37.835983s] Allocated address 0xFFFF80003FFEF0A0
+[DEBUG 37.840902s] Allocating 32 bytes...
+[INFO 37.844683s] Found free block at index 4
+[INFO 37.848802s] Allocated address 0xFFFF80003FFEF0C0
+[DEBUG 37.853721s] Allocating 32 bytes...
+[INFO 37.857503s] Found free block at index 5
+[INFO 37.861621s] Allocated address 0xFFFF80003FFEF0E0
+[DEBUG 37.866541s] Allocating 32 bytes...
+[INFO 37.870324s] Found free block at index 6
+[INFO 37.874441s] Allocated address 0xFFFF80003FFEF100
+[DEBUG 37.879360s] Allocating 32 bytes...
+[INFO 37.883144s] Found free block at index 7
+[INFO 37.887260s] Allocated address 0xFFFF80003FFEF120
+[DEBUG 37.892179s] Allocating 32 bytes...
+[INFO 37.895964s] Found free block at index 8
+[INFO 37.900080s] Allocated address 0xFFFF80003FFEF140
+[DEBUG 37.905014s] Allocating 32 bytes...
+[INFO 37.908785s] Found free block at index 9
+[INFO 37.912899s] Allocated address 0xFFFF80003FFEF160
+[DEBUG 37.917819s] Allocating 32 bytes...
+[INFO 37.921606s] Found free block at index 10
+[INFO 37.925806s] Allocated address 0xFFFF80003FFEF180
+[DEBUG 37.930726s] Allocating 32 bytes...
+[INFO 37.934513s] Found free block at index 11
+[INFO 37.938713s] Allocated address 0xFFFF80003FFEF1A0
+[DEBUG 37.943633s] Allocating 32 bytes...
+[INFO 37.947422s] Found free block at index 12
+[INFO 37.951620s] Allocated address 0xFFFF80003FFEF1C0
+[DEBUG 37.956540s] Allocating 32 bytes...
+[INFO 37.960329s] Found free block at index 13
+[INFO 37.964528s] Allocated address 0xFFFF80003FFEF1E0
+[INFO 37.969448s] Initializing keyboard handler...
+[DEBUG 37.974014s] Allocating 4096 bytes...
+[INFO 37.977983s] Enabling physical timer...
+[INFO 37.982001s] Enabling virtual timer...
+[INFO 37.985951s] Priming physical timer...
+[INFO 37.989903s] Enabling IRQ interrupts...
+[INFO 37.993942s] Hardware initialization complete.
+
+[DEBUG 37.998774s] Allocating 512 bytes...
+[DEBUG 38.002642s] PFN: 262129
+[DEBUG 38.005444s] Buddy PFN: 262130
+[INFO 38.008805s] Found free block at index 0
+[INFO 38.012908s] Allocated address 0xFFFF80003FFF1200
+[DEBUG 38.017899s] PFN: 262091
+[DEBUG 38.020634s] Buddy PFN: 262107
+[DEBUG 38.023975s] PFN: 262091
+[DEBUG 38.026780s] Buddy PFN: 262099
+[DEBUG 38.030122s] PFN: 262091
+[DEBUG 38.032926s] Buddy PFN: 262095
+[DEBUG 38.036268s] PFN: 262091
+[DEBUG 38.039073s] Buddy PFN: 262093
+[DEBUG 38.042639s] Allocating 64 bytes...
+[INFO 38.046209s] Found free block at index 0
+[INFO 38.050312s] Allocated address 0xFFFF80003FFF2040
+[DEBUG 38.055231s] Allocating 64 bytes...
+[INFO 38.059011s] Found free block at index 1
+[INFO 38.063132s] Allocated address 0xFFFF80003FFF2080
+[DEBUG 38.068050s] Allocating 64 bytes...
+[INFO 38.071831s] Found free block at index 2
+[INFO 38.075951s] Allocated address 0xFFFF80003FFF20C0
+[DEBUG 38.085939s] Allocating 64 bytes...
+[INFO 38.088939s] Found free block at index 3
+[INFO 38.093059s] Allocated address 0xFFFF80003FFF2100
+ls
+[DEBUG 39.798577s] Allocating 512 bytes...
+[INFO 39.801722s] Found free block at index 1
+[INFO 39.805843s] Allocated address 0xFFFF80003FFF1400
+[DEBUG 39.810770s] PFN: 262095
+[DEBUG 39.813569s] Buddy PFN: 262097
+[DEBUG 39.816953s] PFN: 262097
+[DEBUG 39.819715s] Buddy PFN: 262098
+[DEBUG 39.823145s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
+[DEBUG 39.828807s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
+[DEBUG 39.834742s] PFN: 262099
+[DEBUG 39.837276s] Buddy PFN: 262103
+[DEBUG 39.840617s] PFN: 262099
+[DEBUG 39.843422s] Buddy PFN: 262101
+[DEBUG 39.846764s] PFN: 262099
+[DEBUG 39.849569s] Buddy PFN: 262100
+[DEBUG 39.853812s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
+[DEBUG 39.858913s] PFN: 262101
+[DEBUG 39.861720s] Buddy PFN: 262102
+[DEBUG 39.865109s] CLONE L3[511] marked COW, PTE=0x8000003FFCCFC3
+[DEBUG 39.871479s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
+[DEBUG 39.878148s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 39.885079s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
+[DEBUG 39.891310s] COW recognized at L3[511], PTE=0x8000003FFCCFC3
+[DEBUG 39.897285s] PFN: 262103
+[DEBUG 39.900091s] Buddy PFN: 262105
+[DEBUG 39.903432s] PFN: 262103
+[DEBUG 39.906237s] Buddy PFN: 262104
+[DEBUG 39.909627s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 39.916512s] L2 entry: type=1 (1=table, 3=block) value=0x3FFD5003
+[DEBUG 39.922920s] COW recognized at L3[511], PTE=0x8000003FFCCFC3
+[DEBUG 39.928940s] Timer request value: 0x6C0D2AA
+[DEBUG 40.284495s] Handling interrupt 27...
+[DEBUG 40.287668s] Rescheduling 2
+[DEBUG 40.290735s] No more sleep requests, clearing virtual timer. 
+[DEBUG 40.296808s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
+[DEBUG 40.303206s] L2 entry: type=1 (1=table, 3=block) value=0x3FFD2003
+[DEBUG 40.309613s] COW recognized at L3[1], PTE=0x8000000090CFC3
+[DEBUG 40.315411s] PFN: 262105
+[DEBUG 40.318217s] Buddy PFN: 262106
+Attempting to open binary '/bin/ls'
+[INFO 40.324808s] Opening path '/bin/ls'
+[DEBUG 40.328497s] Allocating 32 bytes...
+[INFO 40.332285s] Found free block at index 14
+[INFO 40.336481s] Allocated address 0xFFFF80003FFEF200
+[DEBUG 40.341415s] Allocating 128 bytes...
+[INFO 40.345268s] Found free block at index 1
+[INFO 40.349389s] Allocated address 0xFFFF80003FFEC100
+[INFO 40.354310s] Looking up 'bin'...
+[INFO 40.699010s] Found inode number: 7340033
+[INFO 41.043431s] Looking up 'ls'...
+[INFO 41.387249s] Found inode number: 7340034
+[DEBUG 41.731664s] kmalloc freeing slab allocation at address 0xFFFF80003FFEF000
+[INFO 41.738084s] '/bin/ls' resolved successfully.
+[DEBUG 41.742647s] Allocating 64 bytes...
+[INFO 41.746430s] Found free block at index 4
+[INFO 41.750548s] Allocated address 0xFFFF80003FFF2140
+[DEBUG 41.755467s] kmalloc freeing slab allocation at address 0xFFFF80003FFEC000
+[DEBUG 41.762674s] Allocating 4096 bytes...
+[INFO 42.108770s] ELF Header:
+[INFO 42.110708s]   Type: 2
+[INFO 42.113254s]   Machine: 183
+[INFO 42.116240s]   Version: 1
+[INFO 42.119049s]   Entry point: 0x400030
+[INFO 42.122825s]   Program header offset: 64
+[INFO 42.126952s]   Section header offset: 70072
+[INFO 42.131342s]   Flags: 0x0
+[INFO 42.134152s]   ELF header size: 64
+[INFO 42.137752s]   Program header entry size: 56
+[INFO 42.142230s]   Program header entry count: 3
+[INFO 42.146708s]   Section header entry size: 64
+[INFO 42.151186s]   Section header entry count: 6
+[INFO 42.155664s]   Section header string table index: 5
+[DEBUG 42.160763s] PFN: 262107
+[DEBUG 42.163566s] Buddy PFN: 262115
+[DEBUG 42.166908s] PFN: 262107
+[DEBUG 42.169712s] Buddy PFN: 262111
+[DEBUG 42.173054s] PFN: 262107
+[DEBUG 42.175858s] Buddy PFN: 262109
+[DEBUG 42.179200s] PFN: 262107
+[DEBUG 42.182005s] Buddy PFN: 262108
+[INFO 42.185395s] Program header 1:
+[INFO 42.188590s]   Type: 1
+[INFO 42.191136s]   Flags: 0x5
+[INFO 42.193946s]   Offset: 65536
+[INFO 42.197019s]   Virtual address: 0x400000
+[DEBUG 42.201170s] Allocating 4096 bytes...
+[DEBUG 42.205104s] PFN: 262109
+[DEBUG 42.207907s] Buddy PFN: 262110
+[DEBUG 42.894406s] kmalloc freeing buddy allocation at address 0xFFFF80003FFDD000
+[DEBUG 42.900912s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
+[INFO 42.907261s] Program header 2:
+[INFO 42.910304s]   Type: 1
+[INFO 42.912850s]   Flags: 0x4
+[INFO 42.915660s]   Offset: 69632
+[INFO 42.918733s]   Virtual address: 0x401000
+[DEBUG 42.922883s] Allocating 4096 bytes...
+[DEBUG 43.610056s] kmalloc freeing buddy allocation at address 0xFFFF80003FFDE000
+[DEBUG 43.616561s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
+[INFO 43.622723s] Program header 3:
+[INFO 43.625954s]   Type: 1
+[INFO 43.628501s]   Flags: 0x6
+[INFO 43.631311s]   Offset: 232
+[INFO 43.634208s]   Virtual address: 0x0
+[DEBUG 43.980066s] PFN: 262111
+[DEBUG 43.982091s] Buddy PFN: 262113
+Executing 'ls'...
+[INFO 43.987100s] Current running process number: 2
+owdpwd
+[DEBUG 163.419566s] Allocating 512 bytes...
+[INFO 163.422795s] Found free block at index 1
+[INFO 163.427000s] Allocated address 0xFFFF80003FFF1400
+[DEBUG 163.432071s] PFN: 262115
+[DEBUG 163.434901s] Buddy PFN: 262119
+[DEBUG 163.438334s] PFN: 262115
+[DEBUG 163.441223s] Buddy PFN: 262117
+[DEBUG 163.444654s] PFN: 262115
+[DEBUG 163.447545s] Buddy PFN: 262116
+[DEBUG 163.451097s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
+[DEBUG 163.456832s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
+[DEBUG 163.462935s] PFN: 262117
+[DEBUG 163.465457s] Buddy PFN: 262118
+[DEBUG 163.470127s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
+[DEBUG 163.475320s] PFN: 262119
+[DEBUG 163.478212s] Buddy PFN: 262121
+[DEBUG 163.481644s] PFN: 262119
+[DEBUG 163.484534s] Buddy PFN: 262120
+[DEBUG 163.488031s] CLONE L3[511] marked COW, PTE=0x8000003FFD7FC3
+[DEBUG 163.494675s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
+[DEBUG 163.501228s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 163.508244s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
+[DEBUG 163.514564s] COW recognized at L3[511], PTE=0x8000003FFD7FC3
+[DEBUG 163.520626s] PFN: 262121
+[DEBUG 163.523519s] Buddy PFN: 262122
+[DEBUG 163.527016s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 163.533971s] L2 entry: type=1 (1=table, 3=block) value=0x3FFE7003
+[DEBUG 163.540466s] COW recognized at L3[511], PTE=0x8000003FFD7FC3
+[DEBUG 163.546584s] Timer request value: 0x1B79EAA6
+[DEBUG 163.902139s] Handling interrupt 27...
+[DEBUG 163.905400s] Rescheduling 3
+[DEBUG 163.908557s] No more sleep requests, clearing virtual timer. 
+[DEBUG 163.914724s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
+[DEBUG 163.921202s] L2 entry: type=1 (1=table, 3=block) value=0x3FFE4003
+[DEBUG 163.927698s] COW recognized at L3[1], PTE=0x8000000090CFC3
+[DEBUG 163.933591s] PFN: 262027
+[DEBUG 163.936477s] Buddy PFN: 262059
+[DEBUG 163.939909s] PFN: 262027
+[DEBUG 163.942800s] Buddy PFN: 262043
+[DEBUG 163.946230s] PFN: 262027
+[DEBUG 163.949121s] Buddy PFN: 262035
+[DEBUG 163.952552s] PFN: 262027
+[DEBUG 163.955443s] Buddy PFN: 262031
+[DEBUG 163.958872s] PFN: 262027
+[DEBUG 163.961765s] Buddy PFN: 262029
+[DEBUG 163.965195s] PFN: 262027
+[DEBUG 163.968087s] Buddy PFN: 262028
+Attempting to open binary '/bin/pwd'
+[INFO 163.974854s] Opening path '/bin/pwd'
+[DEBUG 163.978721s] Allocating 32 bytes...
+[INFO 163.982600s] Found free block at index 14
+[INFO 163.986879s] Allocated address 0xFFFF80003FFEF200
+[DEBUG 163.991903s] Allocating 128 bytes...
+[INFO 163.995842s] Found free block at index 1
+[INFO 164.000049s] Allocated address 0xFFFF80003FFEC100
+[INFO 164.005056s] Looking up 'bin'...
+[INFO 164.350250s] Found inode number: 7340033
+[INFO 164.695197s] Looking up 'pwd'...
+[INFO 165.039591s] Found inode number: 7340035
+[DEBUG 165.384542s] kmalloc freeing slab allocation at address 0xFFFF80003FFEF000
+[INFO 165.391053s] '/bin/pwd' resolved successfully.
+[DEBUG 165.395790s] Allocating 64 bytes...
+[INFO 165.399667s] Found free block at index 5
+[INFO 165.403868s] Allocated address 0xFFFF80003FFF2180
+[DEBUG 165.408874s] kmalloc freeing slab allocation at address 0xFFFF80003FFEC000
+[DEBUG 165.416172s] Allocating 4096 bytes...
+[INFO 165.761830s] ELF Header:
+[INFO 165.763857s]   Type: 2
+[INFO 165.766490s]   Machine: 183
+[INFO 165.769564s]   Version: 1
+[INFO 165.772461s]   Entry point: 0x400030
+[INFO 165.776325s]   Program header offset: 64
+[INFO 165.780539s]   Section header offset: 70072
+[INFO 165.785017s]   Flags: 0x0
+[INFO 165.787915s]   ELF header size: 64
+[INFO 165.791603s]   Program header entry size: 56
+[INFO 165.796168s]   Program header entry count: 3
+[INFO 165.800734s]   Section header entry size: 64
+[INFO 165.805300s]   Section header entry count: 6
+[INFO 165.809866s]   Section header string table index: 5
+[DEBUG 165.815050s] PFN: 262029
+[DEBUG 165.817944s] Buddy PFN: 262030
+[INFO 165.821440s] Program header 1:
+[INFO 165.824705s]   Type: 1
+[INFO 165.827339s]   Flags: 0x5
+[INFO 165.830237s]   Offset: 65536
+[INFO 165.833397s]   Virtual address: 0x400000
+[DEBUG 165.837644s] Allocating 4096 bytes...
+[DEBUG 165.841661s] PFN: 262031
+[DEBUG 165.844548s] Buddy PFN: 262033
+[DEBUG 165.847979s] PFN: 262031
+[DEBUG 165.850871s] Buddy PFN: 262032
+[DEBUG 166.537332s] kmalloc freeing buddy allocation at address 0xFFFF80003FF8F000
+[DEBUG 166.543927s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
+[INFO 166.550447s] Program header 2:
+[INFO 166.553495s]   Type: 1
+[INFO 166.556129s]   Flags: 0x4
+[INFO 166.559027s]   Offset: 69632
+[INFO 166.562188s]   Virtual address: 0x401000
+[DEBUG 166.566432s] Allocating 4096 bytes...
+[DEBUG 167.253668s] kmalloc freeing buddy allocation at address 0xFFFF80003FF90000
+[DEBUG 167.260264s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
+[INFO 167.266519s] Program header 3:
+[INFO 167.269832s]   Type: 1
+[INFO 167.272466s]   Flags: 0x6
+[INFO 167.275363s]   Offset: 232
+[INFO 167.278349s]   Virtual address: 0x0
+Executing 'pwd'...
+[INFO 167.624967s] Current running process number: 3
+jshexit
+[DEBUG 172.710967s] Allocating 512 bytes...
+[INFO 172.714195s] Found free block at index 1
+[INFO 172.718402s] Allocated address 0xFFFF80003FFF1400
+[DEBUG 172.723419s] PFN: 262035
+[DEBUG 172.726305s] Buddy PFN: 262039
+[DEBUG 172.729735s] PFN: 262035
+[DEBUG 172.732625s] Buddy PFN: 262037
+[DEBUG 172.736111s] PFN: 262037
+[DEBUG 172.738947s] Buddy PFN: 262038
+[DEBUG 172.742498s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
+[DEBUG 172.748232s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
+[DEBUG 172.754338s] PFN: 262039
+[DEBUG 172.756860s] Buddy PFN: 262041
+[DEBUG 172.760290s] PFN: 262039
+[DEBUG 172.763181s] Buddy PFN: 262040
+[DEBUG 172.767858s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
+[DEBUG 172.773049s] PFN: 262041
+[DEBUG 172.775943s] Buddy PFN: 262042
+[DEBUG 172.779440s] CLONE L3[511] marked COW, PTE=0x8000003FFE9FC3
+[DEBUG 172.786082s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
+[DEBUG 172.792636s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 172.799653s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
+[DEBUG 172.805972s] COW recognized at L3[511], PTE=0x8000003FFE9FC3
+[DEBUG 172.812038s] PFN: 262043
+[DEBUG 172.814928s] Buddy PFN: 262051
+[DEBUG 172.818357s] PFN: 262043
+[DEBUG 172.821250s] Buddy PFN: 262047
+[DEBUG 172.824679s] PFN: 262043
+[DEBUG 172.827571s] Buddy PFN: 262045
+[DEBUG 172.831001s] PFN: 262043
+[DEBUG 172.833893s] Buddy PFN: 262044
+[DEBUG 172.837393s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 172.844345s] L2 entry: type=1 (1=table, 3=block) value=0x3FF99003
+[DEBUG 172.850840s] COW recognized at L3[511], PTE=0x8000003FFE9FC3
+[DEBUG 172.856960s] Timer request value: 0x1D097980
+[DEBUG 173.212515s] Handling interrupt 27...
+[DEBUG 173.215777s] Rescheduling 4
+[DEBUG 173.218933s] No more sleep requests, clearing virtual timer. 
+[DEBUG 173.225100s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
+[DEBUG 173.231579s] L2 entry: type=1 (1=table, 3=block) value=0x3FF96003
+[DEBUG 173.238074s] COW recognized at L3[1], PTE=0x8000000090CFC3
+[DEBUG 173.243961s] PFN: 262045
+[DEBUG 173.246854s] Buddy PFN: 262046
+Attempting to open binary '/bin/exit'
+[INFO 173.253708s] Opening path '/bin/exit'
+[DEBUG 173.257663s] Allocating 32 bytes...
+[INFO 173.261542s] Found free block at index 14
+[INFO 173.265821s] Allocated address 0xFFFF80003FFEF200
+[DEBUG 173.270844s] Allocating 128 bytes...
+[INFO 173.274784s] Found free block at index 1
+[INFO 173.278991s] Allocated address 0xFFFF80003FFEC100
+[INFO 173.283999s] Looking up 'bin'...
+[INFO 173.629156s] Found inode number: 7340033
+[INFO 173.974067s] Looking up 'exit'...
+[WARNING 174.318548s] FILE NOT FOUND. Could not resolve 'exit' in '/bin/exit'.
+Opened file at -8
+[INFO 174.326463s] Current running process number: 4
+</script>
+
+<script>
+(function () {
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- embedded fallback log (used when boot.log can't be fetched over file://) ---------- */
+  var FALLBACK = [
+    "[    0.000000] rpos 0.3.0-dev (aarch64-none-elf) — bare-metal kernel for Raspberry Pi 4B",
+    "[    0.000000] platform: BCM2711 · Cortex-A72 (ARMv8-A) · 4x core · 4 GiB LPDDR4",
+    "[    0.000112] CPU0: reset vector reached, booting at EL3",
+    "[    0.000341] CPU0: SCR_EL3=0x00000531 dropping to EL1 (NS=1)",
+    "[    0.000944] mmu: building identity map for kernel image 0x00080000..0x00104000",
+    "[    0.001338] mmu: TTBR0_EL1=0x00090000 TTBR1_EL1=0x00092000 TCR_EL1=0x00000000b5193519",
+    "[    0.002015] mmu: finish_virtual_mapping: enabling MMU, SCTLR_EL1.M=1",
+    "[    0.002771] INFO  vm: kernel relocated to higher half 0xffff000000080000",
+    "[    0.003410] DEBUG buddy: Initializing buddy allocator for 0x000f3a00 available pages...",
+    "[    0.006004] INFO  fb: load_font: 8x16 bitmap console, 1280x720x32",
+    "[    0.009120] INFO  gic: Enabling interrupt controller...",
+    "[    0.010402] INFO  timer: Enabling system timers...",
+    "[    0.011337] INFO  sched: Enabling system scheduler...",
+    "[    0.012551] INFO  emmc: Enabling SD...",
+    "[    0.012770] DEBUG emmc: Resetting SD card...",
+    "[    0.061880] DEBUG emmc: CARD ID: 0x035344 0x53433136 0x47800012 0x9a013b7f",
+    "[    0.062338] DEBUG emmc: RCA: 0xaaaa0000",
+    "[    0.063889] DEBUG emmc: Selected Card",
+    "[    0.064113] INFO  emmc: SD 16.0 GiB · high-speed 50 MHz · 4-bit bus",
+    "[    0.064880] INFO  heap: Initializing kernel heap...",
+    "[    0.066002] INFO  fs: Initializing filesystem...",
+    "[    0.066551] DEBUG fs: Parsed MBR:",
+    "[    0.067442] DEBUG fs:     LBA:     0x00002000",
+    "[    0.068780] DEBUG fs: END MBR.",
+    "[    0.069442] INFO  ext4: superblock ok · block=4096 · VOLUME LABEL \"rpos-root\"",
+    "[    0.070884] INFO  dt: Initializing device drivers...",
+    "[    0.072660] INFO  kbd: Initializing keyboard handler...",
+    "[    0.073337] INFO  timer: Enabling physical timer...",
+    "[    0.075660] INFO  irq: Enabling IRQ interrupts...",
+    "[    0.076337] INFO  kernel: Hardware initialization complete.",
+    "[    0.078204] DEBUG proc: fork: pid=1 -> pid=2 (init)",
+    "[    0.078660] DEBUG cow: CLONE L1[0] marked COW, PTE=0x0009200000000703",
+    "[    0.079442] DEBUG elf: load /bin/jsh · type=EXEC · entry=0x0000000000400078",
+    "[    0.081118] INFO  proc: exec /bin/jsh pid=2 sp=0x0000fffffffff000",
+    "[    0.081884] INFO  jsh: rpos shell — type 'help' for commands",
+    "[    0.082551] DEBUG sched: Rescheduling 2",
+    "[    0.090114] DEBUG irq: Handling IRQ (context: 0xffff0000001ffe80)...",
+    "[    0.091118] DEBUG sched: Descheduling 2",
+    "[    0.101660] DEBUG syscall: Syscall Number: 57 (fork)",
+    "[    0.102551] DEBUG cow: COW recognized at L3[18], PTE=0x0000000041a02703",
+    "[    0.103442] DEBUG syscall: Syscall Number: 221 (execve)",
+    "[    0.104551] INFO  proc: exec /bin/ls pid=3",
+    "[    0.106998] DEBUG proc: reaping pid=3, wstatus=0x0000",
+    "[    0.107884] DEBUG kmalloc: freeing slab allocation at address 0xffff000041a02000",
+    "[    0.120660] DEBUG gic: BCM IRQ: 153, GIC IRQ: 96",
+    "[    0.121118] DEBUG timer: Handling interrupt 30...",
+    "[    0.132118] DEBUG syscall: Syscall Number: 2 (open) path=/etc/motd",
+    "[    0.133118] DEBUG ext4: extent [lblk 0 -> pblk 0x2a4c1, len 1]",
+    "[    0.140998] DEBUG mmu: EL0 fault @ 0x0000000000413118 (idx0=0 idx1=0 idx2=2 idx3=19)",
+    "[    0.142118] DEBUG buddy: Trying to coalesce pfn 0x41a04 of order 0",
+    "[    0.150442] DEBUG sched: Rescheduling 2",
+    "[    0.170118] INFO  kernel: uptime 0.17s · tasks=2 · heap 2.1/64 MiB · pf=6 cow=5"
+  ];
+
+  /* ---------- highlight one plain-text log line into colored HTML ---------- */
+  function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  var TAGS = /\b(mmu|emmc|sched|vm|buddy|slab|fs|ext4|elf|irq|gic|timer|uart|proc|syscall|cow|mbox|dt|kbd|fb|heap|vfs|pipe|kmalloc|kernel|jsh|platform)(?=:)/g;
+  function highlight(line){
+    var s = esc(line);
+    s = s.replace(/\[\s*\d+\.\d+\]/g, function(m){ return '<span class="lt-ts">'+m+'</span>'; });
+    s = s.replace(/\b\d+\.\d+s\b/g, function(m){ return '<span class="lt-ts">'+m+'</span>'; });
+    s = s.replace(/\b(ERROR|ERR|PANIC)\b/g, '<span class="lt-err">$1</span>');
+    s = s.replace(/\b(WARN|WARNING)\b/g, '<span class="lt-warn">$1</span>');
+    s = s.replace(/\bINFO\b/g, '<span class="lt-info">INFO</span>');
+    s = s.replace(/\bDEBUG\b/g, '<span class="lt-dbg">DEBUG</span>');
+    s = s.replace(TAGS, '<span class="lt-tag">$1</span>');
+    s = s.replace(/0x[0-9a-fA-F]+/g, function(m){ return '<span class="lt-hex">'+m+'</span>'; });
+    return s;
+  }
+
+  /* ---------- build a big, seamless log block for the background ---------- */
+  function buildBackground(lines){
+    // repeat the trace enough times to comfortably cover a tall page,
+    // separated by a faint session marker so it reads as continuous operation.
+    var out = [], marker = "[ ---- ] --- rpos serial console · session continues ---";
+    // adaptive: fewer copies when the real log is already long (keeps the DOM light)
+    var copies = Math.max(1, Math.min(12, Math.ceil(1800 / lines.length)));
+    for (var c = 0; c < copies; c++){
+      for (var i = 0; i < lines.length; i++) out.push(highlight(lines[i]));
+      out.push('<span class="lt-ts">'+esc(marker)+'</span>');
+    }
+    var html = out.join("\n");
+    var pre = document.getElementById("logpre");
+    // two identical halves -> we can modulo-wrap the transform for a seamless infinite scroll
+    pre.innerHTML = html + "\n" + html;
+    startParallax(pre);
+  }
+
+  /* ---------- scroll-linked parallax + gentle live drift ---------- */
+  function startParallax(pre){
+    var PARALLAX = reduce ? 0.12 : 0.34;   // how much the log moves per px of page scroll
+    var DRIFT    = reduce ? 0 : 7;         // px/sec the log creeps on its own (feels "alive")
+    var half = pre.scrollHeight / 2 || 1;
+    var t0 = null;
+
+    function frame(t){
+      if (t0 === null) t0 = t;
+      var elapsed = (t - t0) / 1000;
+      var y = (window.scrollY * PARALLAX + elapsed * DRIFT) % half;
+      pre.style.transform = "translateY(" + (-y) + "px)";
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+    // keep the wrap point correct if the viewport/log size changes
+    window.addEventListener("resize", function(){ half = pre.scrollHeight / 2 || 1; });
+  }
+
+  /* ---------- pick a log source ----------
+     1. boot.log via fetch()  — used when hosted or served over http:// (live source of truth).
+     2. embedded snapshot     — used when opened directly (file://), because browsers block
+                                fetch() of local files. Kept current by the <script id="bootlog">
+                                block below (refresh it with:  python3 sync-log.py).
+     3. tiny hard-coded FALLBACK — last resort only.                                            */
+  function embeddedLog(){
+    var el = document.getElementById("bootlog");
+    if(!el) return null;
+    var t = el.textContent.replace(/^\s+|\s+$/g, "");
+    if(!t) return null;
+    var lines = t.split(/\r?\n/).filter(function(l){ return l.length; });
+    return lines.length > 8 ? lines : null;
+  }
+
+  var embedded = embeddedLog();
+  fetch("boot.log")
+    .then(function(r){ if(!r.ok) throw 0; return r.text(); })
+    .then(function(txt){
+      var lines = txt.split(/\r?\n/).filter(function(l){ return l.length; });
+      if(lines.length <= 8) lines = embedded || FALLBACK;
+      buildBackground(lines); typeMiniTerm(lines);
+    })
+    .catch(function(){ var lines = embedded || FALLBACK; buildBackground(lines); typeMiniTerm(lines); });
+
+  /* ---------- mini terminal inside the featured card: type the boot log ---------- */
+  function typeMiniTerm(lines){
+    var host = document.getElementById("miniterm");
+    if(!host) return;
+    var subset = lines.slice(0, 16);
+    if (reduce){
+      host.innerHTML = subset.map(function(l){ return '<div class="l">'+highlight(l)+'</div>'; }).join("");
+      return;
+    }
+    var i = 0;
+    function next(){
+      if (i >= subset.length){
+        // loop the mini-term so the card always feels live
+        setTimeout(function(){ host.innerHTML=""; i=0; next(); }, 4000);
+        return;
+      }
+      var div = document.createElement("div");
+      div.className = "l";
+      div.innerHTML = highlight(subset[i]);
+      host.appendChild(div);
+      // keep only the last ~14 lines visible
+      while (host.childNodes.length > 14) host.removeChild(host.firstChild);
+      i++;
+      setTimeout(next, 260 + Math.min(3, subset[i-1] ? subset[i-1].length/50 : 1) * 60);
+    }
+    next();
+  }
+
+  /* ---------- nav shrink ---------- */
+  var nav = document.getElementById("nav");
+  function onScroll(){ nav.classList.toggle("scrolled", window.scrollY > 40); }
+  onScroll(); window.addEventListener("scroll", onScroll, { passive:true });
+
+  /* ---------- reveal on scroll ---------- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+
+  document.getElementById("yr").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

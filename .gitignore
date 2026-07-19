@@ -1,0 +1,8 @@
+# Local preview config (not part of the site)
+.claude/
+
+# Alternate design mockups — kept locally, not published
+_mockups/
+
+# macOS
+.DS_Store
