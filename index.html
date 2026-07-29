@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Jake Kasper — Systems Engineer</title>
+<title>Jake Kasper — Software Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -138,6 +138,10 @@
     background: linear-gradient(100deg, var(--accent), var(--accent-2));
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
+  p .grad {
+    background: linear-gradient(100deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
   .hero .lede {
     font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--ink-dim);
     max-width: 40ch; margin-bottom: 2.4rem;
@@ -228,7 +232,7 @@
   .card .stack span { font-family:var(--mono); font-size:.7rem; color:var(--ink-faint); border:1px solid rgba(255,255,255,.08); border-radius:5px; padding:.2rem .45rem;}
 
   /* ---------- skills ---------- */
-  .skills { display:grid; grid-template-columns: repeat(3,1fr); gap: 1.3rem; }
+  .skills { display:grid; grid-template-columns: repeat(4,1fr); gap: 1.3rem; }
   @media (max-width: 720px){ .skills { grid-template-columns: 1fr; } }
   .skillcol h5 { font-family: var(--mono); font-size: .8rem; color: var(--accent); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .08em; }
   .skillcol ul { list-style: none; }
@@ -284,14 +288,14 @@
 
   <!-- HERO -->
   <header class="hero container">
-    <div class="status-pill"><span class="led"></span> currently building rpos · a bare-metal kernel</div>
-    <h1>Systems engineer<br>working <span class="grad">close to the metal.</span></h1>
+    <!-- <div class="status-pill"><span class="led"></span> currently building rpos · a bare-metal kernel</div> -->
+    <h1>Software engineer<br>working <span class="grad">close to the metal.</span></h1>
     <p class="lede">I'm <strong>Jake Kasper</strong> — I build low-level software: kernels, allocators, schedulers, and the unglamorous plumbing that makes hardware do useful things.</p>
     <div class="cta-row">
       <a href="#work" class="btn btn-primary">▸ view featured work</a>
       <a href="#contact" class="btn btn-ghost">get in touch</a>
     </div>
-    <div class="scroll-hint"><span class="bar"></span> scroll — the boot log runs behind you</div>
+    <!-- <div class="scroll-hint"><span class="bar"></span> scroll — the boot log runs behind you</div> -->
   </header>
 
   <!-- FEATURED WORK -->
@@ -299,21 +303,21 @@
     <div class="sec-head reveal">
       <div class="sec-kicker">featured project</div>
       <h2>rpos — a bare-metal OS for the Raspberry Pi 4B</h2>
-      <p>A hobby kernel written from scratch in C and AArch64 assembly. No Linux, no bootloader shortcuts — it comes up at EL3, brings up the MMU, and runs its own userland.</p>
+      <p>A hobby kernel written from scratch in C and AArch64 assembly. Built to drive Raspberry Pi hardware. </p>
     </div>
 
     <div class="feature reveal">
       <div class="feature-top">
         <div class="feature-copy">
           <div class="tags">
-            <span class="tag">C</span><span class="tag">AArch64 asm</span><span class="tag">ARMv8-A</span><span class="tag">BCM2711</span>
+            <span class="tag">C</span><span class="tag">AArch64</span><span class="tag">ARMv8-A</span><span class="tag">BCM2711</span>
           </div>
           <h3>rpos</h3>
-          <div class="sub">v0.3.0-dev · ~14k LOC · single-author</div>
-          <p>Boots on real hardware and QEMU. Implements a 4-level virtual memory system, a buddy + slab allocator, a preemptive scheduler, copy-on-write <code>fork()</code>, an ext4 driver over EMMC, and an ELF loader that runs real user binaries through a small syscall layer.</p>
-          <p>Debuggable over JTAG with J-Link + OpenOCD + GDB against a running board — the same trace scrolling behind this page.</p>
+          <div class="sub">single-author · written by hand · full-stack OS</div>
+          <p>Boots on a physical pi4b. Implements a 4-level virtual memory system, a buddy page allocator and slab-based <code>kmalloc()</code>, a preemptive scheduler, copy-on-write based process replication, an ext4 driver over EMMC, an ELF loader that runs real user binaries within the ext4 filesystem, and a UNIX-based syscall table for compatibility with existing software, such as python and GNU. </p> <p>Features a simple command line interface for user interaction, either via serial/UART for input/output and touchscreen over DSI for external output (supporting a subset of ANSI sequences). </p>
+          <p>Debugging enabled over JTAG with J-Link + OpenOCD + GDB against a running board — <span class="grad">the same trace scrolling behind this page</span>.</p>
           <div class="links">
-            <a href="https://github.com/jbkasper5" target="_blank" rel="noopener">◈ source ↗</a>
+            <a href="https://github.com/jbkasper5/rpos" target="_blank" rel="noopener">◈ source ↗</a>
             <a href="#work">✎ write-up ↗</a>
           </div>
         </div>
@@ -328,10 +332,10 @@
       </div>
 
       <div class="metrics">
-        <div class="metric"><div class="n">EL3→EL1</div><div class="k">boots & drops exception level</div></div>
-        <div class="metric"><div class="n">4-level</div><div class="k">page tables + COW fork</div></div>
-        <div class="metric"><div class="n">ext4</div><div class="k">read driver over EMMC</div></div>
-        <div class="metric"><div class="n">ELF</div><div class="k">loads real user binaries</div></div>
+        <div class="metric"><div class="n">UNIX syscalls</div><div class="k">for compatibility with existing software</div></div>
+        <div class="metric"><div class="n">4-level VM</div><div class="k">with high-half kernel mappings and low-half user space</div></div>
+        <div class="metric"><div class="n">ext4</div><div class="k">filesystem support, with ELF parsing and execution</div></div>
+        <div class="metric"><div class="n">Device drivers</div><div class="k">for external devices such as the official raspberry pi 7" touch screen</div></div>
       </div>
     </div>
   </section>
@@ -356,18 +360,6 @@
         <p>A feed-forward net with <strong>zero dependencies</strong>: a hand-written matrix library, ReLU / sigmoid / softmax activations, MSE and cross-entropy losses, and full backpropagation — including softmax Jacobians for batched training.</p>
         <div class="stack"><span>C</span><span>from scratch</span><span>backprop</span></div>
       </a>
-      <a class="card reveal" href="https://github.com/jbkasper5/AudioClassifier" target="_blank" rel="noopener">
-        <div class="ic">[03]</div>
-        <h4>Audio classifier → maze game</h4>
-        <p>A neural-network audio classifier that recognizes a small vocabulary of spoken words and uses them to drive a simple maze game.</p>
-        <div class="stack"><span>Python</span><span>ML</span><span>audio</span></div>
-      </a>
-      <a class="card reveal" href="https://github.com/jbkasper5/ChessEngine" target="_blank" rel="noopener">
-        <div class="ic">[04]</div>
-        <h4>Minimax chess engine <span style="color:var(--ink-faint);font-weight:400;font-size:.7em;letter-spacing:.02em;">· in progress</span></h4>
-        <p>A minimax chess engine pairing a Python front end with a C backend over <code>ctypes</code> shared objects — a study in game search and Python/C interop. Early, and still being built.</p>
-        <div class="stack"><span>Python</span><span>C</span><span>minimax</span><span>ctypes FFI</span></div>
-      </a>
     </div>
   </section>
 
@@ -380,15 +372,19 @@
     <div class="skills reveal">
       <div class="skillcol">
         <h5>Systems</h5>
-        <ul><li>C / C++</li><li>Rust</li><li>AArch64 · x86-64 · RISC-V asm</li><li>ARMv8-A architecture</li><li>Linker scripts &amp; ELF</li></ul>
+        <ul><li>C / C++</li><li>AArch64</li><li>x86-64</li><li>RISC-V</li><li>Linker scripts</li></ul>
+      </div>
+      <div class="skillcol">
+        <h5>Machine Learning</h5>
+        <ul><li>Python</li><li>PyTorch/Tensorflow</li><li>CUDA</li></ul>
       </div>
       <div class="skillcol">
         <h5>Low-level</h5>
-        <ul><li>Virtual memory / MMU</li><li>Interrupt controllers (GIC)</li><li>Schedulers &amp; concurrency</li><li>Device drivers</li><li>Filesystems (ext4, FAT)</li></ul>
+        <ul><li>Memory management</li><li>Interrupt controllers (GIC)</li><li>Schedulers &amp; concurrency</li><li>Filesystems (ext4, FAT-32)</li><li>System calls</li></ul>
       </div>
       <div class="skillcol">
         <h5>Tooling</h5>
-        <ul><li>GDB / OpenOCD / JTAG</li><li>QEMU</li><li>Make / CMake</li><li>Linux &amp; Git</li><li>Python / TypeScript</li></ul>
+        <ul><li>GDB / OpenOCD / JTAG</li><li>QEMU</li><li>Make / CMake</li><li>Linux &amp; Git</li><li>Python</li></ul>
       </div>
     </div>
   </section>
@@ -407,11 +403,9 @@
         <div class="feature" style="padding:2rem;">
           <div style="font-family:var(--mono);font-size:.8rem;color:var(--ink-dim);line-height:2;">
             <div><span class="lt-tag">whoami</span> → jake kasper</div>
-            <div><span class="lt-tag">role</span> → software / systems engineer</div>
-            <div><span class="lt-tag">focus</span> → kernels · runtimes · tooling</div>
-            <div><span class="lt-tag">editor</span> → nvim + a lot of gdb</div>
-            <div><span class="lt-tag">uptime</span> → building since boot</div>
-            <div><span class="lt-tag">status</span> → <span class="lt-ok">open to opportunities</span></div>
+            <div><span class="lt-tag">role</span> → software engineer</div>
+            <div><span class="lt-tag">focus</span> → kernels · machine learning</div>
+            <!-- <div><span class="lt-tag">status</span> → <span class="lt-ok">open to opportunities</span></div> -->
           </div>
         </div>
       </div>
