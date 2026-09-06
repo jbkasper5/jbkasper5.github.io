@@ -7,266 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --bg:        #06080b;
-    --bg-soft:   #0b0f15;
-    --panel:     rgba(13, 18, 26, 0.72);
-    --panel-brd: rgba(126, 231, 199, 0.14);
-    --ink:       #e6edf3;
-    --ink-dim:   #9aa7b4;
-    --ink-faint: #5f6b78;
-    --accent:    #7ee7c7;   /* phosphor teal */
-    --accent-2:  #38bdf8;   /* sky */
-    --warn:      #f5c451;
-    --err:       #ff6b6b;
-    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  a { color: inherit; text-decoration: none; }
-
-  /* ---------- scrolling log-trace background ---------- */
-  #logbg {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
-    contain: strict;
-  }
-  #logbg pre {
-    margin: 0;
-    padding: 2rem 3vw;
-    font-family: var(--mono);
-    font-size: 12.5px;
-    line-height: 1.85;
-    white-space: pre;
-    color: var(--ink-faint);
-    opacity: 0.34;
-    will-change: transform;
-    transform: translateY(0);
-  }
-  /* token colors inside the log */
-  .lt-ts   { color: #3f4b57; }
-  .lt-info { color: var(--accent-2); }
-  .lt-dbg  { color: #6b7784; }
-  .lt-warn { color: var(--warn); }
-  .lt-err  { color: var(--err); }
-  .lt-ok   { color: var(--accent); }
-  .lt-tag  { color: var(--accent); }
-  .lt-hex  { color: #7c9cc4; }
-
-  /* overlay: darken + vignette so foreground text stays readable */
-  #logveil {
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background:
-      radial-gradient(120% 80% at 50% -10%, rgba(126,231,199,0.06), transparent 55%),
-      radial-gradient(140% 120% at 50% 50%, transparent 45%, rgba(6,8,11,0.80) 100%),
-      linear-gradient(180deg, rgba(6,8,11,0.46), rgba(6,8,11,0.26) 30%, rgba(6,8,11,0.46));
-  }
-
-  /* ---------- layout scaffolding ---------- */
-  .wrap { position: relative; z-index: 2; }
-  .container { width: min(1080px, 92vw); margin: 0 auto; }
-  section { padding: 7rem 0; }
-
-  /* ---------- nav ---------- */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 20;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.15rem clamp(1rem, 4vw, 2.5rem);
-    background: rgba(6,8,11,0);
-    border-bottom: 1px solid transparent;
-    transition: background .3s ease, border-color .3s ease, padding .3s ease, backdrop-filter .3s ease;
-  }
-  nav.scrolled {
-    background: rgba(6,8,11,0.72);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    padding-top: .8rem; padding-bottom: .8rem;
-  }
-  .brand { font-family: var(--mono); font-weight: 600; letter-spacing: -.01em; font-size: .95rem; }
-  .brand .dot { color: var(--accent); }
-  .navlinks { display: flex; gap: 2rem; font-size: .9rem; color: var(--ink-dim); }
-  .navlinks a { position: relative; transition: color .2s; }
-  .navlinks a:hover { color: var(--ink); }
-  .navlinks a::after {
-    content:""; position:absolute; left:0; bottom:-4px; height:1px; width:0; background:var(--accent);
-    transition: width .25s ease;
-  }
-  .navlinks a:hover::after { width:100%; }
-  @media (max-width: 680px){ .navlinks { display:none; } }
-
-  /* ---------- hero ---------- */
-  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 6rem; }
-  .status-pill {
-    display: inline-flex; align-items: center; gap: .55rem;
-    font-family: var(--mono); font-size: .78rem; color: var(--ink-dim);
-    border: 1px solid rgba(255,255,255,0.09); border-radius: 999px;
-    padding: .4rem .85rem; margin-bottom: 1.8rem; width: fit-content;
-    background: rgba(13,18,26,0.5); backdrop-filter: blur(6px);
-  }
-  .status-pill .led {
-    width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
-    box-shadow: 0 0 0 0 rgba(126,231,199,.7); animation: pulse 2.4s infinite;
-  }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(126,231,199,.55);}
-    70%{ box-shadow: 0 0 0 8px rgba(126,231,199,0);}
-    100%{ box-shadow: 0 0 0 0 rgba(126,231,199,0);}
-  }
-  .hero h1 {
-    font-size: clamp(2.6rem, 6.5vw, 5rem);
-    font-weight: 800; letter-spacing: -0.035em; line-height: 1.02;
-    margin-bottom: 1.4rem;
-  }
-  .hero h1 .grad {
-    background: linear-gradient(100deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  p .grad {
-    background: linear-gradient(100deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .hero .lede {
-    font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--ink-dim);
-    max-width: 40ch; margin-bottom: 2.4rem;
-  }
-  .hero .lede strong { color: var(--ink); font-weight: 600; }
-  .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-  .btn {
-    font-family: var(--mono); font-size: .9rem; font-weight: 500;
-    padding: .8rem 1.4rem; border-radius: 10px; transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
-    display: inline-flex; align-items: center; gap: .55rem;
-  }
-  .btn-primary { background: var(--accent); color: #04120d; font-weight: 600; }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(126,231,199,.5); }
-  .btn-ghost { border: 1px solid rgba(255,255,255,0.14); color: var(--ink); }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-  .scroll-hint {
-    margin-top: 4rem; font-family: var(--mono); font-size: .75rem; color: var(--ink-faint);
-    display: flex; align-items: center; gap: .6rem;
-  }
-  .scroll-hint .bar { width: 34px; height: 1px; background: var(--ink-faint); position: relative; overflow: hidden; }
-  .scroll-hint .bar::after { content:""; position:absolute; inset:0; width:40%; background:var(--accent); animation: slide 2.2s infinite; }
-  @keyframes slide { 0%{transform:translateX(-100%);} 100%{transform:translateX(300%);} }
-
-  /* ---------- section heads ---------- */
-  .sec-head { margin-bottom: 3rem; }
-  .sec-kicker {
-    font-family: var(--mono); font-size: .8rem; color: var(--accent);
-    display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem;
-  }
-  .sec-kicker::before { content:""; width: 22px; height:1px; background: var(--accent); display:inline-block; }
-  .sec-head h2 { font-size: clamp(1.8rem, 4vw, 2.7rem); font-weight: 700; letter-spacing: -0.02em; }
-  .sec-head p { color: var(--ink-dim); max-width: 54ch; margin-top: .9rem; }
-
-  /* ---------- featured project ---------- */
-  .feature {
-    background: var(--panel); border: 1px solid var(--panel-brd);
-    border-radius: 18px; overflow: hidden; backdrop-filter: blur(14px);
-    box-shadow: 0 30px 80px -40px rgba(0,0,0,.8);
-  }
-  .feature-top { display: grid; grid-template-columns: 1.1fr 1fr; gap: 0; }
-  @media (max-width: 820px){ .feature-top { grid-template-columns: 1fr; } }
-  .feature-copy { padding: 2.6rem; }
-  .feature-copy .tags { display:flex; flex-wrap: wrap; gap:.5rem; margin-bottom: 1.4rem; }
-  .tag {
-    font-family: var(--mono); font-size: .72rem; color: var(--ink-dim);
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: .28rem .55rem;
-  }
-  .feature-copy h3 { font-size: 1.9rem; font-weight: 700; letter-spacing:-.02em; margin-bottom: .5rem; }
-  .feature-copy .sub { font-family: var(--mono); font-size:.85rem; color: var(--accent); margin-bottom: 1.2rem; }
-  .feature-copy p { color: var(--ink-dim); margin-bottom: 1rem; }
-  .feature-copy .links { display:flex; gap:1.3rem; margin-top: 1.6rem; font-family: var(--mono); font-size:.85rem; }
-  .feature-copy .links a { color: var(--accent); display:inline-flex; align-items:center; gap:.4rem; }
-  .feature-copy .links a:hover { text-decoration: underline; }
-
-  /* terminal window inside feature */
-  .term {
-    background: #05070a; border-left: 1px solid rgba(255,255,255,0.06);
-    font-family: var(--mono); font-size: 12.5px; line-height: 1.75; display:flex; flex-direction:column;
-  }
-  .term-bar { display:flex; align-items:center; gap:.5rem; padding:.75rem 1rem; border-bottom:1px solid rgba(255,255,255,0.06); color: var(--ink-faint); }
-  .term-bar .dots { display:flex; gap:.4rem; }
-  .term-bar .dots i { width:11px; height:11px; border-radius:50%; display:block; }
-  .term-bar .dots i:nth-child(1){ background:#ff5f57;} .term-bar .dots i:nth-child(2){ background:#febc2e;} .term-bar .dots i:nth-child(3){ background:#28c840;}
-  .term-bar span { font-size:.75rem; }
-  .term-body { padding: 1rem 1.1rem; overflow: hidden; flex:1; }
-  .term-body .l { white-space: pre-wrap; word-break: break-word; }
-
-  .metrics { display:grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid rgba(255,255,255,0.06); }
-  @media (max-width: 620px){ .metrics { grid-template-columns: repeat(2,1fr);} }
-  .metric { padding: 1.6rem; border-right: 1px solid rgba(255,255,255,0.06); }
-  .metric:last-child { border-right: none; }
-  .metric .n { font-family: var(--mono); font-size: 1.6rem; font-weight: 600; color: var(--accent); }
-  .metric .k { font-size: .82rem; color: var(--ink-dim); margin-top:.25rem; }
-
-  /* ---------- project grid ---------- */
-  .grid { display:grid; grid-template-columns: repeat(2, 1fr); gap: 1.3rem; }
-  @media (max-width: 720px){ .grid { grid-template-columns: 1fr; } }
-  .card {
-    background: var(--panel); border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 14px; padding: 1.8rem; backdrop-filter: blur(12px);
-    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-  }
-  .card:hover { transform: translateY(-4px); border-color: var(--panel-brd); box-shadow: 0 24px 60px -30px rgba(0,0,0,.9); }
-  .card .ic { font-family: var(--mono); color: var(--accent); font-size: .9rem; margin-bottom: 1rem; }
-  .card h4 { font-size: 1.2rem; font-weight: 650; margin-bottom: .5rem; }
-  .card p { color: var(--ink-dim); font-size: .95rem; }
-  .card .stack { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1.2rem; }
-  .card .stack span { font-family:var(--mono); font-size:.7rem; color:var(--ink-faint); border:1px solid rgba(255,255,255,.08); border-radius:5px; padding:.2rem .45rem;}
-
-  /* ---------- skills ---------- */
-  .skills { display:grid; grid-template-columns: repeat(4,1fr); gap: 1.3rem; }
-  @media (max-width: 720px){ .skills { grid-template-columns: 1fr; } }
-  .skillcol h5 { font-family: var(--mono); font-size: .8rem; color: var(--accent); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .08em; }
-  .skillcol ul { list-style: none; }
-  .skillcol li { padding: .55rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: var(--ink-dim); font-size:.95rem; }
-
-  /* ---------- about ---------- */
-  .about-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items:center; }
-  @media (max-width: 720px){ .about-grid { grid-template-columns: 1fr; } }
-  .about p { color: var(--ink-dim); margin-bottom: 1.1rem; }
-  .about p strong { color: var(--ink); }
-
-  /* ---------- contact ---------- */
-  .contact { text-align:center; }
-  .contact h2 { font-size: clamp(2rem,5vw,3.4rem); font-weight: 800; letter-spacing:-.03em; margin-bottom:1.2rem; }
-  .contact h2 .grad { background: linear-gradient(100deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .contact p { color: var(--ink-dim); max-width: 44ch; margin: 0 auto 2.2rem; }
-
-  footer {
-    border-top: 1px solid rgba(255,255,255,0.06); padding: 2.5rem 0;
-    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;
-    font-family: var(--mono); font-size:.8rem; color: var(--ink-faint);
-  }
-  footer a:hover { color: var(--accent); }
-
-  /* reveal on scroll */
-  .reveal { opacity:0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
-  .reveal.in { opacity:1; transform:none; }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { scroll-behavior: auto !important; }
-    .reveal { opacity:1 !important; transform:none !important; }
-    .led, .scroll-hint .bar::after { animation: none !important; }
-  }
-</style>
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -278,11 +19,14 @@
   <nav id="nav">
     <div class="brand">jake<span class="dot">.</span>kasper<span style="color:var(--accent)">_</span></div>
     <div class="navlinks">
-      <a href="#work">work</a>
+      <a href="#work">featured</a>
+      <a href="#experience">experience</a>
       <a href="#projects">projects</a>
+      <a href="#research">research</a>
       <a href="#skills">skills</a>
       <a href="#about">about</a>
       <a href="#contact">contact</a>
+      <a href="resume.pdf" target="_blank" rel="noopener">résumé ↗</a>
     </div>
   </nav>
 
@@ -297,6 +41,31 @@
     </div>
     <!-- <div class="scroll-hint"><span class="bar"></span> scroll — the boot log runs behind you</div> -->
   </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="container">
+      <div class="about-grid">
+        <div class="about reveal">
+          <div class="sec-kicker">about</div>
+          <h2 style="font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;letter-spacing:-.02em;margin:1rem 0 1.6rem;">I like understanding things all the way down.</h2>
+          <p>Most of my work starts with a question like <strong>"but how does that actually work?"</strong> — which is how I ended up writing an operating system for fun.</p>
+          <p>I care about correctness, small dependency footprints, and code that a future maintainer can actually read. I'm happiest somewhere between the hardware and the abstraction.</p>
+          <p>Outside of kernels, I'm interested in compilers, storage engines, and developer tooling.</p>
+          <p>Machine learning is part of the story too — I co-authored a peer-reviewed paper on deep-learning methodology for EEG as a freshman, and I still build neural nets from scratch to understand them end to end.</p>
+        </div>
+        <div class="reveal">
+          <div class="feature" style="padding:2rem;">
+            <div style="font-family:var(--mono);font-size:.8rem;color:var(--ink-dim);line-height:2;">
+              <div><span class="lt-tag">whoami</span> → jake kasper</div>
+              <div><span class="lt-tag">role</span> → software engineer</div>
+              <div><span class="lt-tag">focus</span> → kernels · machine learning</div>
+              <div><span class="lt-tag">published</span> → Frontiers in Neuroscience '24</div>
+              <!-- <div><span class="lt-tag">status</span> → <span class="lt-ok">open to opportunities</span></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
   <!-- FEATURED WORK -->
   <section id="work" class="container">
@@ -318,16 +87,67 @@
           <p>Debugging enabled over JTAG with J-Link + OpenOCD + GDB against a running board — <span class="grad">the same trace scrolling behind this page</span>.</p>
           <div class="links">
             <a href="https://github.com/jbkasper5/rpos" target="_blank" rel="noopener">◈ source ↗</a>
-            <a href="#work">✎ write-up ↗</a>
           </div>
         </div>
 
-        <div class="term" aria-hidden="true">
-          <div class="term-bar">
+        <div class="rig" role="group" aria-label="rpos hardware test bench">
+          <div class="rig-bar">
             <div class="dots"><i></i><i></i><i></i></div>
-            <span>serial0 · 115200 8N1 — rpos boot</span>
+            <span>test-bench — rpos @ pi 4b</span>
           </div>
-          <div class="term-body" id="miniterm"></div>
+          <div class="rig-svg">
+            <svg viewBox="0 0 480 476" role="img" aria-label="Raspberry Pi 4B GPIO header, colour-coded by device: I²C pins 3 and 5 to an Arduino Uno slave at 0x08 that drives a servo on pin D9; seven JTAG pins to a J-Link; and UART pins 6, 8 and 10 to a laptop running screen.">
+              <!-- device wires (colour = device) -->
+              <line class="wire-i2c"  x1="160" y1="176" x2="95"  y2="278"/>
+              <line class="wire-jtag" x1="240" y1="176" x2="240" y2="278"/>
+              <line class="wire-uart" x1="320" y1="176" x2="388" y2="278"/>
+              <line class="dia-link"  x1="95"  y1="344" x2="95"  y2="392"/>
+
+              <!-- Pi + colour-coded 40-pin header -->
+              <rect class="dia-node pi" x="68" y="34" width="344" height="142" rx="12"/>
+              <text class="dia-title" x="240" y="60"  text-anchor="middle" font-size="14">Raspberry Pi 4B</text>
+              <text class="dia-sub"   x="240" y="78"  text-anchor="middle" font-size="9.5">rpos · I²C master · BCM2711</text>
+              <text class="dia-sub"   x="240" y="100" text-anchor="middle" font-size="8.5">40-pin GPIO header</text>
+              <rect class="dia-hdr-frame" x="95" y="110" width="290" height="44" rx="5"/>
+              <text class="dia-sub" x="104" y="120" text-anchor="middle" font-size="6.5">1</text>
+              <circle class="dia-hdr" cx="107" cy="126" r="3.4"/><circle class="pin-i2c" cx="121" cy="126" r="3.4"/><circle class="pin-i2c" cx="135" cy="126" r="3.4"/><circle class="dia-hdr" cx="149" cy="126" r="3.4"/><circle class="dia-hdr" cx="163" cy="126" r="3.4"/><circle class="dia-hdr" cx="177" cy="126" r="3.4"/><circle class="pin-jtag" cx="191" cy="126" r="3.4"/><circle class="pin-jtag" cx="205" cy="126" r="3.4"/><circle class="pin-jtag" cx="219" cy="126" r="3.4"/><circle class="dia-hdr" cx="233" cy="126" r="3.4"/><circle class="dia-hdr" cx="247" cy="126" r="3.4"/><circle class="dia-hdr" cx="261" cy="126" r="3.4"/><circle class="dia-hdr" cx="275" cy="126" r="3.4"/><circle class="dia-hdr" cx="289" cy="126" r="3.4"/><circle class="dia-hdr" cx="303" cy="126" r="3.4"/><circle class="dia-hdr" cx="317" cy="126" r="3.4"/><circle class="dia-hdr" cx="331" cy="126" r="3.4"/><circle class="dia-hdr" cx="345" cy="126" r="3.4"/><circle class="pin-jtag" cx="359" cy="126" r="3.4"/><circle class="pin-jtag" cx="373" cy="126" r="3.4"/>
+              <circle class="dia-hdr" cx="107" cy="142" r="3.4"/><circle class="dia-hdr" cx="121" cy="142" r="3.4"/><circle class="pin-uart" cx="135" cy="142" r="3.4"/><circle class="pin-uart" cx="149" cy="142" r="3.4"/><circle class="pin-uart" cx="163" cy="142" r="3.4"/><circle class="dia-hdr" cx="177" cy="142" r="3.4"/><circle class="dia-hdr" cx="191" cy="142" r="3.4"/><circle class="dia-hdr" cx="205" cy="142" r="3.4"/><circle class="pin-jtag" cx="219" cy="142" r="3.4"/><circle class="dia-hdr" cx="233" cy="142" r="3.4"/><circle class="pin-jtag" cx="247" cy="142" r="3.4"/><circle class="dia-hdr" cx="261" cy="142" r="3.4"/><circle class="dia-hdr" cx="275" cy="142" r="3.4"/><circle class="dia-hdr" cx="289" cy="142" r="3.4"/><circle class="dia-hdr" cx="303" cy="142" r="3.4"/><circle class="dia-hdr" cx="317" cy="142" r="3.4"/><circle class="dia-hdr" cx="331" cy="142" r="3.4"/><circle class="dia-hdr" cx="345" cy="142" r="3.4"/><circle class="dia-hdr" cx="359" cy="142" r="3.4"/><circle class="dia-hdr" cx="373" cy="142" r="3.4"/>
+
+              <!-- wire chips (colour = device) -->
+              <g><rect class="chip-i2c"  x="107" y="217" width="40" height="20" rx="6"/><text class="ct-i2c"  x="127" y="231" text-anchor="middle" font-size="10.5">I²C</text></g>
+              <g><rect class="chip-jtag" x="218" y="217" width="44" height="20" rx="6"/><text class="ct-jtag" x="240" y="231" text-anchor="middle" font-size="10.5">JTAG</text></g>
+              <g><rect class="chip-uart" x="332" y="217" width="44" height="20" rx="6"/><text class="ct-uart" x="354" y="231" text-anchor="middle" font-size="10.5">UART</text></g>
+              <g><rect class="dia-chip"  x="73"  y="358" width="44" height="20" rx="6"/><text class="dia-chip-t" x="95" y="372" text-anchor="middle" font-size="10.5">PWM</text></g>
+
+              <!-- Arduino Uno (I²C) -->
+              <rect class="dia-node node-i2c" x="32" y="278" width="126" height="66" rx="10"/>
+              <path d="M79 289 V296 M85 289 V296 M91 289 V296 M97 289 V296 M103 289 V296 M109 289 V296 M115 289 V296" fill="none" stroke="#7ee7c7" stroke-width="1.3"/>
+              <text class="dia-title" x="95" y="318" text-anchor="middle" font-size="11.5">Arduino Uno</text>
+              <text class="dia-sub"   x="95" y="333" text-anchor="middle" font-size="9">I²C slave · 0x08</text>
+
+              <!-- J-Link (JTAG) -->
+              <rect class="dia-node node-jtag" x="178" y="278" width="124" height="66" rx="10"/>
+              <circle class="pin-jtag" cx="228" cy="290" r="2.1"/><circle class="pin-jtag" cx="240" cy="290" r="2.1"/><circle class="pin-jtag" cx="252" cy="290" r="2.1"/><circle class="pin-jtag" cx="228" cy="298" r="2.1"/><circle class="pin-jtag" cx="240" cy="298" r="2.1"/><circle class="pin-jtag" cx="252" cy="298" r="2.1"/>
+              <text class="dia-title" x="240" y="320" text-anchor="middle" font-size="12">J-Link</text>
+              <text class="dia-sub"   x="240" y="335" text-anchor="middle" font-size="9">JTAG · 7-pin</text>
+
+              <!-- Laptop (UART) -->
+              <rect class="dia-node node-uart" x="322" y="278" width="126" height="66" rx="10"/>
+              <rect x="373" y="288" width="24" height="14" rx="2" fill="none" stroke="#5eb3f5" stroke-width="1.3"/>
+              <path d="M368 304 H402" fill="none" stroke="#5eb3f5" stroke-width="1.3"/>
+              <text class="dia-title" x="385" y="322" text-anchor="middle" font-size="12">Laptop</text>
+              <text class="dia-sub"   x="385" y="337" text-anchor="middle" font-size="9">screen · macOS</text>
+
+              <!-- Servo (off the Arduino, D9) -->
+              <rect class="dia-node node-pwm" x="32" y="392" width="126" height="68" rx="10"/>
+              <circle class="dia-icon" cx="95" cy="410" r="12"/>
+              <line class="dia-icon-a" x1="95" y1="410" x2="95" y2="399"/>
+              <path class="dia-icon-a" d="M81 408 A14 14 0 0 1 109 408" stroke-dasharray="3 2"/>
+              <text class="dia-title" x="95" y="440" text-anchor="middle" font-size="12">Servo</text>
+              <text class="dia-sub"   x="95" y="454" text-anchor="middle" font-size="9">0–180° · pin D9</text>
+            </svg>
+          </div>
+          <div class="rig-cap">GPIO header colour-coded by device — <b style="color:#7ee7c7;font-weight:600">I²C</b> SDA GPIO2 (pin 3) · SCL GPIO3 (pin 5) → Uno @ 0x08 &nbsp;·&nbsp; <b style="color:#f5c451;font-weight:600">JTAG</b> pins 13·15·17·18·22·37·39 → J-Link &nbsp;·&nbsp; <b style="color:#5eb3f5;font-weight:600">UART</b> TXD GPIO14 (pin 8) · RXD GPIO15 (pin 10) · GND (pin 6) → <code>screen</code>. Servo on the Uno's D9.</div>
         </div>
       </div>
 
@@ -340,17 +160,78 @@
     </div>
   </section>
 
+  <!-- EXPERIENCE -->
+  <section id="experience" class="container">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">experience</div>
+      <h2>Where I've worked</h2>
+      <p>Machine learning, data science, and systems since 2021 — internships, research, and a full-time ML engineering role.</p>
+    </div>
+    <div class="exp reveal">
+
+      <div class="exp-item">
+        <div class="exp-when">2025 — present</div>
+        <div>
+          <div class="exp-role">Machine Learning Engineer <span class="exp-co">· Waites Sensor Technologies</span></div>
+          <ul class="exp-body">
+            <li>Took sole ownership of a computer-vision system for machine maintenance, shipping an end-to-end edge pipeline that reached high-90% accuracy with convolutional neural networks.</li>
+            <li>Built a statistics- and ML-based diagnostics system for classifying machine health.</li>
+            <li>Contributed across large-scale web apps — front-end, back-end, and database migrations.</li>
+          </ul>
+          <div class="stack"><span>PyTorch</span><span>CNNs</span><span>edge ML</span><span>Python</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-when">2023 — 2024</div>
+        <div>
+          <div class="exp-role">Data Science &amp; Advanced Analytics Intern <span class="exp-co">· Pfizer</span></div>
+          <ul class="exp-body">
+            <li>Applied causality and disentangled deep learning in a multinational team, designing custom neural networks to model how chemical compounds affect cells.</li>
+            <li>Built a multi-threaded Python framework to benchmark large-language-model metrics on accuracy and latency.</li>
+            <li>Presented findings and recommendations to company leadership.</li>
+          </ul>
+          <div class="stack"><span>deep learning</span><span>LLMs</span><span>causality</span><span>Python</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-when">2022 — 2024</div>
+        <div>
+          <div class="exp-role">Teaching Assistant <span class="exp-co">· University of Pittsburgh</span></div>
+          <ul class="exp-body">
+            <li>Taught systems software — C, x86-64 assembly, memory allocators, and virtual memory (CS 0449).</li>
+            <li>Supported algorithms &amp; data structures and intermediate programming courses in Java.</li>
+          </ul>
+          <div class="stack"><span>C</span><span>x86-64</span><span>teaching</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-when">2021 &amp; 2022</div>
+        <div>
+          <div class="exp-role">Data Science Intern <span class="exp-co">· SparkNeuro</span></div>
+          <ul class="exp-body">
+            <li>Wrote a Python library turning EEG signals into spectral images for CNN classification.</li>
+            <li>Co-authored the resulting paper on data-separation methodology for trustworthy model evaluation — now published in <em>Frontiers in Neuroscience</em>.</li>
+          </ul>
+          <div class="stack"><span>EEG</span><span>CNNs</span><span>Python</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- OTHER PROJECTS -->
   <section id="projects" class="container">
     <div class="sec-head reveal">
-      <div class="sec-kicker">selected work</div>
+      <div class="sec-kicker">other projects</div>
       <h2>Other things I've built</h2>
-      <p>More bare-metal systems work — plus neural nets and game AI, built from scratch.</p>
     </div>
     <div class="grid">
       <a class="card reveal" href="https://github.com/jbkasper5/rtscheduler" target="_blank" rel="noopener">
         <div class="ic">[01]</div>
-        <h4>rtscheduler — real-time scheduling on bare RISC-V</h4>
+        <h4>rtscheduler — RISC-V bootloader/scheduler</h4>
         <p>A custom RISC-V bootloader brings up an empty board, then runs two coordinated harts: a scheduler that builds offline <strong>Rate-Monotonic</strong> and <strong>Earliest-Deadline-First</strong> schedules, and a task manager — talking over a hand-defined inter-hart messaging zone.</p>
         <div class="stack"><span>C</span><span>RISC-V asm</span><span>QEMU</span><span>RMS / EDF</span></div>
       </a>
@@ -363,6 +244,24 @@
     </div>
   </section>
 
+  <!-- RESEARCH -->
+  <section id="research" class="container">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">research</div>
+      <h2>Peer-reviewed publication</h2>
+      <p>Machine-learning methodology, from my time in neuroscience research.</p>
+    </div>
+    <a class="feature reveal" href="https://doi.org/10.3389/fnins.2024.1373515" target="_blank" rel="noopener" style="display:block; padding:2.4rem 2.6rem; text-decoration:none;">
+      <div class="tags" style="margin-bottom:1.3rem;">
+        <span class="tag">Frontiers in Neuroscience</span><span class="tag">2024</span><span class="tag">deep learning</span><span class="tag">EEG</span>
+      </div>
+      <h3 style="font-size:1.5rem; font-weight:700; letter-spacing:-.02em; margin-bottom:.7rem;">Data leakage in deep learning studies of translational EEG</h3>
+      <p style="color:var(--ink-dim); font-family:var(--mono); font-size:.85rem; margin-bottom:1.1rem;">G. Brookshire, <strong style="color:var(--accent); font-weight:600;">J. Kasper</strong>, N. Blauch, et al. &middot; <em>Frontiers in Neuroscience</em> &middot; 2024</p>
+      <p style="color:var(--ink-dim);">A methodological study of how <strong style="color:var(--ink)">data leakage</strong> inflates reported accuracy in deep-learning models of EEG — and the safeguards needed for results that actually generalize. Co-authored as a college freshman.</p>
+      <div class="links" style="margin-top:1.5rem;"><span style="color:var(--accent); font-family:var(--mono); font-size:.85rem;">◈ read the paper ↗</span></div>
+    </a>
+  </section>
+
   <!-- SKILLS -->
   <section id="skills" class="container">
     <div class="sec-head reveal">
@@ -372,43 +271,47 @@
     <div class="skills reveal">
       <div class="skillcol">
         <h5>Systems</h5>
-        <ul><li>C / C++</li><li>AArch64</li><li>x86-64</li><li>RISC-V</li><li>Linker scripts</li></ul>
+        <ul>
+          <li><span class="sk">C</span><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          <li><span class="sk">AArch64</span><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          <li><span class="sk">x86-64</span><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          <li><span class="sk">RISC-V</span><span class="pips"><i class="on"></i><i class="on"></i><i></i></span></li>
+          <li><span class="sk">Linker scripts</span><span class="pips"><i class="on"></i><i class="on"></i><i></i></span></li>
+        </ul>
       </div>
       <div class="skillcol">
         <h5>Machine Learning</h5>
-        <ul><li>Python</li><li>PyTorch/Tensorflow</li><li>CUDA</li></ul>
+        <ul>
+          <li><span class="sk">Python</span><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          <li><span class="sk">PyTorch</span><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          <li><span class="sk">TensorFlow</span><span class="pips"><i class="on"></i><i class="on"></i><i></i></span></li>
+          <li><span class="sk">CUDA</span><span class="pips"><i class="on"></i><i></i><i></i></span></li>
+        </ul>
       </div>
       <div class="skillcol">
         <h5>Low-level</h5>
-        <ul><li>Memory management</li><li>Interrupt controllers (GIC)</li><li>Schedulers &amp; concurrency</li><li>Filesystems (ext4, FAT-32)</li><li>System calls</li></ul>
+        <ul>
+          <li><span class="sk">Memory management</span><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          <li><span class="sk">Schedulers &amp; concurrency</span><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          <li><span class="sk">System calls</span><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          <li><span class="sk">Interrupt controllers (GIC)</span><span class="pips"><i class="on"></i><i class="on"></i><i></i></span></li>
+          <li><span class="sk">Filesystems (ext4, FAT-32)</span><span class="pips"><i class="on"></i><i></i><i></i></span></li>
+        </ul>
       </div>
       <div class="skillcol">
         <h5>Tooling</h5>
-        <ul><li>GDB / OpenOCD / JTAG</li><li>QEMU</li><li>Make / CMake</li><li>Linux &amp; Git</li><li>Python</li></ul>
+        <ul>
+          <li><span class="sk">GDB / OpenOCD / JTAG</span><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          <li><span class="sk">Linux &amp; Git</span><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          <li><span class="sk">Make / CMake</span><span class="pips"><i class="on"></i><i class="on"></i><i></i></span></li>
+          <li><span class="sk">QEMU</span><span class="pips"><i class="on"></i><i></i><i></i></span></li>
+        </ul>
       </div>
     </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="container">
-    <div class="about-grid">
-      <div class="about reveal">
-        <div class="sec-kicker">about</div>
-        <h2 style="font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;letter-spacing:-.02em;margin:1rem 0 1.6rem;">I like understanding things all the way down.</h2>
-        <p>Most of my work starts with a question like <strong>"but how does that actually work?"</strong> — which is how I ended up writing an operating system for fun.</p>
-        <p>I care about correctness, small dependency footprints, and code that a future maintainer can actually read. I'm happiest somewhere between the hardware and the abstraction.</p>
-        <p>Outside of kernels, I'm interested in compilers, storage engines, and developer tooling.</p>
-      </div>
-      <div class="reveal">
-        <div class="feature" style="padding:2rem;">
-          <div style="font-family:var(--mono);font-size:.8rem;color:var(--ink-dim);line-height:2;">
-            <div><span class="lt-tag">whoami</span> → jake kasper</div>
-            <div><span class="lt-tag">role</span> → software engineer</div>
-            <div><span class="lt-tag">focus</span> → kernels · machine learning</div>
-            <!-- <div><span class="lt-tag">status</span> → <span class="lt-ok">open to opportunities</span></div> -->
-          </div>
-        </div>
-      </div>
+    <div class="skills-legend reveal">
+      <span><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i></span> core</span>
+      <span><span class="pips"><i class="on"></i><i class="on"></i><i></i></span> proficient</span>
+      <span><span class="pips"><i class="on"></i><i></i><i></i></span> familiar</span>
     </div>
   </section>
 
@@ -417,9 +320,11 @@
     <div class="sec-kicker" style="justify-content:center;">contact</div>
     <h2>Let's build something <span class="grad">low-level.</span></h2>
     <p>Whether it's a role, a collaboration, or you just want to talk about page tables — my inbox is open.</p>
-    <div class="cta-row" style="justify-content:center;">
+    <div class="cta-row" style="justify-content:center; flex-wrap:wrap;">
       <a href="mailto:jbkasper03@gmail.com" class="btn btn-primary">✉ jbkasper03@gmail.com</a>
+      <a href="resume.pdf" target="_blank" rel="noopener" class="btn btn-ghost">◈ résumé (PDF) ↗</a>
       <a href="https://github.com/jbkasper5" target="_blank" rel="noopener" class="btn btn-ghost">github ↗</a>
+      <a href="https://www.linkedin.com/in/jake-b-kasper/" target="_blank" rel="noopener" class="btn btn-ghost">linkedin ↗</a>
     </div>
   </section>
 
