@@ -307,3 +307,21 @@ footer a:hover { color: var(--accent); }
 .node-i2c { stroke:rgba(126,231,199,0.55); } .node-jtag { stroke:rgba(245,196,81,0.55); } .node-uart { stroke:rgba(94,179,245,0.55); } .node-pwm { stroke:rgba(126,231,199,0.4); }
 .rig-cap { padding:.2rem 1.2rem 1.1rem; font-family:var(--mono); font-size:.72rem; line-height:1.6; color:var(--ink-faint); }
 .rig-cap code { color:var(--ink-dim); }
+
+/* <button> ghost buttons (e.g. "view kernel log") match the <a> ones */
+button.btn-ghost { background: none; cursor: pointer; line-height: inherit; }
+
+/* "read the boot log" trigger in the rpos block */
+.loglink { font-family: var(--mono); font-size: .9rem; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; }
+.loglink:hover { text-decoration: underline; }
+
+/* ---------- read-the-logs focus mode: hide the page, show the trace unobstructed ---------- */
+#logexit, .read-hint { position: fixed; z-index: 60; display: none; font-family: var(--mono); }
+#logexit { top: 1.1rem; right: 1.1rem; padding: .55rem 1rem; border-radius: 10px; border: 1px solid var(--panel-brd); background: rgba(11,15,21,0.88); color: var(--ink); font-size: .85rem; cursor: pointer; backdrop-filter: blur(8px); }
+#logexit:hover { border-color: var(--accent); color: var(--accent); }
+.read-hint { bottom: 1.1rem; left: 50%; transform: translateX(-50%); font-size: .75rem; color: var(--ink-faint); background: rgba(11,15,21,0.72); padding: .4rem .95rem; border-radius: 999px; }
+body.reading .wrap      { display: none; }
+body.reading #logveil   { display: none; }
+body.reading #logbg     { overflow-y: auto; pointer-events: auto; contain: none; }
+body.reading #logbg pre { opacity: 0.95; }
+body.reading #logexit, body.reading .read-hint { display: block; }

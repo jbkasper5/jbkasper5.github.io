@@ -1,949 +1,990 @@
-[INFO 9.594068s] Initializing device drivers...
-[DEBUG 9.597588s] Allocating 32 bytes...
-[DEBUG 9.601282s] PFN: 262127
-[DEBUG 9.603996s] Buddy PFN: 262129
-[DEBUG 9.607249s] PFN: 262127
-[DEBUG 9.609967s] Buddy PFN: 262128
-[INFO 9.613241s] Found free block at index 0
-[INFO 9.617255s] Allocated address 0xFFFF80003FFEF040
-[DEBUG 9.622088s] Allocating 32 bytes...
-[INFO 9.625778s] Found free block at index 1
-[INFO 9.629811s] Allocated address 0xFFFF80003FFEF060
-[DEBUG 9.634645s] Allocating 32 bytes...
-[INFO 9.638334s] Found free block at index 2
-[INFO 9.642367s] Allocated address 0xFFFF80003FFEF080
-[DEBUG 9.647200s] Allocating 32 bytes...
-[INFO 9.650891s] Found free block at index 3
-[INFO 9.654923s] Allocated address 0xFFFF80003FFEF0A0
-[DEBUG 9.659755s] Allocating 32 bytes...
-[INFO 9.663448s] Found free block at index 4
-[INFO 9.667479s] Allocated address 0xFFFF80003FFEF0C0
-[DEBUG 9.672310s] Allocating 32 bytes...
-[INFO 9.676004s] Found free block at index 5
-[INFO 9.680036s] Allocated address 0xFFFF80003FFEF0E0
-[DEBUG 9.684866s] Allocating 32 bytes...
-[INFO 9.688562s] Found free block at index 6
-[INFO 9.692591s] Allocated address 0xFFFF80003FFEF100
-[DEBUG 9.697422s] Allocating 32 bytes...
-[INFO 9.701118s] Found free block at index 7
-[INFO 9.705147s] Allocated address 0xFFFF80003FFEF120
-[DEBUG 9.709978s] Allocating 32 bytes...
-[INFO 9.713676s] Found free block at index 8
-[INFO 9.717703s] Allocated address 0xFFFF80003FFEF140
-[DEBUG 9.722550s] Allocating 32 bytes...
-[INFO 9.726232s] Found free block at index 9
-[INFO 9.730259s] Allocated address 0xFFFF80003FFEF160
-[DEBUG 9.735091s] Allocating 32 bytes...
-[INFO 9.738790s] Found free block at index 10
-[INFO 9.742903s] Allocated address 0xFFFF80003FFEF180
-[DEBUG 9.747735s] Allocating 32 bytes...
-[INFO 9.751434s] Found free block at index 11
-[INFO 9.755546s] Allocated address 0xFFFF80003FFEF1A0
-[DEBUG 9.760378s] Allocating 32 bytes...
-[INFO 9.764078s] Found free block at index 12
-[INFO 9.768192s] Allocated address 0xFFFF80003FFEF1C0
-[DEBUG 9.773021s] Allocating 32 bytes...
-[INFO 9.776723s] Found free block at index 13
-[INFO 9.780834s] Allocated address 0xFFFF80003FFEF1E0
-[INFO 9.785667s] Initializing keyboard handler...
-[DEBUG 9.790145s] Allocating 4096 bytes...
-[INFO 9.794025s] Enabling physical timer...
-[INFO 9.797955s] Enabling virtual timer...
-[INFO 9.801819s] Priming physical timer...
-[INFO 9.805682s] Enabling IRQ interrupts...
-[INFO 9.809634s] Hardware initialization complete.
+  7.11 [sdcard] pieeprom.upd not found
+  7.11 [sdcard] recover4.elf not found
+  7.12 [sdcard] recovery.elf not found
+  7.53 Read start4.elf bytes  2305632 hnd 0xa511
+  7.57 Read fixup4.dat bytes     5499 hnd 0x6074
+  7.16 0x00b03115 0x00000000 0x00003fff
+  7.16 MEM GPU: 76 ARM: 948 TOTAL: 1024
+  7.20 Starting start4.elf @ 0xfec00200 partition 1
+  7.47 XHCI-STOP
+  7.47 xHC0 ver: 256 HCS: 05000420 fc000031 00e70004 HCC: 002841eb
+  7.48 USBSTS 18
+  7.48 PCI0 reset
+  7.57 +
 
-[DEBUG 9.814378s] Allocating 512 bytes...
-[DEBUG 9.818158s] PFN: 262129
-[DEBUG 9.820872s] Buddy PFN: 262130
-[INFO 9.824147s] Found free block at index 0
-[INFO 9.828160s] Allocated address 0xFFFF80003FFF1200
-[DEBUG 9.833065s] PFN: 262091
-[DEBUG 9.835712s] Buddy PFN: 262107
-[DEBUG 9.838966s] PFN: 262091
-[DEBUG 9.841682s] Buddy PFN: 262099
-[DEBUG 9.844935s] PFN: 262091
-[DEBUG 9.847652s] Buddy PFN: 262095
-[DEBUG 9.850906s] PFN: 262091
-[DEBUG 9.853623s] Buddy PFN: 262093
-[DEBUG 9.857106s] Allocating 64 bytes...
-[INFO 9.860584s] Found free block at index 0
-[INFO 9.864599s] Allocated address 0xFFFF80003FFF2040
-[DEBUG 9.869431s] Allocating 64 bytes...
-[INFO 9.873121s] Found free block at index 1
-[INFO 9.877155s] Allocated address 0xFFFF80003FFF2080
-[DEBUG 9.881985s] Allocating 64 bytes...
-[INFO 9.885678s] Found free block at index 2
-[INFO 9.889711s] Allocated address 0xFFFF80003FFF20C0
-[DEBUG 9.901719s] Allocating 64 bytes...
-[INFO 9.904630s] Found free block at index 3
-[INFO 9.908663s] Allocated address 0xFFFF80003FFF2100
-ls
-[DEBUG 13.456529s] Allocating 512 bytes...
-[INFO 13.459677s] Found free block at index 1
-[INFO 13.463796s] Allocated address 0xFFFF80003FFF1400
-[DEBUG 13.468724s] PFN: 262095
-[DEBUG 13.471523s] Buddy PFN: 262097
-[DEBUG 13.474907s] PFN: 262097
-[DEBUG 13.477669s] Buddy PFN: 262098
-[DEBUG 13.481101s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
-[DEBUG 13.486761s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
-[DEBUG 13.492700s] PFN: 262099
-[DEBUG 13.495230s] Buddy PFN: 262103
-[DEBUG 13.498572s] PFN: 262099
-[DEBUG 13.501376s] Buddy PFN: 262101
-[DEBUG 13.504718s] PFN: 262099
-[DEBUG 13.507522s] Buddy PFN: 262100
-[DEBUG 13.511779s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
-[DEBUG 13.516881s] PFN: 262101
-[DEBUG 13.519687s] Buddy PFN: 262102
-[DEBUG 13.523077s] CLONE L3[511] marked COW, PTE=0x8000003FFCCFC3
-[DEBUG 13.529458s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
-[DEBUG 13.536115s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 13.543045s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
-[DEBUG 13.549277s] COW recognized at L3[511], PTE=0x8000003FFCCFC3
-[DEBUG 13.555252s] PFN: 262103
-[DEBUG 13.558057s] Buddy PFN: 262105
-[DEBUG 13.561399s] PFN: 262103
-[DEBUG 13.564204s] Buddy PFN: 262104
-[DEBUG 13.567596s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 13.574479s] L2 entry: type=1 (1=table, 3=block) value=0x3FFD5003
-[DEBUG 13.580887s] COW recognized at L3[511], PTE=0x8000003FFCCFC3
-[DEBUG 13.586905s] Timer request value: 0x256586C
-[DEBUG 13.942460s] Handling interrupt 27...
-[DEBUG 13.945633s] Rescheduling 2
-[DEBUG 13.948700s] No more sleep requests, clearing virtual timer. 
-[DEBUG 13.954772s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
-[DEBUG 13.961170s] L2 entry: type=1 (1=table, 3=block) value=0x3FFD2003
-[DEBUG 13.967578s] COW recognized at L3[1], PTE=0x8000000090CFC3
-[DEBUG 13.973376s] PFN: 262105
-[DEBUG 13.976182s] Buddy PFN: 262106
+MESS:00:00:07.588047:0: arasan: arasan_emmc_open
+MESS:00:00:07.589703:0: arasan: arasan_emmc_set_clock C0: 0x00800000 C1: 0x000e0047 emmc: 200000000 actual: 390625 div: 0x00000100 target: 400000 min: 400000 max: 400000 delay: 5
+MESS:00:00:07.709942:0: arasan: arasan_emmc_set_clock C0: 0x00800000 C1: 0x000e0047 emmc: 200000000 actual: 390625 div: 0x00000100 target: 400000 min: 400000 max: 400000 delay: 5
+MESS:00:00:07.722811:0: arasan: arasan_emmc_set_clock C0: 0x00800f00 C1: 0x000e0047 emmc: 200000000 actual: 390625 div: 0x00000100 target: 400000 min: 390000 max: 400000 delay: 5
+MESS:00:00:07.756331:0: boot-part: 1 fs-type: 0
+MESS:00:00:07.757743:0: boot-part: 1 fs-type: 3
+MESS:00:00:07.762121:0: arasan: arasan_emmc_set_clock C0: 0x00800f06 C1: 0x000e0207 emmc: 200000000 actual: 50000000 div: 0x00000002 target: 50000000 min: 0 max: 50000000 delay: 1
+MESS:00:00:08.059631:0: brfs: File read: /mfs/sd/config.txt
+MESS:00:00:08.062419:0: board: boardrev b03115 otp b03115
+MESS:00:00:08.067292:0: brfs: File read: 283 bytes
+MESS:00:00:08.093651:0: HDMI0:EDID error reading EDID block 0 attempt 0
+MESS:00:00:08.098159:0: HDMI0:EDID giving up on reading EDID block 0
+MESS:00:00:08.115355:0: HDMI1:EDID error reading EDID block 0 attempt 0
+MESS:00:00:08.119855:0: HDMI1:EDID giving up on reading EDID block 0
+MESS:00:00:08.125878:0: brfs: File read: /mfs/sd/config.txt
+MESS:00:00:08.588651:0: gpioman: gpioman_get_pin_num: pin DISPLAY_DSI_PORT not defined
+MESS:00:00:08.594195:0: gpioman: gpioman_get_pin_num: pin DISPLAY_DSI_PORT not defined
+MESS:00:00:08.603236:0: *** Restart logging
+MESS:00:00:08.605008:0: brfs: File read: 283 bytes
+MESS:00:00:08.614669:0: hdmi: HDMI0:EDID error reading EDID block 0 attempt 0
+MESS:00:00:08.619699:0: hdmi: HDMI0:EDID giving up on reading EDID block 0
+MESS:00:00:08.630322:0: hdmi: HDMI0:EDID error reading EDID block 0 attempt 0
+MESS:00:00:08.635347:0: hdmi: HDMI0:EDID giving up on reading EDID block 0
+MESS:00:00:08.640945:0: hdmi: HDMI:hdmi_get_state is deprecated, use hdmi_get_display_state instead
+MESS:00:00:08.654736:0: hdmi: HDMI1:EDID error reading EDID block 0 attempt 0
+MESS:00:00:08.659757:0: hdmi: HDMI1:EDID giving up on reading EDID block 0
+MESS:00:00:08.670379:0: hdmi: HDMI1:EDID error reading EDID block 0 attempt 0
+MESS:00:00:08.675408:0: hdmi: HDMI1:EDID giving up on reading EDID block 0
+MESS:00:00:08.681005:0: hdmi: HDMI:hdmi_get_state is deprecated, use hdmi_get_display_state instead
+MESS:00:00:08.689771:0: HDMI0: hdmi_pixel_freq_limit: 300000000
+MESS:00:00:08.695412:0: HDMI1: hdmi_pixel_freq_limit: 300000000
+MESS:00:00:08.717107:0: brfs: File read: /mfs/sd/bcm2711-rpi-4-b.dtb
+MESS:00:00:08.720356:0: Loaded 'bcm2711-rpi-4-b.dtb' to 0x10000 size 0xdc57
+MESS:00:00:08.740683:0: brfs: File read: 56407 bytes
+MESS:00:00:08.768657:0: brfs: File read: /mfs/sd/config.txt
+MESS:00:00:08.771149:0: brfs: File read: 283 bytes
+MESS:00:00:08.775999:0: brfs: File read: /mfs/sd/overlays/vc4-kms-v3d.dtbo
+MESS:00:00:08.800379:0: Failed to open command line file 'cmdline.txt'
+MESS:00:00:08.926071:0: brfs: File read: /mfs/sd/armstub.bin
+MESS:00:00:08.928622:0: Loaded 'armstub.bin' to 0x0 size 0x100
+MESS:00:00:08.934192:0: brfs: File read: 256 bytes
+MESS:00:00:09.708659:0: brfs: File read: /mfs/sd/kernel8-pi4.img
+MESS:00:00:09.711565:0: Loaded 'kernel8-pi4.img' to 0x200000 size 0x892000
+MESS:00:00:09.726843:0: Kernel relocated to 0x80000
+MESS:00:00:09.728610:0: Device tree loaded to 0x10000 (size 0xe1f9)
+MESS:00:00:09.736851:0: uart: Set PL011 baud rate to 103448.300000 Hz
+MESS:00:00:09.743681:0: uart: Baud rate change done...
+MESS:00:00:09.745703:0:[INFO 4.691811s] Logging enabled
+[DEBUG 4.694018s] _binary_font_psf_start: 0xFFFF80000009A7D0
+[DEBUG 4.699456s] _binary_font_psf_end: 0xFFFF80000009D351
+[DEBUG 4.704724s] _binary_font_psf_size: 0x2B81
+[DEBUG 4.709027s] Loaded PSF2 font.
+[INFO 4.712456s] Enabling interrupt controller...
+[INFO 4.716754s] Enabling system timers...
+[INFO 4.720617s] Enabling SD...
+[DEBUG 4.723524s] Resetting SD card...
+[DEBUG 5.045117s] MEMORY OCR: FF80
+[DEBUG 5.067501s] EMMC_SLEEPING: 0xFF8000
+[DEBUG 5.650553s] EMMC Card reset!
+[INFO 5.652929s] Initializing kernel heap...
+[INFO 5.656980s] Enabling system scheduler...
+[INFO 5.661165s] Initializing filesystem...
+[INFO 5.676224s] Parsing ext4 filesystem...
+[INFO 5.679390s] SUPERBLOCK VOLUME: rootfs
+[INFO 5.683253s] SUPERBLOCK MAGIC: 0xEF53
+[INFO 5.687028s] BLOCK SIZE: 0x1000
+[INFO 5.690277s] INODE SIZE: 0x80
+[INFO 5.693351s] INODES PER BLOCK: 32
+[INFO 5.756466s] Initializing device drivers...
+[INFO 5.760222s] Initializing keyboard handler...
+[INFO 5.764480s] Enabling physical timer...
+[INFO 5.768412s] Enabling virtual timer...
+[INFO 5.772276s] Priming physical timer...
+[INFO 5.776139s] Hardware initialization complete.
+
+[INFO 5.781080s] Opening path '/bin/jsh'
+[INFO 5.784616s] Looking up 'bin'...
+[INFO 5.799223s] Found inode number: 7340033
+[INFO 5.813780s] Looking up 'jsh'...
+[INFO 5.827651s] Found inode number: 7340036
+[INFO 5.842211s] '/bin/jsh' resolved successfully.
+[INFO 5.857337s] ELF Header:
+[INFO 5.859185s]   Type: 2
+[INFO 5.861644s]   Machine: 183
+[INFO 5.864541s]   Version: 1
+[INFO 5.867263s]   Entry point: 0x400200
+[INFO 5.870951s]   Program header offset: 64
+[INFO 5.874990s]   Section header offset: 134432
+[INFO 5.879380s]   Flags: 0x0
+[INFO 5.882102s]   ELF header size: 64
+[INFO 5.885614s]   Program header entry size: 56
+[INFO 5.890004s]   Program header entry count: 5
+[INFO 5.894395s]   Section header entry size: 64
+[INFO 5.898785s]   Section header entry count: 25
+[INFO 5.903263s]   Section header string table index: 24
+[INFO 5.908449s] Program header 1:
+[INFO 5.911516s]   Type: 1
+[INFO 5.913975s]   Flags: 0x5
+[INFO 5.916697s]   Offset: 0
+[INFO 5.919331s]   Virtual address: 0x400000
+[INFO 6.025997s] Program header 2:
+[INFO 6.028371s]   Type: 1
+[INFO 6.030830s]   Flags: 0x6
+[INFO 6.033552s]   Offset: 65400
+[INFO 6.036537s]   Virtual address: 0x41FF78
+[DEBUG 6.040630s] Allocated buffer block at 0xFFFF80000093A000
+[DEBUG 6.080110s] Trying to coalesce pfn 0x93A of order 0 with buddy_pfn 0x93B
+[DEBUG 6.086349s] Coalescing pfn 0x93A with pfn 0x93B
+[DEBUG 6.091180s] Trying to coalesce pfn 0x93A of order 1 with buddy_pfn 0x938
+[INFO 6.098225s] Program header 3:
+[INFO 6.101363s]   Type: 4
+[INFO 6.103821s]   Flags: 0x4
+[INFO 6.106543s]   Offset: 344
+[INFO 6.109353s]   Virtual address: 0x400158
+[INFO 6.113392s] Program header 4:
+[INFO 6.116553s]   Type: 1685382481
+[INFO 6.119802s]   Flags: 0x6
+[INFO 6.122524s]   Offset: 0
+[INFO 6.125158s]   Virtual address: 0x0
+[INFO 6.128759s] Program header 5:
+[INFO 6.131918s]   Type: 1685382482
+[INFO 6.135167s]   Flags: 0x4
+[INFO 6.137890s]   Offset: 65400
+[INFO 6.140875s]   Virtual address: 0x41FF78
+[DEBUG 6.145415s] Trying to coalesce pfn 0x91E of order 0 with buddy_pfn 0x91F
+[DEBUG 6.151955s] Syscall Number: 96
+[DEBUG 6.155293s] Syscall Number: 29
+[INFO 6.158611s] Handling IOCTL Request: fd=1, cmd=0x5413, arg=0x7FFFFFF18
+[DEBUG 6.165285s] FD: 9564288, CMD: 0x5413, ARG: 0x7FFFFFF18
+[DEBUG 6.170731s] Syscall Number: 66
+Made it to MUSL main()
+[DEBUG 6.176175s] Syscall Number: 299
+[INFO 6.224812s] .
+[INFO 6.225784s] ..
+[INFO 6.227628s] ls
+[INFO 6.229472s] pwd
+[INFO 6.231404s] jsh
+[INFO 6.233335s] cd
+[DEBUG 6.235182s] Syscall Number: 214
+[INFO 6.238603s] Heap VMA not initialized.
+[DEBUG 6.242478s] Syscall Number: 214
+[INFO 6.245890s] Found heap VMA with [0x421000, 0x421000]
+[DEBUG 6.251077s] EL0 fault @ 0x421000 (idx0=0 idx1=0 idx2=2 idx3=33)
+[DEBUG 6.257304s] VMAs found for process: 
+[INFO 6.261168s] 	[0x7FFFFE000, 0x800000000] -> false
+[INFO 6.265997s] 	[0x421000, 0x422000] -> true
+[DEBUG 6.270213s] L2 entry: type=1 (1=table, 3=block) value=0x92F003
+[DEBUG 6.276358s] Page not marked for COW.
+[DEBUG 6.280364s] Syscall Number: 66
+Used malloc yippee (test = 0xd, *test = 100)
+[DEBUG 6.287602s] Syscall Number: 56
+ls hello_world[DEBUG 9.842387s] Syscall Number: 135
+[DEBUG 9.845098s] Syscall Number: 135
+[DEBUG 9.848522s] Syscall Number: 220
+[DEBUG 9.852121s] CLONE L3[0] marked COW, PTE=0xA000000092CFCB
+[DEBUG 9.857714s] CLONE L3[1] marked COW, PTE=0xA0000000930FCB
+[DEBUG 9.863184s] CLONE L3[2] marked COW, PTE=0xA0000000931FCB
+[DEBUG 9.868804s] CLONE L3[3] marked COW, PTE=0xA0000000932FCB
+[DEBUG 9.874423s] CLONE L3[4] marked COW, PTE=0xA0000000933FCB
+[DEBUG 9.880043s] CLONE L3[5] marked COW, PTE=0xA0000000934FCB
+[DEBUG 9.885662s] CLONE L3[6] marked COW, PTE=0xA0000000935FCB
+[DEBUG 9.891282s] CLONE L3[7] marked COW, PTE=0xA0000000936FCB
+[DEBUG 9.896901s] CLONE L3[8] marked COW, PTE=0xA0000000937FCB
+[DEBUG 9.902529s] CLONE L3[31] marked COW, PTE=0xE0000000938FCB
+[DEBUG 9.908228s] CLONE L3[32] marked COW, PTE=0xE0000000939FCB
+[DEBUG 9.913935s] CLONE L3[33] marked COW, PTE=0xE000000091EFCB
+[DEBUG 9.920654s] CLONE L3[511] marked COW, PTE=0xE000000093AFCB
+[DEBUG 9.926262s] Parent process memprofile: 
+Profiling memory starting from L0 '0xFFFF80000092B000'
+	lv 3: Leaf node address: 0x92C000
+		Addr 0x92C000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x930000
+		Addr 0x930000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x931000
+		Addr 0x931000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x932000
+		Addr 0x932000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x933000
+		Addr 0x933000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x934000
+		Addr 0x934000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x935000
+		Addr 0x935000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x936000
+		Addr 0x936000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x937000
+		Addr 0x937000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x938000
+		Addr 0x938000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x939000
+		Addr 0x939000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x91E000
+		Addr 0x91E000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x93A000
+		Addr 0x93A000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+Pages free: [259771/262144] | 99.094772%
+[DEBUG 10.089580s] New child process memprofile: 
+Profiling memory starting from L0 '0xFFFF80000093D000'
+	lv 3: Leaf node address: 0x92C000
+		Addr 0x92C000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x930000
+		Addr 0x930000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x931000
+		Addr 0x931000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x932000
+		Addr 0x932000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x933000
+		Addr 0x933000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x934000
+		Addr 0x934000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x935000
+		Addr 0x935000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x936000
+		Addr 0x936000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x937000
+		Addr 0x937000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x938000
+		Addr 0x938000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x939000
+		Addr 0x939000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x91E000
+		Addr 0x91E000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x93A000
+		Addr 0x93A000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+Pages free: [259771/262144] | 99.094772%
+[DEBUG 10.253717s] EL0 fault @ 0x7FFFFF9C0 (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 10.260642s] VMAs found for process: 
+[INFO 10.264593s] 	[0x7FFFFE000, 0x800000000] -> true
+[INFO 10.269423s] 	[0x421000, 0x422000] -> false
+[DEBUG 10.273814s] L2 entry: type=1 (1=table, 3=block) value=0x943003
+[DEBUG 10.280047s] COW recognized at L3[511], PTE=0xE000000093AFCB
+[DEBUG 10.286055s] EL0 fault @ 0x7FFFFF9C0 (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 10.292953s] VMAs found for process: 
+[INFO 10.296905s] 	[0x7FFFFE000, 0x800000000] -> true
+[INFO 10.301734s] 	[0x421000, 0x422000] -> false
+[DEBUG 10.306126s] L2 entry: type=1 (1=table, 3=block) value=0x943003
+[DEBUG 10.312359s] COW recognized at L3[511], PTE=0xE0000000945FCB
+[DEBUG 10.318368s] Trying to coalesce pfn 0x945 of order 0 with buddy_pfn 0x944
+[DEBUG 10.325446s] Syscall Number: 96
+[DEBUG 10.328867s] EL0 fault @ 0x420D98 (idx0=0 idx1=0 idx2=2 idx3=32)
+[DEBUG 10.335187s] VMAs found for process: 
+[INFO 10.339139s] 	[0x7FFFFE000, 0x800000000] -> false
+[INFO 10.344056s] 	[0x421000, 0x422000] -> false
+[DEBUG 10.348448s] L2 entry: type=1 (1=table, 3=block) value=0x940003
+[DEBUG 10.354680s] COW recognized at L3[32], PTE=0xE0000000939FCB
+[DEBUG 10.360606s] Syscall Number: 135
+[DEBUG 10.364078s] Syscall Number: 135
+[DEBUG 10.367590s] EL0 fault @ 0x7FFFFFAF0 (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 10.374524s] VMAs found for process: 
+[INFO 10.378476s] 	[0x7FFFFE000, 0x800000000] -> true
+[INFO 10.383304s] 	[0x421000, 0x422000] -> false
+[DEBUG 10.387696s] L2 entry: type=1 (1=table, 3=block) value=0x93C003
+[DEBUG 10.393928s] COW recognized at L3[511], PTE=0xE000000093AFCB
+[DEBUG 10.399933s] Trying to coalesce pfn 0x93A of order 0 with buddy_pfn 0x93B
+[DEBUG 10.407016s] Syscall Number: 95
+[INFO 10.410436s] Checking children for pid 3...
+[INFO 10.414826s] Child found: 3
+[DEBUG 10.417819s] EL0 fault @ 0x420D98 (idx0=0 idx1=0 idx2=2 idx3=32)
+[DEBUG 10.424133s] VMAs found for process: 
+[INFO 10.428084s] 	[0x7FFFFE000, 0x800000000] -> false
+[INFO 10.433001s] 	[0x421000, 0x422000] -> false
+[DEBUG 10.437393s] L2 entry: type=1 (1=table, 3=block) value=0x940003
+[DEBUG 10.443625s] COW recognized at L3[32], PTE=0xE0000000945FCB
+[DEBUG 10.449542s] Trying to coalesce pfn 0x945 of order 0 with buddy_pfn 0x944
+[DEBUG 10.456625s] Syscall Number: 135
+[DEBUG 10.460135s] Syscall Number: 135
+[DEBUG 10.463699s] Syscall Number: 66
 Attempting to open binary '/bin/ls'
-[INFO 13.982773s] Opening path '/bin/ls'
-[DEBUG 13.986461s] Allocating 32 bytes...
-[INFO 13.990252s] Found free block at index 14
-[INFO 13.994446s] Allocated address 0xFFFF80003FFEF200
-[DEBUG 13.999379s] Allocating 128 bytes...
-[INFO 14.003233s] Found free block at index 1
-[INFO 14.007353s] Allocated address 0xFFFF80003FFEC100
-[INFO 14.012274s] Looking up 'bin'...
-[INFO 14.357037s] Found inode number: 7340033
-[INFO 14.701477s] Looking up 'ls'...
-[INFO 15.045366s] Found inode number: 7340034
-[DEBUG 15.389800s] kmalloc freeing slab allocation at address 0xFFFF80003FFEF000
-[INFO 15.396220s] '/bin/ls' resolved successfully.
-[DEBUG 15.400783s] Allocating 64 bytes...
-[INFO 15.404568s] Found free block at index 4
-[INFO 15.408684s] Allocated address 0xFFFF80003FFF2140
-[DEBUG 15.413603s] kmalloc freeing slab allocation at address 0xFFFF80003FFEC000
-[DEBUG 15.420810s] Allocating 4096 bytes...
-[INFO 15.766933s] ELF Header:
-[INFO 15.768871s]   Type: 2
-[INFO 15.771417s]   Machine: 183
-[INFO 15.774403s]   Version: 1
-[INFO 15.777212s]   Entry point: 0x400030
-[INFO 15.780988s]   Program header offset: 64
-[INFO 15.785115s]   Section header offset: 70072
-[INFO 15.789505s]   Flags: 0x0
-[INFO 15.792315s]   ELF header size: 64
-[INFO 15.795915s]   Program header entry size: 56
-[INFO 15.800392s]   Program header entry count: 3
-[INFO 15.804871s]   Section header entry size: 64
-[INFO 15.809348s]   Section header entry count: 6
-[INFO 15.813827s]   Section header string table index: 5
-[DEBUG 15.818926s] PFN: 262107
-[DEBUG 15.821729s] Buddy PFN: 262115
-[DEBUG 15.825070s] PFN: 262107
-[DEBUG 15.827875s] Buddy PFN: 262111
-[DEBUG 15.831217s] PFN: 262107
-[DEBUG 15.834022s] Buddy PFN: 262109
-[DEBUG 15.837363s] PFN: 262107
-[DEBUG 15.840168s] Buddy PFN: 262108
-[INFO 15.843559s] Program header 1:
-[INFO 15.846753s]   Type: 1
-[INFO 15.849299s]   Flags: 0x5
-[INFO 15.852109s]   Offset: 65536
-[INFO 15.855182s]   Virtual address: 0x400000
-[DEBUG 15.859333s] Allocating 4096 bytes...
-[DEBUG 15.863268s] PFN: 262109
-[DEBUG 15.866070s] Buddy PFN: 262110
-[DEBUG 16.552605s] kmalloc freeing buddy allocation at address 0xFFFF80003FFDD000
-[DEBUG 16.559111s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
-[INFO 16.565463s] Program header 2:
-[INFO 16.568503s]   Type: 1
-[INFO 16.571049s]   Flags: 0x4
-[INFO 16.573859s]   Offset: 69632
-[INFO 16.576932s]   Virtual address: 0x401000
-[DEBUG 16.581083s] Allocating 4096 bytes...
-[DEBUG 17.268254s] kmalloc freeing buddy allocation at address 0xFFFF80003FFDE000
-[DEBUG 17.274759s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
-[INFO 17.280923s] Program header 3:
-[INFO 17.284152s]   Type: 1
-[INFO 17.286699s]   Flags: 0x6
-[INFO 17.289508s]   Offset: 232
-[INFO 17.292406s]   Virtual address: 0x0
-[DEBUG 17.638340s] PFN: 262111
-[DEBUG 17.640366s] Buddy PFN: 262113
-Executing 'ls'...
-[INFO 17.645374s] Current running process number: 2
-pwd
-[DEBUG 19.711961s] Allocating 512 bytes...
-[INFO 19.715107s] Found free block at index 1
-[INFO 19.719228s] Allocated address 0xFFFF80003FFF1400
-[DEBUG 19.724194s] PFN: 262115
-[DEBUG 19.726954s] Buddy PFN: 262119
-[DEBUG 19.730296s] PFN: 262115
-[DEBUG 19.733100s] Buddy PFN: 262117
-[DEBUG 19.736442s] PFN: 262115
-[DEBUG 19.739246s] Buddy PFN: 262116
-[DEBUG 19.742677s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
-[DEBUG 19.748340s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
-[DEBUG 19.754276s] PFN: 262117
-[DEBUG 19.756807s] Buddy PFN: 262118
-[DEBUG 19.761063s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
-[DEBUG 19.766165s] PFN: 262119
-[DEBUG 19.768971s] Buddy PFN: 262121
-[DEBUG 19.772313s] PFN: 262119
-[DEBUG 19.775117s] Buddy PFN: 262120
-[DEBUG 19.778507s] CLONE L3[511] marked COW, PTE=0x8000003FFD7FC3
-[DEBUG 19.784888s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
-[DEBUG 19.791544s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 19.798476s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
-[DEBUG 19.804708s] COW recognized at L3[511], PTE=0x8000003FFD7FC3
-[DEBUG 19.810681s] PFN: 262121
-[DEBUG 19.813487s] Buddy PFN: 262122
-[DEBUG 19.816877s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 19.823763s] L2 entry: type=1 (1=table, 3=block) value=0x3FFE7003
-[DEBUG 19.830171s] COW recognized at L3[511], PTE=0x8000003FFD7FC3
-[DEBUG 19.836185s] Timer request value: 0x3628910
-[DEBUG 20.191740s] Handling interrupt 27...
-[DEBUG 20.194911s] Rescheduling 3
-[DEBUG 20.197980s] No more sleep requests, clearing virtual timer. 
-[DEBUG 20.204054s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
-[DEBUG 20.210451s] L2 entry: type=1 (1=table, 3=block) value=0x3FFE4003
-[DEBUG 20.216859s] COW recognized at L3[1], PTE=0x8000000090CFC3
-[DEBUG 20.222661s] PFN: 262027
-[DEBUG 20.225463s] Buddy PFN: 262059
-[DEBUG 20.228804s] PFN: 262027
-[DEBUG 20.231609s] Buddy PFN: 262043
-[DEBUG 20.234950s] PFN: 262027
-[DEBUG 20.237755s] Buddy PFN: 262035
-[DEBUG 20.241097s] PFN: 262027
-[DEBUG 20.243901s] Buddy PFN: 262031
-[DEBUG 20.247242s] PFN: 262027
-[DEBUG 20.250048s] Buddy PFN: 262029
-[DEBUG 20.253388s] PFN: 262027
-[DEBUG 20.256194s] Buddy PFN: 262028
-Attempting to open binary '/bin/pwd'
-[INFO 20.262872s] Opening path '/bin/pwd'
-[DEBUG 20.266649s] Allocating 32 bytes...
-[INFO 20.270438s] Found free block at index 14
-[INFO 20.274633s] Allocated address 0xFFFF80003FFEF200
-[DEBUG 20.279564s] Allocating 128 bytes...
-[INFO 20.283420s] Found free block at index 1
-[INFO 20.287541s] Allocated address 0xFFFF80003FFEC100
-[INFO 20.292461s] Looking up 'bin'...
-[INFO 20.637249s] Found inode number: 7340033
-[INFO 20.981933s] Looking up 'pwd'...
-[INFO 21.325925s] Found inode number: 7340035
-[DEBUG 21.670591s] kmalloc freeing slab allocation at address 0xFFFF80003FFEF000
-[INFO 21.677011s] '/bin/pwd' resolved successfully.
-[DEBUG 21.681662s] Allocating 64 bytes...
-[INFO 21.685447s] Found free block at index 5
-[INFO 21.689564s] Allocated address 0xFFFF80003FFF2180
-[DEBUG 21.694482s] kmalloc freeing slab allocation at address 0xFFFF80003FFEC000
-[DEBUG 21.701689s] Allocating 4096 bytes...
-[INFO 22.046969s] ELF Header:
-[INFO 22.048906s]   Type: 2
-[INFO 22.051452s]   Machine: 183
-[INFO 22.054438s]   Version: 1
-[INFO 22.057247s]   Entry point: 0x400030
-[INFO 22.061022s]   Program header offset: 64
-[INFO 22.065149s]   Section header offset: 70072
-[INFO 22.069540s]   Flags: 0x0
-[INFO 22.072349s]   ELF header size: 64
-[INFO 22.075949s]   Program header entry size: 56
-[INFO 22.080427s]   Program header entry count: 3
-[INFO 22.084905s]   Section header entry size: 64
-[INFO 22.089383s]   Section header entry count: 6
-[INFO 22.093861s]   Section header string table index: 5
-[DEBUG 22.098957s] PFN: 262029
-[DEBUG 22.101764s] Buddy PFN: 262030
-[INFO 22.105152s] Program header 1:
-[INFO 22.108349s]   Type: 1
-[INFO 22.110895s]   Flags: 0x5
-[INFO 22.113705s]   Offset: 65536
-[INFO 22.116778s]   Virtual address: 0x400000
-[DEBUG 22.120927s] Allocating 4096 bytes...
-[DEBUG 22.124863s] PFN: 262031
-[DEBUG 22.127666s] Buddy PFN: 262033
-[DEBUG 22.131007s] PFN: 262031
-[DEBUG 22.133812s] Buddy PFN: 262032
-[DEBUG 22.819787s] kmalloc freeing buddy allocation at address 0xFFFF80003FF8F000
-[DEBUG 22.826292s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
-[INFO 22.832643s] Program header 2:
-[INFO 22.835685s]   Type: 1
-[INFO 22.838231s]   Flags: 0x4
-[INFO 22.841041s]   Offset: 69632
-[INFO 22.844114s]   Virtual address: 0x401000
-[DEBUG 22.848263s] Allocating 4096 bytes...
-[DEBUG 23.534775s] kmalloc freeing buddy allocation at address 0xFFFF80003FF90000
-[DEBUG 23.541281s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
-[INFO 23.547442s] Program header 3:
-[INFO 23.550674s]   Type: 1
-[INFO 23.553220s]   Flags: 0x6
-[INFO 23.556030s]   Offset: 232
-[INFO 23.558928s]   Virtual address: 0x0
-Executing 'pwd'...
-[INFO 23.905127s] Current running process number: 3
-exit
-[DEBUG 52.244827s] Allocating 512 bytes...
-[INFO 52.247972s] Found free block at index 1
-[INFO 52.252093s] Allocated address 0xFFFF80003FFF1400
-[DEBUG 52.257019s] PFN: 262035
-[DEBUG 52.259819s] Buddy PFN: 262039
-[DEBUG 52.263161s] PFN: 262035
-[DEBUG 52.265965s] Buddy PFN: 262037
-[DEBUG 52.269348s] PFN: 262037
-[DEBUG 52.272111s] Buddy PFN: 262038
-[DEBUG 52.275543s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
-[DEBUG 52.281204s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
-[DEBUG 52.287142s] PFN: 262039
-[DEBUG 52.289672s] Buddy PFN: 262041
-[DEBUG 52.293014s] PFN: 262039
-[DEBUG 52.295819s] Buddy PFN: 262040
-[DEBUG 52.300075s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
-[DEBUG 52.305176s] PFN: 262041
-[DEBUG 52.307983s] Buddy PFN: 262042
-[DEBUG 52.311373s] CLONE L3[511] marked COW, PTE=0x8000003FFE9FC3
-[DEBUG 52.317752s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
-[DEBUG 52.324412s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 52.331342s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
-[DEBUG 52.337574s] COW recognized at L3[511], PTE=0x8000003FFE9FC3
-[DEBUG 52.343549s] PFN: 262043
-[DEBUG 52.346354s] Buddy PFN: 262051
-[DEBUG 52.349696s] PFN: 262043
-[DEBUG 52.352500s] Buddy PFN: 262047
-[DEBUG 52.355842s] PFN: 262043
-[DEBUG 52.358646s] Buddy PFN: 262045
-[DEBUG 52.361988s] PFN: 262043
-[DEBUG 52.364792s] Buddy PFN: 262044
-[DEBUG 52.368184s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 52.375068s] L2 entry: type=1 (1=table, 3=block) value=0x3FF99003
-[DEBUG 52.381476s] COW recognized at L3[511], PTE=0x8000003FFE9FC3
-[DEBUG 52.387492s] Timer request value: 0x8D77C66
-[DEBUG 52.743046s] Handling interrupt 27...
-[DEBUG 52.746217s] Rescheduling 4
-[DEBUG 52.749287s] No more sleep requests, clearing virtual timer. 
-[DEBUG 52.755360s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
-[DEBUG 52.761757s] L2 entry: type=1 (1=table, 3=block) value=0x3FF96003
-[DEBUG 52.768164s] COW recognized at L3[1], PTE=0x8000000090CFC3
-[DEBUG 52.773962s] PFN: 262045
-[DEBUG 52.776769s] Buddy PFN: 262046
-Attempting to open binary '/bin/exit'
-[INFO 52.783534s] Opening path '/bin/exit'
-[DEBUG 52.787400s] Allocating 32 bytes...
-[INFO 52.791187s] Found free block at index 14
-[INFO 52.795384s] Allocated address 0xFFFF80003FFEF200
-[DEBUG 52.800314s] Allocating 128 bytes...
-[INFO 52.804171s] Found free block at index 1
-[INFO 52.808291s] Allocated address 0xFFFF80003FFEC100
-[INFO 52.813212s] Looking up 'bin'...
-[INFO 53.158019s] Found inode number: 7340033
-[INFO 53.502571s] Looking up 'exit'...
-[WARNING 53.846680s] FILE NOT FOUND. Could not resolve 'exit' in '/bin/exit'.
-Opened file at -8
-[INFO 53.854504s] Current running process number: 4
-jsh
-[DEBUG 57.479546s] Allocating 512 bytes...
-[INFO 57.482692s] Found free block at index 1
-[INFO 57.486814s] Allocated address 0xFFFF80003FFF1400
-[DEBUG 57.491738s] PFN: 262047
-[DEBUG 57.494540s] Buddy PFN: 262049
-[DEBUG 57.498012s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
-[DEBUG 57.503586s] PFN: 262049
-[DEBUG 57.506393s] Buddy PFN: 262050
-[DEBUG 57.509782s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
-[DEBUG 57.516014s] PFN: 262051
-[DEBUG 57.518247s] Buddy PFN: 262055
-[DEBUG 57.521588s] PFN: 262051
-[DEBUG 57.524393s] Buddy PFN: 262053
-[DEBUG 57.527735s] PFN: 262051
-[DEBUG 57.530539s] Buddy PFN: 262052
-[DEBUG 57.534499s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
-[DEBUG 57.539809s] CLONE L3[511] marked COW, PTE=0x8000003FF9BFC3
-[DEBUG 57.545645s] PFN: 262053
-[DEBUG 57.548451s] Buddy PFN: 262054
-[DEBUG 57.552335s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
-[DEBUG 57.558995s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 57.565927s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
-[DEBUG 57.572159s] COW recognized at L3[511], PTE=0x8000003FF9BFC3
-[DEBUG 57.578181s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 57.585068s] L2 entry: type=1 (1=table, 3=block) value=0x3FFA4003
-[DEBUG 57.591476s] COW recognized at L3[511], PTE=0x8000003FF9BFC3
-[DEBUG 57.597451s] PFN: 262055
-[DEBUG 57.600256s] Buddy PFN: 262057
-[DEBUG 57.603597s] PFN: 262055
-[DEBUG 57.606402s] Buddy PFN: 262056
-[DEBUG 57.609787s] Timer request value: 0x9B79A3F
-[DEBUG 57.965341s] Handling interrupt 27...
-[DEBUG 57.968511s] Rescheduling 5
-[DEBUG 57.971581s] No more sleep requests, clearing virtual timer. 
-[DEBUG 57.977656s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
-[DEBUG 57.984052s] L2 entry: type=1 (1=table, 3=block) value=0x3FFA1003
-[DEBUG 57.990460s] COW recognized at L3[1], PTE=0x8000000090CFC3
-Attempting to open binary '/bin/jsh'
-[INFO 57.999595s] Opening path '/bin/jsh'
-[DEBUG 58.003373s] Allocating 32 bytes...
-[INFO 58.007163s] Found free block at index 15
-[INFO 58.011357s] Allocated address 0xFFFF80003FFEF220
-[DEBUG 58.016287s] Allocating 128 bytes...
-[INFO 58.020145s] Found free block at index 2
-[INFO 58.024264s] Allocated address 0xFFFF80003FFEC180
-[INFO 58.029184s] Looking up 'bin'...
-[INFO 58.373895s] Found inode number: 7340033
-[INFO 58.718383s] Looking up 'jsh'...
-[INFO 59.062312s] Found inode number: 7340036
-[DEBUG 59.406790s] kmalloc freeing slab allocation at address 0xFFFF80003FFEF000
-[INFO 59.413210s] '/bin/jsh' resolved successfully.
-[DEBUG 59.417860s] Allocating 64 bytes...
-[INFO 59.421647s] Found free block at index 6
-[INFO 59.425762s] Allocated address 0xFFFF80003FFF21C0
-[DEBUG 59.430680s] kmalloc freeing slab allocation at address 0xFFFF80003FFEC000
-[DEBUG 59.437888s] Allocating 4096 bytes...
-[DEBUG 59.441837s] PFN: 262057
-[DEBUG 59.444639s] Buddy PFN: 262058
-[INFO 59.790114s] ELF Header:
-[INFO 59.792051s]   Type: 2
-[INFO 59.794598s]   Machine: 183
-[INFO 59.797584s]   Version: 1
-[INFO 59.800393s]   Entry point: 0x40004C
-[INFO 59.804169s]   Program header offset: 64
-[INFO 59.808295s]   Section header offset: 66264
-[INFO 59.812686s]   Flags: 0x0
-[INFO 59.815495s]   ELF header size: 64
-[INFO 59.819095s]   Program header entry size: 56
-[INFO 59.823573s]   Program header entry count: 3
-[INFO 59.828051s]   Section header entry size: 64
-[INFO 59.832529s]   Section header entry count: 5
-[INFO 59.837007s]   Section header string table index: 4
-[INFO 59.842149s] Program header 1:
-[INFO 59.845348s]   Type: 1
-[INFO 59.847895s]   Flags: 0x5
-[INFO 59.850705s]   Offset: 65536
-[INFO 59.853778s]   Virtual address: 0x400000
-[DEBUG 59.857914s] PFN: 262059
-[DEBUG 59.860714s] Buddy PFN: 262075
-[DEBUG 59.864056s] PFN: 262059
-[DEBUG 59.866861s] Buddy PFN: 262067
-[DEBUG 59.870201s] PFN: 262059
-[DEBUG 59.873007s] Buddy PFN: 262063
-[DEBUG 59.876348s] PFN: 262059
-[DEBUG 59.879153s] Buddy PFN: 262061
-[DEBUG 59.882494s] PFN: 262059
-[DEBUG 59.885299s] Buddy PFN: 262060
-[DEBUG 59.888664s] Allocating 4096 bytes...
-[DEBUG 60.575863s] kmalloc freeing buddy allocation at address 0xFFFF80003FFAC000
-[DEBUG 60.582369s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
-[INFO 60.588726s] Program header 2:
-[INFO 60.591762s]   Type: 1
-[INFO 60.594308s]   Flags: 0x4
-[INFO 60.597118s]   Offset: 232
-[INFO 60.600015s]   Virtual address: 0x0
-[INFO 60.945886s] Program header 3:
-[INFO 60.948350s]   Type: 1
-[INFO 60.950896s]   Flags: 0x6
-[INFO 60.953706s]   Offset: 232
-[INFO 60.956604s]   Virtual address: 0x0
-[DEBUG 60.960296s] PFN: 262061
-[DEBUG 60.963101s] Buddy PFN: 262062
-[DEBUG 61.307845s] PFN: 262063
-[DEBUG 61.309871s] Buddy PFN: 262065
-[INFO 61.313453s] Current running process number: 5
-ls
-   7.16 [sdcard] pieeprom.upd not found
-  7.16 [sdcard] recover4.elf not found
-  7.16 [sdcard] recovery.elf not found
-  7.98 Read start4.elf bytes  2305632 hnd 0x4dce
-  7.02 Read fixup4.dat bytes     5499 hnd 0x958
-  7.03 0x00b03115 0x00000000 0x00003fff
-  7.07 MEM GPU: 76 ARM: 948 TOTAL: 1024
-  7.00 Starting start4.elf @ 0xfec00200 partition 1
-  7.45 XHCI-STOP
-  7.45 xHC0 ver: 256 HCS: 05000420 fc000031 00e70004 HCC: 002841eb
-  7.46 USBSTS 18
-  7.46 PCI0 reset
-  7.55 +
-
-MESS:00:00:07.567570:0: arasan: arasan_emmc_open
-MESS:00:00:07.569227:0: arasan: arasan_emmc_set_clock C0: 0x00800000 C1: 0x000e0047 emmc: 200000000 actual: 390625 div: 0x00000100 target: 400000 min: 400000 max: 400000 delay: 5
-MESS:00:00:07.689460:0: arasan: arasan_emmc_set_clock C0: 0x00800000 C1: 0x000e0047 emmc: 200000000 actual: 390625 div: 0x00000100 target: 400000 min: 400000 max: 400000 delay: 5
-MESS:00:00:07.702330:0: arasan: arasan_emmc_set_clock C0: 0x00800f00 C1: 0x000e0047 emmc: 200000000 actual: 390625 div: 0x00000100 target: 400000 min: 390000 max: 400000 delay: 5
-MESS:00:00:07.735847:0: boot-part: 1 fs-type: 0
-MESS:00:00:07.737259:0: boot-part: 1 fs-type: 3
-MESS:00:00:07.741638:0: arasan: arasan_emmc_set_clock C0: 0x00800f06 C1: 0x000e0207 emmc: 200000000 actual: 50000000 div: 0x00000002 target: 50000000 min: 0 max: 50000000 delay: 1
-MESS:00:00:08.040214:0: brfs: File read: /mfs/sd/config.txt
-MESS:00:00:08.042998:0: board: boardrev b03115 otp b03115
-MESS:00:00:08.047875:0: brfs: File read: 283 bytes
-�MESS:00:00:08.074233:0: HDMI0:EDID error reading EDID block 0 attempt 0
-MESS:00:00:08.078741:0: HDMI0:EDID giving up on reading EDID block 0
-MESS:00:00:08.095939:0: HDMI1:EDID error reading EDID block 0 attempt 0
-MESS:00:00:08.100440:0: HDMI1:EDID giving up on reading EDID block 0
-MESS:00:00:08.106465:0: brfs: File read: /mfs/sd/config.txt
-MESS:00:00:08.601544:0: gpioman: gpioman_get_pin_num: pin DISPLAY_DSI_PORT not defined
-MESS:00:00:08.607095:0: gpioman: gpioman_get_pin_num: pin DISPLAY_DSI_PORT not defined
-MESS:00:00:08.616130:0: *** Restart logging
-MESS:00:00:08.617901:0: brfs: File read: 283 bytes
-MESS:00:00:08.627562:0: hdmi: HDMI0:EDID error reading EDID block 0 attempt 0
-MESS:00:00:08.632592:0: hdmi: HDMI0:EDID giving up on reading EDID block 0
-MESS:00:00:08.643215:0: hdmi: HDMI0:EDID error reading EDID block 0 attempt 0
-MESS:00:00:08.648238:0: hdmi: HDMI0:EDID giving up on reading EDID block 0
-MESS:00:00:08.653837:0: hdmi: HDMI:hdmi_get_state is deprecated, use hdmi_get_display_state instead
-MESS:00:00:08.667628:0: hdmi: HDMI1:EDID error reading EDID block 0 attempt 0
-MESS:00:00:08.672649:0: hdmi: HDMI1:EDID giving up on reading EDID block 0
-MESS:00:00:08.683271:0: hdmi: HDMI1:EDID error reading EDID block 0 attempt 0
-MESS:00:00:08.688299:0: hdmi: HDMI1:EDID giving up on reading EDID block 0
-MESS:00:00:08.693898:0: hdmi: HDMI:hdmi_get_state is deprecated, use hdmi_get_display_state instead
-MESS:00:00:08.702663:0: HDMI0: hdmi_pixel_freq_limit: 300000000
-MESS:00:00:08.708304:0: HDMI1: hdmi_pixel_freq_limit: 300000000
-MESS:00:00:08.730062:0: brfs: File read: /mfs/sd/bcm2711-rpi-4-b.dtb
-MESS:00:00:08.733311:0: Loaded 'bcm2711-rpi-4-b.dtb' to 0x10000 size 0xdc57
-MESS:00:00:08.753631:0: brfs: File read: 56407 bytes
-MESS:00:00:08.781618:0: brfs: File read: /mfs/sd/config.txt
-MESS:00:00:08.784110:0: brfs: File read: 283 bytes
-MESS:00:00:08.788959:0: brfs: File read: /mfs/sd/overlays/vc4-kms-v3d.dtbo
-MESS:00:00:08.813333:0: Failed to open command line file 'cmdline.txt'
-MESS:00:00:08.939169:0: brfs: File read: /mfs/sd/armstub.bin
-MESS:00:00:08.941720:0: Loaded 'armstub.bin' to 0x0 size 0x100
-MESS:00:00:08.947291:0: brfs: File read: 256 bytes
-MESS:00:00:09.719985:0: brfs: File read: /mfs/sd/kernel8-pi4.img
-MESS:00:00:09.722891:0: Loaded 'kernel8-pi4.img' to 0x200000 size 0x88d000
-MESS:00:00:09.738150:0: Kernel relocated to 0x80000
-MESS:00:00:09.739915:0: Device tree loaded to 0x10000 (size 0xe1f9)
-MESS:00:00:09.748158:0: uart: Set PL011 baud rate to 103448.300000 Hz
-MESS:00:00:09.754976:0: uart: Baud rate change done...
-MESS:00:00:09.756998:0:[INFO 12.409819s] Mapping 345 frontside pages at address 0xFFFF8000000A7000
-[INFO 12.416938s] Mapping 3 blocks at address 0xFFFF800000200000
-[INFO 12.421963s] Mapping 167 backside pages at address 0xFFFF800000800000
-[DEBUG 12.499315s] Initializing buddy allocator for 0x3F6F5 available pages...
-[DEBUG 12.505589s] _binary_font_psf_start: 0xFFFF800000090530
-[DEBUG 12.511088s] _binary_font_psf_end: 0xFFFF8000000930B1
-[DEBUG 12.516445s] _binary_font_psf_size: 0x2B81
-[DEBUG 12.520835s] Loaded PSF2 font.
-[DEBUG 12.524219s] Frame buffer address: 0x0
-[INFO 12.528211s] Enabling interrupt controller...
-[INFO 12.532776s] Enabling system timers...
-[INFO 12.536728s] Enabling system scheduler...
-[DEBUG 12.540946s] PFN: 262139
-[DEBUG 12.543751s] Buddy PFN: 262141
-[INFO 12.547171s] Enabling SD...
-[DEBUG 12.550090s] Resetting SD card...
-[DEBUG 14.865815s] EMMC_WARN: emmc_issue_command timed out
-[DEBUG 14.870300s] EMMC_WARNING: APP CMD OCR CHECK TRY 1 FAILED.
-[DEBUG 16.889472s] EMMC_WARN: emmc_issue_command timed out
-[DEBUG 16.893957s] EMMC_WARNING: APP CMD OCR CHECK TRY 2 FAILED.
-[DEBUG 18.913761s] EMMC_WARN: emmc_issue_command timed out
-[DEBUG 18.918246s] EMMC_WARNING: APP CMD OCR CHECK TRY 3 FAILED.
-[DEBUG 20.937404s] EMMC_WARN: emmc_issue_command timed out
-[DEBUG 20.941889s] EMMC_WARNING: APP CMD OCR CHECK TRY 4 FAILED.
-[DEBUG 22.961721s] EMMC_WARN: emmc_issue_command timed out
-[DEBUG 22.966206s] EMMC_WARNING: APP CMD OCR CHECK TRY 5 FAILED.
-[DEBUG 22.972001s] EMMC_ERR: CMD 41 FAILED
-[DEBUG 23.075868s] WARNING: Failed to reset card, trying again...
-[DEBUG 23.080967s] Resetting SD card...
-[DEBUG 25.396686s] EMMC_WARN: emmc_issue_command timed out
-[DEBUG 25.401172s] EMMC_WARNING: APP CMD OCR CHECK TRY 1 FAILED.
-[DEBUG 27.420335s] EMMC_WARN: emmc_issue_command timed out
-[DEBUG 27.424820s] EMMC_WARNING: APP CMD OCR CHECK TRY 2 FAILED.
-[DEBUG 29.444675s] EMMC_WARN: emmc_issue_command timed out
-[DEBUG 29.449159s] EMMC_WARNING: APP CMD OCR CHECK TRY 3 FAILED.
-[DEBUG 31.468340s] EMMC_WARN: emmc_issue_command timed out
-[DEBUG 31.472825s] EMMC_WARNING: APP CMD OCR CHECK TRY 4 FAILED.
-[DEBUG 33.492653s] EMMC_WARN: emmc_issue_command timed out
-[DEBUG 33.497137s] EMMC_WARNING: APP CMD OCR CHECK TRY 5 FAILED.
-[DEBUG 33.502932s] EMMC_ERR: CMD 41 FAILED
-[DEBUG 33.606797s] WARNING: Failed to reset card, trying again...
-[DEBUG 33.611896s] Resetting SD card...
-[DEBUG 33.933573s] MEMORY OCR: FF80
-[DEBUG 33.956051s] EMMC_SLEEPING: 0xFF8000
-[DEBUG 34.548215s] EMMC Card reset!
-[INFO 34.550681s] Initializing kernel heap...
-[INFO 34.554821s] Initializing filesystem...
-[DEBUG 34.558850s] Allocating 4096 bytes...
-[DEBUG 34.562808s] PFN: 262123
-[DEBUG 34.565607s] Buddy PFN: 262131
-[DEBUG 34.568948s] PFN: 262123
-[DEBUG 34.571753s] Buddy PFN: 262127
-[DEBUG 34.575094s] PFN: 262123
-[DEBUG 34.577900s] Buddy PFN: 262125
-[DEBUG 34.581240s] PFN: 262123
-[DEBUG 34.584046s] Buddy PFN: 262124
-[DEBUG 34.587404s] Allocating 1024 bytes...
-[INFO 34.591366s] Found free block at index 0
-[INFO 34.595462s] Allocated address 0xFFFF80003FFED400
-[DEBUG 34.600383s] Allocating 32768 bytes...
-[DEBUG 34.692782s] Allocating 128 bytes...
-[INFO 34.695886s] Found free block at index 0
-[INFO 34.699988s] Allocated address 0xFFFF80003FFEC080
-[INFO 34.704905s] Parsing ext4 filesystem...
-[INFO 34.708944s] SUPERBLOCK VOLUME: rootfs
-[INFO 34.712894s] SUPERBLOCK MAGIC: 0xEF53
-[INFO 34.716758s] BLOCK SIZE: 0x1000
-[INFO 34.720094s] INODE SIZE: 0x80
-[INFO 34.723255s] INODES PER BLOCK: 32
-[INFO 37.773724s] Initializing device drivers...
-[DEBUG 37.777331s] Allocating 32 bytes...
-[DEBUG 37.781112s] PFN: 262127
-[DEBUG 37.783914s] Buddy PFN: 262129
-[DEBUG 37.787255s] PFN: 262127
-[DEBUG 37.790061s] Buddy PFN: 262128
-[INFO 37.793421s] Found free block at index 0
-[INFO 37.797526s] Allocated address 0xFFFF80003FFEF040
-[DEBUG 37.802445s] Allocating 32 bytes...
-[INFO 37.806224s] Found free block at index 1
-[INFO 37.810344s] Allocated address 0xFFFF80003FFEF060
-[DEBUG 37.815266s] Allocating 32 bytes...
-[INFO 37.819043s] Found free block at index 2
-[INFO 37.823163s] Allocated address 0xFFFF80003FFEF080
-[DEBUG 37.828084s] Allocating 32 bytes...
-[INFO 37.831864s] Found free block at index 3
-[INFO 37.835983s] Allocated address 0xFFFF80003FFEF0A0
-[DEBUG 37.840902s] Allocating 32 bytes...
-[INFO 37.844683s] Found free block at index 4
-[INFO 37.848802s] Allocated address 0xFFFF80003FFEF0C0
-[DEBUG 37.853721s] Allocating 32 bytes...
-[INFO 37.857503s] Found free block at index 5
-[INFO 37.861621s] Allocated address 0xFFFF80003FFEF0E0
-[DEBUG 37.866541s] Allocating 32 bytes...
-[INFO 37.870324s] Found free block at index 6
-[INFO 37.874441s] Allocated address 0xFFFF80003FFEF100
-[DEBUG 37.879360s] Allocating 32 bytes...
-[INFO 37.883144s] Found free block at index 7
-[INFO 37.887260s] Allocated address 0xFFFF80003FFEF120
-[DEBUG 37.892179s] Allocating 32 bytes...
-[INFO 37.895964s] Found free block at index 8
-[INFO 37.900080s] Allocated address 0xFFFF80003FFEF140
-[DEBUG 37.905014s] Allocating 32 bytes...
-[INFO 37.908785s] Found free block at index 9
-[INFO 37.912899s] Allocated address 0xFFFF80003FFEF160
-[DEBUG 37.917819s] Allocating 32 bytes...
-[INFO 37.921606s] Found free block at index 10
-[INFO 37.925806s] Allocated address 0xFFFF80003FFEF180
-[DEBUG 37.930726s] Allocating 32 bytes...
-[INFO 37.934513s] Found free block at index 11
-[INFO 37.938713s] Allocated address 0xFFFF80003FFEF1A0
-[DEBUG 37.943633s] Allocating 32 bytes...
-[INFO 37.947422s] Found free block at index 12
-[INFO 37.951620s] Allocated address 0xFFFF80003FFEF1C0
-[DEBUG 37.956540s] Allocating 32 bytes...
-[INFO 37.960329s] Found free block at index 13
-[INFO 37.964528s] Allocated address 0xFFFF80003FFEF1E0
-[INFO 37.969448s] Initializing keyboard handler...
-[DEBUG 37.974014s] Allocating 4096 bytes...
-[INFO 37.977983s] Enabling physical timer...
-[INFO 37.982001s] Enabling virtual timer...
-[INFO 37.985951s] Priming physical timer...
-[INFO 37.989903s] Enabling IRQ interrupts...
-[INFO 37.993942s] Hardware initialization complete.
-
-[DEBUG 37.998774s] Allocating 512 bytes...
-[DEBUG 38.002642s] PFN: 262129
-[DEBUG 38.005444s] Buddy PFN: 262130
-[INFO 38.008805s] Found free block at index 0
-[INFO 38.012908s] Allocated address 0xFFFF80003FFF1200
-[DEBUG 38.017899s] PFN: 262091
-[DEBUG 38.020634s] Buddy PFN: 262107
-[DEBUG 38.023975s] PFN: 262091
-[DEBUG 38.026780s] Buddy PFN: 262099
-[DEBUG 38.030122s] PFN: 262091
-[DEBUG 38.032926s] Buddy PFN: 262095
-[DEBUG 38.036268s] PFN: 262091
-[DEBUG 38.039073s] Buddy PFN: 262093
-[DEBUG 38.042639s] Allocating 64 bytes...
-[INFO 38.046209s] Found free block at index 0
-[INFO 38.050312s] Allocated address 0xFFFF80003FFF2040
-[DEBUG 38.055231s] Allocating 64 bytes...
-[INFO 38.059011s] Found free block at index 1
-[INFO 38.063132s] Allocated address 0xFFFF80003FFF2080
-[DEBUG 38.068050s] Allocating 64 bytes...
-[INFO 38.071831s] Found free block at index 2
-[INFO 38.075951s] Allocated address 0xFFFF80003FFF20C0
-[DEBUG 38.085939s] Allocating 64 bytes...
-[INFO 38.088939s] Found free block at index 3
-[INFO 38.093059s] Allocated address 0xFFFF80003FFF2100
-ls
-[DEBUG 39.798577s] Allocating 512 bytes...
-[INFO 39.801722s] Found free block at index 1
-[INFO 39.805843s] Allocated address 0xFFFF80003FFF1400
-[DEBUG 39.810770s] PFN: 262095
-[DEBUG 39.813569s] Buddy PFN: 262097
-[DEBUG 39.816953s] PFN: 262097
-[DEBUG 39.819715s] Buddy PFN: 262098
-[DEBUG 39.823145s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
-[DEBUG 39.828807s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
-[DEBUG 39.834742s] PFN: 262099
-[DEBUG 39.837276s] Buddy PFN: 262103
-[DEBUG 39.840617s] PFN: 262099
-[DEBUG 39.843422s] Buddy PFN: 262101
-[DEBUG 39.846764s] PFN: 262099
-[DEBUG 39.849569s] Buddy PFN: 262100
-[DEBUG 39.853812s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
-[DEBUG 39.858913s] PFN: 262101
-[DEBUG 39.861720s] Buddy PFN: 262102
-[DEBUG 39.865109s] CLONE L3[511] marked COW, PTE=0x8000003FFCCFC3
-[DEBUG 39.871479s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
-[DEBUG 39.878148s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 39.885079s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
-[DEBUG 39.891310s] COW recognized at L3[511], PTE=0x8000003FFCCFC3
-[DEBUG 39.897285s] PFN: 262103
-[DEBUG 39.900091s] Buddy PFN: 262105
-[DEBUG 39.903432s] PFN: 262103
-[DEBUG 39.906237s] Buddy PFN: 262104
-[DEBUG 39.909627s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 39.916512s] L2 entry: type=1 (1=table, 3=block) value=0x3FFD5003
-[DEBUG 39.922920s] COW recognized at L3[511], PTE=0x8000003FFCCFC3
-[DEBUG 39.928940s] Timer request value: 0x6C0D2AA
-[DEBUG 40.284495s] Handling interrupt 27...
-[DEBUG 40.287668s] Rescheduling 2
-[DEBUG 40.290735s] No more sleep requests, clearing virtual timer. 
-[DEBUG 40.296808s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
-[DEBUG 40.303206s] L2 entry: type=1 (1=table, 3=block) value=0x3FFD2003
-[DEBUG 40.309613s] COW recognized at L3[1], PTE=0x8000000090CFC3
-[DEBUG 40.315411s] PFN: 262105
-[DEBUG 40.318217s] Buddy PFN: 262106
+[DEBUG 10.470327s] Syscall Number: 221
+[INFO 10.473831s] Opening path '/bin/ls'
+[INFO 10.477567s] Looking up 'bin'...
+[INFO 10.492258s] Found inode number: 7340033
+[INFO 10.506905s] Looking up 'ls'...
+[INFO 10.520768s] Found inode number: 7340034
+[INFO 10.535416s] '/bin/ls' resolved successfully.
+[INFO 10.539210s] ARG 0: ls
+[INFO 10.541744s] ARG 1: hello_world
+[INFO 10.556412s] ELF Header:
+[INFO 10.558348s]   Type: 2
+[INFO 10.560894s]   Machine: 183
+[INFO 10.563879s]   Version: 1
+[INFO 10.566689s]   Entry point: 0x4001E0
+[INFO 10.570465s]   Program header offset: 64
+[INFO 10.574592s]   Section header offset: 74080
+[INFO 10.578982s]   Flags: 0x0
+[INFO 10.581792s]   ELF header size: 64
+[INFO 10.585392s]   Program header entry size: 56
+[INFO 10.589870s]   Program header entry count: 5
+[INFO 10.594348s]   Section header entry size: 64
+[INFO 10.598825s]   Section header entry count: 24
+[INFO 10.603392s]   Section header string table index: 23
+[INFO 10.608681s] Program header 1:
+[INFO 10.611821s]   Type: 1
+[INFO 10.614367s]   Flags: 0x5
+[INFO 10.617177s]   Offset: 0
+[INFO 10.619899s]   Virtual address: 0x400000
+[INFO 10.647031s] Program header 2:
+[INFO 10.649494s]   Type: 1
+[INFO 10.652040s]   Flags: 0x6
+[INFO 10.654850s]   Offset: 65400
+[INFO 10.657923s]   Virtual address: 0x41FF78
+[DEBUG 10.662111s] Allocated buffer block at 0xFFFF800000950000
+[DEBUG 10.701667s] Trying to coalesce pfn 0x950 of order 0 with buddy_pfn 0x951
+[DEBUG 10.707995s] Coalescing pfn 0x950 with pfn 0x951
+[DEBUG 10.712913s] Trying to coalesce pfn 0x950 of order 1 with buddy_pfn 0x952
+[DEBUG 10.720024s] Coalescing pfn 0x950 with pfn 0x952
+[DEBUG 10.724943s] Trying to coalesce pfn 0x950 of order 2 with buddy_pfn 0x954
+[DEBUG 10.732053s] Coalescing pfn 0x950 with pfn 0x954
+[DEBUG 10.736972s] Trying to coalesce pfn 0x950 of order 3 with buddy_pfn 0x958
+[DEBUG 10.744082s] Coalescing pfn 0x950 with pfn 0x958
+[DEBUG 10.749002s] Trying to coalesce pfn 0x950 of order 4 with buddy_pfn 0x940
+[INFO 10.756131s] Program header 3:
+[INFO 10.759360s]   Type: 4
+[INFO 10.761906s]   Flags: 0x4
+[INFO 10.764716s]   Offset: 344
+[INFO 10.767613s]   Virtual address: 0x400158
+[INFO 10.771741s] Program header 4:
+[INFO 10.774989s]   Type: 1685382481
+[INFO 10.778326s]   Flags: 0x6
+[INFO 10.781135s]   Offset: 0
+[INFO 10.783857s]   Virtual address: 0x0
+[INFO 10.787545s] Program header 5:
+[INFO 10.790793s]   Type: 1685382482
+[INFO 10.794130s]   Flags: 0x4
+[INFO 10.796940s]   Offset: 65400
+[INFO 10.800013s]   Virtual address: 0x41FF78
+[DEBUG 10.804485s] Trying to coalesce pfn 0x93A of order 0 with buddy_pfn 0x93B
+[DEBUG 10.811451s] Trying to coalesce pfn 0x940 of order 0 with buddy_pfn 0x941
+[DEBUG 10.818573s] Trying to coalesce pfn 0x941 of order 0 with buddy_pfn 0x940
+[DEBUG 10.825477s] Coalescing pfn 0x941 with pfn 0x940
+[DEBUG 10.830395s] Trying to coalesce pfn 0x940 of order 1 with buddy_pfn 0x942
+[DEBUG 10.837936s] Trying to coalesce pfn 0x946 of order 0 with buddy_pfn 0x947
+[DEBUG 10.844621s] Trying to coalesce pfn 0x943 of order 0 with buddy_pfn 0x942
+[DEBUG 10.851734s] Trying to coalesce pfn 0x944 of order 0 with buddy_pfn 0x945
+[DEBUG 10.859039s] Trying to coalesce pfn 0x942 of order 0 with buddy_pfn 0x943
+[DEBUG 10.865954s] Coalescing pfn 0x942 with pfn 0x943
+[DEBUG 10.870873s] Trying to coalesce pfn 0x942 of order 1 with buddy_pfn 0x940
+[DEBUG 10.877984s] Coalescing pfn 0x942 with pfn 0x940
+[DEBUG 10.882902s] Trying to coalesce pfn 0x940 of order 2 with buddy_pfn 0x944
+[DEBUG 10.890222s] Trying to coalesce pfn 0x93D of order 0 with buddy_pfn 0x93C
+Profiling memory starting from L0 '0xFFFF800000948000'
+	lv 3: Leaf node address: 0x949000
+		Addr 0x949000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94D000
+		Addr 0x94D000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94E000
+		Addr 0x94E000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94F000
+		Addr 0x94F000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x950000
+		Addr 0x950000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+Pages free: [259765/262144] | 99.092483%
+[DEBUG 10.975314s] Syscall Number: 96
+[DEBUG 10.978738s] Syscall Number: 29
+[INFO 10.982149s] Handling IOCTL Request: fd=1, cmd=0x5413, arg=0x7FFFFFEA8
+[DEBUG 10.988910s] FD: 9564288, CMD: 0x5413, ARG: 0x7FFFFFEA8
+[DEBUG 10.994445s] Syscall Number: 66
+fakedir1
+fakedir2
+[DEBUG 10.999628s] Syscall Number: 66
+fakedir3
+[DEBUG 11.003933s] Syscall Number: 94
+[INFO 11.007349s] Current running process number: 3
+Profiling memory starting from L0 '0xFFFF800000948000'
+	lv 3: Leaf node address: 0x949000
+		Addr 0x949000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94D000
+		Addr 0x94D000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94E000
+		Addr 0x94E000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94F000
+		Addr 0x94F000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x950000
+		Addr 0x950000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+Pages free: [259765/262144] | 99.092483%
+[DEBUG 11.090185s] Trying to coalesce pfn 0x949 of order 0 with buddy_pfn 0x948
+[DEBUG 11.097292s] Trying to coalesce pfn 0x94D of order 0 with buddy_pfn 0x94C
+[DEBUG 11.104416s] Trying to coalesce pfn 0x94E of order 0 with buddy_pfn 0x94F
+[DEBUG 11.111516s] Trying to coalesce pfn 0x94F of order 0 with buddy_pfn 0x94E
+[DEBUG 11.118624s] Coalescing pfn 0x94F with pfn 0x94E
+[DEBUG 11.123542s] Trying to coalesce pfn 0x94E of order 1 with buddy_pfn 0x94C
+[DEBUG 11.130849s] Trying to coalesce pfn 0x94C of order 0 with buddy_pfn 0x94D
+[DEBUG 11.137765s] Coalescing pfn 0x94C with pfn 0x94D
+[DEBUG 11.142684s] Trying to coalesce pfn 0x94C of order 1 with buddy_pfn 0x94E
+[DEBUG 11.149794s] Coalescing pfn 0x94C with pfn 0x94E
+[DEBUG 11.154713s] Trying to coalesce pfn 0x94C of order 2 with buddy_pfn 0x948
+[DEBUG 11.162032s] Trying to coalesce pfn 0x94B of order 0 with buddy_pfn 0x94A
+[DEBUG 11.169365s] Trying to coalesce pfn 0x950 of order 0 with buddy_pfn 0x951
+[DEBUG 11.176051s] Trying to coalesce pfn 0x952 of order 0 with buddy_pfn 0x953
+[DEBUG 11.183160s] Coalescing pfn 0x952 with pfn 0x953
+[DEBUG 11.188078s] Trying to coalesce pfn 0x952 of order 1 with buddy_pfn 0x950
+[DEBUG 11.195193s] Trying to coalesce pfn 0x951 of order 0 with buddy_pfn 0x950
+[DEBUG 11.202301s] Coalescing pfn 0x951 with pfn 0x950
+[DEBUG 11.207219s] Trying to coalesce pfn 0x950 of order 1 with buddy_pfn 0x952
+[DEBUG 11.214330s] Coalescing pfn 0x950 with pfn 0x952
+[DEBUG 11.219249s] Trying to coalesce pfn 0x950 of order 2 with buddy_pfn 0x954
+[DEBUG 11.226359s] Coalescing pfn 0x950 with pfn 0x954
+[DEBUG 11.231278s] Trying to coalesce pfn 0x950 of order 3 with buddy_pfn 0x958
+[DEBUG 11.238388s] Coalescing pfn 0x950 with pfn 0x958
+[DEBUG 11.243308s] Trying to coalesce pfn 0x950 of order 4 with buddy_pfn 0x940
+[DEBUG 11.250615s] Trying to coalesce pfn 0x94A of order 0 with buddy_pfn 0x94B
+[DEBUG 11.257530s] Coalescing pfn 0x94A with pfn 0x94B
+[DEBUG 11.262449s] Trying to coalesce pfn 0x94A of order 1 with buddy_pfn 0x948
+[DEBUG 11.269768s] Trying to coalesce pfn 0x948 of order 0 with buddy_pfn 0x949
+[DEBUG 11.276671s] Coalescing pfn 0x948 with pfn 0x949
+[DEBUG 11.281590s] Trying to coalesce pfn 0x948 of order 1 with buddy_pfn 0x94A
+[DEBUG 11.288700s] Coalescing pfn 0x948 with pfn 0x94A
+[DEBUG 11.293619s] Trying to coalesce pfn 0x948 of order 2 with buddy_pfn 0x94C
+[DEBUG 11.300729s] Coalescing pfn 0x948 with pfn 0x94C
+[DEBUG 11.305649s] Trying to coalesce pfn 0x948 of order 3 with buddy_pfn 0x940
+Profiling memory starting from L0 '0xFFFF800000948000'
+	lv 3: Leaf node address: 0x949000
+		Addr 0x949000: [.ref = 0, .order = 0x948, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x94D000
+		Addr 0x94D000: [.ref = 0, .order = 0x948, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x94E000
+		Addr 0x94E000: [.ref = 0, .order = 0x948, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x94F000
+		Addr 0x94F000: [.ref = 0, .order = 0x948, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x950000
+		Addr 0x950000: [.ref = 0, .order = 0x4, .state = 0x0, .flags = 0x2, cow = 0]
+Pages free: [259776/262144] | 99.096679%
+[DEBUG 11.391633s] Trying to coalesce pfn 0x93E of order 1 with buddy_pfn 0x93C
+ls goodbye world[DEBUG 14.598742s] Syscall Number: 135
+[DEBUG 14.601540s] Syscall Number: 135
+[DEBUG 14.605054s] Syscall Number: 220
+[DEBUG 14.608743s] CLONE L3[0] marked COW, PTE=0xA000000092CFCB
+[DEBUG 14.614362s] CLONE L3[1] marked COW, PTE=0xA0000000930FCB
+[DEBUG 14.619978s] CLONE L3[2] marked COW, PTE=0xA0000000931FCB
+[DEBUG 14.625685s] CLONE L3[3] marked COW, PTE=0xA0000000932FCB
+[DEBUG 14.631392s] CLONE L3[4] marked COW, PTE=0xA0000000933FCB
+[DEBUG 14.637100s] CLONE L3[5] marked COW, PTE=0xA0000000934FCB
+[DEBUG 14.642807s] CLONE L3[6] marked COW, PTE=0xA0000000935FCB
+[DEBUG 14.648514s] CLONE L3[7] marked COW, PTE=0xA0000000936FCB
+[DEBUG 14.654221s] CLONE L3[8] marked COW, PTE=0xA0000000937FCB
+[DEBUG 14.659938s] CLONE L3[31] marked COW, PTE=0xE0000000938FCB
+[DEBUG 14.665724s] CLONE L3[32] marked COW, PTE=0xE0000000939FCB
+[DEBUG 14.671519s] CLONE L3[33] marked COW, PTE=0xE000000091EFCB
+[DEBUG 14.678321s] CLONE L3[511] marked COW, PTE=0xE0000000947FCB
+[DEBUG 14.684020s] Parent process memprofile: 
+Profiling memory starting from L0 '0xFFFF80000092B000'
+	lv 3: Leaf node address: 0x92C000
+		Addr 0x92C000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x930000
+		Addr 0x930000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x931000
+		Addr 0x931000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x932000
+		Addr 0x932000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x933000
+		Addr 0x933000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x934000
+		Addr 0x934000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x935000
+		Addr 0x935000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x936000
+		Addr 0x936000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x937000
+		Addr 0x937000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x938000
+		Addr 0x938000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x939000
+		Addr 0x939000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x91E000
+		Addr 0x91E000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x947000
+		Addr 0x947000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+Pages free: [259770/262144] | 99.094390%
+[DEBUG 14.847280s] New child process memprofile: 
+Profiling memory starting from L0 '0xFFFF80000093D000'
+	lv 3: Leaf node address: 0x92C000
+		Addr 0x92C000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x930000
+		Addr 0x930000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x931000
+		Addr 0x931000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x932000
+		Addr 0x932000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x933000
+		Addr 0x933000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x934000
+		Addr 0x934000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x935000
+		Addr 0x935000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x936000
+		Addr 0x936000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x937000
+		Addr 0x937000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x938000
+		Addr 0x938000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x939000
+		Addr 0x939000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x91E000
+		Addr 0x91E000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x947000
+		Addr 0x947000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+Pages free: [259770/262144] | 99.094390%
+[DEBUG 15.011419s] EL0 fault @ 0x7FFFFF9C0 (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 15.018344s] VMAs found for process: 
+[INFO 15.022296s] 	[0x7FFFFE000, 0x800000000] -> true
+[INFO 15.027125s] 	[0x421000, 0x422000] -> false
+[DEBUG 15.031516s] L2 entry: type=1 (1=table, 3=block) value=0x940003
+[DEBUG 15.037749s] COW recognized at L3[511], PTE=0xE0000000947FCB
+[DEBUG 15.043760s] EL0 fault @ 0x7FFFFF9C0 (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 15.050656s] VMAs found for process: 
+[INFO 15.054607s] 	[0x7FFFFE000, 0x800000000] -> true
+[INFO 15.059436s] 	[0x421000, 0x422000] -> false
+[DEBUG 15.063828s] L2 entry: type=1 (1=table, 3=block) value=0x940003
+[DEBUG 15.070060s] COW recognized at L3[511], PTE=0xE0000000942FCB
+[DEBUG 15.076065s] Trying to coalesce pfn 0x942 of order 0 with buddy_pfn 0x943
+[DEBUG 15.083147s] Syscall Number: 96
+[DEBUG 15.086569s] EL0 fault @ 0x420608 (idx0=0 idx1=0 idx2=2 idx3=32)
+[DEBUG 15.092889s] VMAs found for process: 
+[INFO 15.096841s] 	[0x7FFFFE000, 0x800000000] -> false
+[INFO 15.101758s] 	[0x421000, 0x422000] -> false
+[DEBUG 15.106150s] L2 entry: type=1 (1=table, 3=block) value=0x944003
+[DEBUG 15.112382s] COW recognized at L3[32], PTE=0xE0000000939FCB
+[DEBUG 15.118308s] Syscall Number: 135
+[DEBUG 15.121780s] Syscall Number: 135
+[DEBUG 15.125292s] EL0 fault @ 0x7FFFFFAF0 (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 15.132226s] VMAs found for process: 
+[INFO 15.136178s] 	[0x7FFFFE000, 0x800000000] -> true
+[INFO 15.141006s] 	[0x421000, 0x422000] -> false
+[DEBUG 15.145398s] L2 entry: type=1 (1=table, 3=block) value=0x93C003
+[DEBUG 15.151630s] COW recognized at L3[511], PTE=0xE0000000947FCB
+[DEBUG 15.157650s] Trying to coalesce pfn 0x947 of order 0 with buddy_pfn 0x946
+[DEBUG 15.164717s] Syscall Number: 95
+[INFO 15.168139s] Checking children for pid 4...
+[INFO 15.172528s] Child found: 4
+[DEBUG 15.175521s] EL0 fault @ 0x420608 (idx0=0 idx1=0 idx2=2 idx3=32)
+[DEBUG 15.181835s] VMAs found for process: 
+[INFO 15.185786s] 	[0x7FFFFE000, 0x800000000] -> false
+[INFO 15.190704s] 	[0x421000, 0x422000] -> false
+[DEBUG 15.195095s] L2 entry: type=1 (1=table, 3=block) value=0x944003
+[DEBUG 15.201328s] COW recognized at L3[32], PTE=0xE0000000942FCB
+[DEBUG 15.207244s] Trying to coalesce pfn 0x942 of order 0 with buddy_pfn 0x943
+[DEBUG 15.214327s] Syscall Number: 135
+[DEBUG 15.217837s] Syscall Number: 135
+[DEBUG 15.221404s] Syscall Number: 66
 Attempting to open binary '/bin/ls'
-[INFO 40.324808s] Opening path '/bin/ls'
-[DEBUG 40.328497s] Allocating 32 bytes...
-[INFO 40.332285s] Found free block at index 14
-[INFO 40.336481s] Allocated address 0xFFFF80003FFEF200
-[DEBUG 40.341415s] Allocating 128 bytes...
-[INFO 40.345268s] Found free block at index 1
-[INFO 40.349389s] Allocated address 0xFFFF80003FFEC100
-[INFO 40.354310s] Looking up 'bin'...
-[INFO 40.699010s] Found inode number: 7340033
-[INFO 41.043431s] Looking up 'ls'...
-[INFO 41.387249s] Found inode number: 7340034
-[DEBUG 41.731664s] kmalloc freeing slab allocation at address 0xFFFF80003FFEF000
-[INFO 41.738084s] '/bin/ls' resolved successfully.
-[DEBUG 41.742647s] Allocating 64 bytes...
-[INFO 41.746430s] Found free block at index 4
-[INFO 41.750548s] Allocated address 0xFFFF80003FFF2140
-[DEBUG 41.755467s] kmalloc freeing slab allocation at address 0xFFFF80003FFEC000
-[DEBUG 41.762674s] Allocating 4096 bytes...
-[INFO 42.108770s] ELF Header:
-[INFO 42.110708s]   Type: 2
-[INFO 42.113254s]   Machine: 183
-[INFO 42.116240s]   Version: 1
-[INFO 42.119049s]   Entry point: 0x400030
-[INFO 42.122825s]   Program header offset: 64
-[INFO 42.126952s]   Section header offset: 70072
-[INFO 42.131342s]   Flags: 0x0
-[INFO 42.134152s]   ELF header size: 64
-[INFO 42.137752s]   Program header entry size: 56
-[INFO 42.142230s]   Program header entry count: 3
-[INFO 42.146708s]   Section header entry size: 64
-[INFO 42.151186s]   Section header entry count: 6
-[INFO 42.155664s]   Section header string table index: 5
-[DEBUG 42.160763s] PFN: 262107
-[DEBUG 42.163566s] Buddy PFN: 262115
-[DEBUG 42.166908s] PFN: 262107
-[DEBUG 42.169712s] Buddy PFN: 262111
-[DEBUG 42.173054s] PFN: 262107
-[DEBUG 42.175858s] Buddy PFN: 262109
-[DEBUG 42.179200s] PFN: 262107
-[DEBUG 42.182005s] Buddy PFN: 262108
-[INFO 42.185395s] Program header 1:
-[INFO 42.188590s]   Type: 1
-[INFO 42.191136s]   Flags: 0x5
-[INFO 42.193946s]   Offset: 65536
-[INFO 42.197019s]   Virtual address: 0x400000
-[DEBUG 42.201170s] Allocating 4096 bytes...
-[DEBUG 42.205104s] PFN: 262109
-[DEBUG 42.207907s] Buddy PFN: 262110
-[DEBUG 42.894406s] kmalloc freeing buddy allocation at address 0xFFFF80003FFDD000
-[DEBUG 42.900912s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
-[INFO 42.907261s] Program header 2:
-[INFO 42.910304s]   Type: 1
-[INFO 42.912850s]   Flags: 0x4
-[INFO 42.915660s]   Offset: 69632
-[INFO 42.918733s]   Virtual address: 0x401000
-[DEBUG 42.922883s] Allocating 4096 bytes...
-[DEBUG 43.610056s] kmalloc freeing buddy allocation at address 0xFFFF80003FFDE000
-[DEBUG 43.616561s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
-[INFO 43.622723s] Program header 3:
-[INFO 43.625954s]   Type: 1
-[INFO 43.628501s]   Flags: 0x6
-[INFO 43.631311s]   Offset: 232
-[INFO 43.634208s]   Virtual address: 0x0
-[DEBUG 43.980066s] PFN: 262111
-[DEBUG 43.982091s] Buddy PFN: 262113
-Executing 'ls'...
-[INFO 43.987100s] Current running process number: 2
-owdpwd
-[DEBUG 163.419566s] Allocating 512 bytes...
-[INFO 163.422795s] Found free block at index 1
-[INFO 163.427000s] Allocated address 0xFFFF80003FFF1400
-[DEBUG 163.432071s] PFN: 262115
-[DEBUG 163.434901s] Buddy PFN: 262119
-[DEBUG 163.438334s] PFN: 262115
-[DEBUG 163.441223s] Buddy PFN: 262117
-[DEBUG 163.444654s] PFN: 262115
-[DEBUG 163.447545s] Buddy PFN: 262116
-[DEBUG 163.451097s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
-[DEBUG 163.456832s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
-[DEBUG 163.462935s] PFN: 262117
-[DEBUG 163.465457s] Buddy PFN: 262118
-[DEBUG 163.470127s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
-[DEBUG 163.475320s] PFN: 262119
-[DEBUG 163.478212s] Buddy PFN: 262121
-[DEBUG 163.481644s] PFN: 262119
-[DEBUG 163.484534s] Buddy PFN: 262120
-[DEBUG 163.488031s] CLONE L3[511] marked COW, PTE=0x8000003FFD7FC3
-[DEBUG 163.494675s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
-[DEBUG 163.501228s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 163.508244s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
-[DEBUG 163.514564s] COW recognized at L3[511], PTE=0x8000003FFD7FC3
-[DEBUG 163.520626s] PFN: 262121
-[DEBUG 163.523519s] Buddy PFN: 262122
-[DEBUG 163.527016s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 163.533971s] L2 entry: type=1 (1=table, 3=block) value=0x3FFE7003
-[DEBUG 163.540466s] COW recognized at L3[511], PTE=0x8000003FFD7FC3
-[DEBUG 163.546584s] Timer request value: 0x1B79EAA6
-[DEBUG 163.902139s] Handling interrupt 27...
-[DEBUG 163.905400s] Rescheduling 3
-[DEBUG 163.908557s] No more sleep requests, clearing virtual timer. 
-[DEBUG 163.914724s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
-[DEBUG 163.921202s] L2 entry: type=1 (1=table, 3=block) value=0x3FFE4003
-[DEBUG 163.927698s] COW recognized at L3[1], PTE=0x8000000090CFC3
-[DEBUG 163.933591s] PFN: 262027
-[DEBUG 163.936477s] Buddy PFN: 262059
-[DEBUG 163.939909s] PFN: 262027
-[DEBUG 163.942800s] Buddy PFN: 262043
-[DEBUG 163.946230s] PFN: 262027
-[DEBUG 163.949121s] Buddy PFN: 262035
-[DEBUG 163.952552s] PFN: 262027
-[DEBUG 163.955443s] Buddy PFN: 262031
-[DEBUG 163.958872s] PFN: 262027
-[DEBUG 163.961765s] Buddy PFN: 262029
-[DEBUG 163.965195s] PFN: 262027
-[DEBUG 163.968087s] Buddy PFN: 262028
-Attempting to open binary '/bin/pwd'
-[INFO 163.974854s] Opening path '/bin/pwd'
-[DEBUG 163.978721s] Allocating 32 bytes...
-[INFO 163.982600s] Found free block at index 14
-[INFO 163.986879s] Allocated address 0xFFFF80003FFEF200
-[DEBUG 163.991903s] Allocating 128 bytes...
-[INFO 163.995842s] Found free block at index 1
-[INFO 164.000049s] Allocated address 0xFFFF80003FFEC100
-[INFO 164.005056s] Looking up 'bin'...
-[INFO 164.350250s] Found inode number: 7340033
-[INFO 164.695197s] Looking up 'pwd'...
-[INFO 165.039591s] Found inode number: 7340035
-[DEBUG 165.384542s] kmalloc freeing slab allocation at address 0xFFFF80003FFEF000
-[INFO 165.391053s] '/bin/pwd' resolved successfully.
-[DEBUG 165.395790s] Allocating 64 bytes...
-[INFO 165.399667s] Found free block at index 5
-[INFO 165.403868s] Allocated address 0xFFFF80003FFF2180
-[DEBUG 165.408874s] kmalloc freeing slab allocation at address 0xFFFF80003FFEC000
-[DEBUG 165.416172s] Allocating 4096 bytes...
-[INFO 165.761830s] ELF Header:
-[INFO 165.763857s]   Type: 2
-[INFO 165.766490s]   Machine: 183
-[INFO 165.769564s]   Version: 1
-[INFO 165.772461s]   Entry point: 0x400030
-[INFO 165.776325s]   Program header offset: 64
-[INFO 165.780539s]   Section header offset: 70072
-[INFO 165.785017s]   Flags: 0x0
-[INFO 165.787915s]   ELF header size: 64
-[INFO 165.791603s]   Program header entry size: 56
-[INFO 165.796168s]   Program header entry count: 3
-[INFO 165.800734s]   Section header entry size: 64
-[INFO 165.805300s]   Section header entry count: 6
-[INFO 165.809866s]   Section header string table index: 5
-[DEBUG 165.815050s] PFN: 262029
-[DEBUG 165.817944s] Buddy PFN: 262030
-[INFO 165.821440s] Program header 1:
-[INFO 165.824705s]   Type: 1
-[INFO 165.827339s]   Flags: 0x5
-[INFO 165.830237s]   Offset: 65536
-[INFO 165.833397s]   Virtual address: 0x400000
-[DEBUG 165.837644s] Allocating 4096 bytes...
-[DEBUG 165.841661s] PFN: 262031
-[DEBUG 165.844548s] Buddy PFN: 262033
-[DEBUG 165.847979s] PFN: 262031
-[DEBUG 165.850871s] Buddy PFN: 262032
-[DEBUG 166.537332s] kmalloc freeing buddy allocation at address 0xFFFF80003FF8F000
-[DEBUG 166.543927s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
-[INFO 166.550447s] Program header 2:
-[INFO 166.553495s]   Type: 1
-[INFO 166.556129s]   Flags: 0x4
-[INFO 166.559027s]   Offset: 69632
-[INFO 166.562188s]   Virtual address: 0x401000
-[DEBUG 166.566432s] Allocating 4096 bytes...
-[DEBUG 167.253668s] kmalloc freeing buddy allocation at address 0xFFFF80003FF90000
-[DEBUG 167.260264s] Trying to coalesce pfn 0xFFFF8000008A6 of order 0
-[INFO 167.266519s] Program header 3:
-[INFO 167.269832s]   Type: 1
-[INFO 167.272466s]   Flags: 0x6
-[INFO 167.275363s]   Offset: 232
-[INFO 167.278349s]   Virtual address: 0x0
-Executing 'pwd'...
-[INFO 167.624967s] Current running process number: 3
-jshexit
-[DEBUG 172.710967s] Allocating 512 bytes...
-[INFO 172.714195s] Found free block at index 1
-[INFO 172.718402s] Allocated address 0xFFFF80003FFF1400
-[DEBUG 172.723419s] PFN: 262035
-[DEBUG 172.726305s] Buddy PFN: 262039
-[DEBUG 172.729735s] PFN: 262035
-[DEBUG 172.732625s] Buddy PFN: 262037
-[DEBUG 172.736111s] PFN: 262037
-[DEBUG 172.738947s] Buddy PFN: 262038
-[DEBUG 172.742498s] CLONE L3[0] marked COW, PTE=0x8000000090BFC3
-[DEBUG 172.748232s] CLONE L3[1] marked COW, PTE=0x8000000090CFC3
-[DEBUG 172.754338s] PFN: 262039
-[DEBUG 172.756860s] Buddy PFN: 262041
-[DEBUG 172.760290s] PFN: 262039
-[DEBUG 172.763181s] Buddy PFN: 262040
-[DEBUG 172.767858s] CLONE L3[510] marked COW, PTE=0x8000003FFCBFC3
-[DEBUG 172.773049s] PFN: 262041
-[DEBUG 172.775943s] Buddy PFN: 262042
-[DEBUG 172.779440s] CLONE L3[511] marked COW, PTE=0x8000003FFE9FC3
-[DEBUG 172.786082s] kmalloc freeing slab allocation at address 0xFFFF80003FFF1000
-[DEBUG 172.792636s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 172.799653s] L2 entry: type=1 (1=table, 3=block) value=0x8BB003
-[DEBUG 172.805972s] COW recognized at L3[511], PTE=0x8000003FFE9FC3
-[DEBUG 172.812038s] PFN: 262043
-[DEBUG 172.814928s] Buddy PFN: 262051
-[DEBUG 172.818357s] PFN: 262043
-[DEBUG 172.821250s] Buddy PFN: 262047
-[DEBUG 172.824679s] PFN: 262043
-[DEBUG 172.827571s] Buddy PFN: 262045
-[DEBUG 172.831001s] PFN: 262043
-[DEBUG 172.833893s] Buddy PFN: 262044
-[DEBUG 172.837393s] EL0 fault @ 0x7FFFFFBBC (idx0=0 idx1=31 idx2=511 idx3=511)
-[DEBUG 172.844345s] L2 entry: type=1 (1=table, 3=block) value=0x3FF99003
-[DEBUG 172.850840s] COW recognized at L3[511], PTE=0x8000003FFE9FC3
-[DEBUG 172.856960s] Timer request value: 0x1D097980
-[DEBUG 173.212515s] Handling interrupt 27...
-[DEBUG 173.215777s] Rescheduling 4
-[DEBUG 173.218933s] No more sleep requests, clearing virtual timer. 
-[DEBUG 173.225100s] EL0 fault @ 0x8001865 (idx0=0 idx1=0 idx2=64 idx3=1)
-[DEBUG 173.231579s] L2 entry: type=1 (1=table, 3=block) value=0x3FF96003
-[DEBUG 173.238074s] COW recognized at L3[1], PTE=0x8000000090CFC3
-[DEBUG 173.243961s] PFN: 262045
-[DEBUG 173.246854s] Buddy PFN: 262046
-Attempting to open binary '/bin/exit'
-[INFO 173.253708s] Opening path '/bin/exit'
-[DEBUG 173.257663s] Allocating 32 bytes...
-[INFO 173.261542s] Found free block at index 14
-[INFO 173.265821s] Allocated address 0xFFFF80003FFEF200
-[DEBUG 173.270844s] Allocating 128 bytes...
-[INFO 173.274784s] Found free block at index 1
-[INFO 173.278991s] Allocated address 0xFFFF80003FFEC100
-[INFO 173.283999s] Looking up 'bin'...
-[INFO 173.629156s] Found inode number: 7340033
-[INFO 173.974067s] Looking up 'exit'...
-[WARNING 174.318548s] FILE NOT FOUND. Could not resolve 'exit' in '/bin/exit'.
-Opened file at -8
-[INFO 174.326463s] Current running process number: 4
+[DEBUG 15.228029s] Syscall Number: 221
+[INFO 15.231532s] Opening path '/bin/ls'
+[INFO 15.235272s] Looking up 'bin'...
+[INFO 15.249961s] Found inode number: 7340033
+[INFO 15.264606s] Looking up 'ls'...
+[INFO 15.278467s] Found inode number: 7340034
+[INFO 15.293115s] '/bin/ls' resolved successfully.
+[INFO 15.296913s] ARG 0: ls
+[INFO 15.299444s] ARG 1: goodbye
+[INFO 15.302430s] ARG 2: world
+[INFO 15.316567s] ELF Header:
+[INFO 15.318504s]   Type: 2
+[INFO 15.321051s]   Machine: 183
+[INFO 15.324036s]   Version: 1
+[INFO 15.326845s]   Entry point: 0x4001E0
+[INFO 15.330621s]   Program header offset: 64
+[INFO 15.334748s]   Section header offset: 74080
+[INFO 15.339138s]   Flags: 0x0
+[INFO 15.341948s]   ELF header size: 64
+[INFO 15.345548s]   Program header entry size: 56
+[INFO 15.350026s]   Program header entry count: 5
+[INFO 15.354504s]   Section header entry size: 64
+[INFO 15.358982s]   Section header entry count: 24
+[INFO 15.363548s]   Section header string table index: 23
+[INFO 15.368821s] Program header 1:
+[INFO 15.371977s]   Type: 1
+[INFO 15.374523s]   Flags: 0x5
+[INFO 15.377333s]   Offset: 0
+[INFO 15.380055s]   Virtual address: 0x400000
+[INFO 15.407191s] Program header 2:
+[INFO 15.409655s]   Type: 1
+[INFO 15.412201s]   Flags: 0x6
+[INFO 15.415011s]   Offset: 65400
+[INFO 15.418083s]   Virtual address: 0x41FF78
+[DEBUG 15.422267s] Allocated buffer block at 0xFFFF800000951000
+[DEBUG 15.461825s] Trying to coalesce pfn 0x951 of order 0 with buddy_pfn 0x950
+[INFO 15.468171s] Program header 3:
+[INFO 15.471400s]   Type: 4
+[INFO 15.473947s]   Flags: 0x4
+[INFO 15.476756s]   Offset: 344
+[INFO 15.479654s]   Virtual address: 0x400158
+[INFO 15.483781s] Program header 4:
+[INFO 15.487029s]   Type: 1685382481
+[INFO 15.490366s]   Flags: 0x6
+[INFO 15.493176s]   Offset: 0
+[INFO 15.495897s]   Virtual address: 0x0
+[INFO 15.499586s] Program header 5:
+[INFO 15.502834s]   Type: 1685382482
+[INFO 15.506172s]   Flags: 0x4
+[INFO 15.508980s]   Offset: 65400
+[INFO 15.512053s]   Virtual address: 0x41FF78
+[DEBUG 15.516507s] Trying to coalesce pfn 0x947 of order 0 with buddy_pfn 0x946
+[DEBUG 15.523491s] Trying to coalesce pfn 0x944 of order 0 with buddy_pfn 0x945
+[DEBUG 15.530613s] Trying to coalesce pfn 0x946 of order 0 with buddy_pfn 0x947
+[DEBUG 15.537518s] Coalescing pfn 0x946 with pfn 0x947
+[DEBUG 15.542436s] Trying to coalesce pfn 0x946 of order 1 with buddy_pfn 0x944
+[DEBUG 15.549977s] Trying to coalesce pfn 0x943 of order 0 with buddy_pfn 0x942
+[DEBUG 15.556662s] Trying to coalesce pfn 0x940 of order 0 with buddy_pfn 0x941
+[DEBUG 15.563775s] Trying to coalesce pfn 0x941 of order 0 with buddy_pfn 0x940
+[DEBUG 15.570883s] Coalescing pfn 0x941 with pfn 0x940
+[DEBUG 15.575801s] Trying to coalesce pfn 0x940 of order 1 with buddy_pfn 0x942
+[DEBUG 15.583109s] Trying to coalesce pfn 0x93A of order 0 with buddy_pfn 0x93B
+[DEBUG 15.590233s] Trying to coalesce pfn 0x93D of order 0 with buddy_pfn 0x93C
+Profiling memory starting from L0 '0xFFFF800000949000'
+	lv 3: Leaf node address: 0x94A000
+		Addr 0x94A000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94E000
+		Addr 0x94E000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94F000
+		Addr 0x94F000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x950000
+		Addr 0x950000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x951000
+		Addr 0x951000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+Pages free: [259764/262144] | 99.092102%
+[DEBUG 15.675323s] Syscall Number: 96
+[DEBUG 15.678747s] Syscall Number: 29
+[INFO 15.682160s] Handling IOCTL Request: fd=1, cmd=0x5413, arg=0x7FFFFFEA8
+[DEBUG 15.688921s] FD: 9564288, CMD: 0x5413, ARG: 0x7FFFFFEA8
+[DEBUG 15.694455s] Syscall Number: 66
+fakedir1
+fakedir2
+[DEBUG 15.699637s] Syscall Number: 66
+fakedir3
+[DEBUG 15.703942s] Syscall Number: 94
+[INFO 15.707360s] Current running process number: 4
+Profiling memory starting from L0 '0xFFFF800000949000'
+	lv 3: Leaf node address: 0x94A000
+		Addr 0x94A000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94E000
+		Addr 0x94E000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94F000
+		Addr 0x94F000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x950000
+		Addr 0x950000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x951000
+		Addr 0x951000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+Pages free: [259764/262144] | 99.092102%
+[DEBUG 15.790193s] Trying to coalesce pfn 0x94A of order 0 with buddy_pfn 0x94B
+[DEBUG 15.797300s] Trying to coalesce pfn 0x94E of order 0 with buddy_pfn 0x94F
+[DEBUG 15.804424s] Trying to coalesce pfn 0x94F of order 0 with buddy_pfn 0x94E
+[DEBUG 15.811520s] Coalescing pfn 0x94F with pfn 0x94E
+[DEBUG 15.816439s] Trying to coalesce pfn 0x94E of order 1 with buddy_pfn 0x94C
+[DEBUG 15.823553s] Trying to coalesce pfn 0x950 of order 0 with buddy_pfn 0x951
+[DEBUG 15.830857s] Trying to coalesce pfn 0x94D of order 0 with buddy_pfn 0x94C
+[DEBUG 15.837982s] Trying to coalesce pfn 0x94C of order 0 with buddy_pfn 0x94D
+[DEBUG 15.844886s] Coalescing pfn 0x94C with pfn 0x94D
+[DEBUG 15.849804s] Trying to coalesce pfn 0x94C of order 1 with buddy_pfn 0x94E
+[DEBUG 15.856915s] Coalescing pfn 0x94C with pfn 0x94E
+[DEBUG 15.861833s] Trying to coalesce pfn 0x94C of order 2 with buddy_pfn 0x948
+[DEBUG 15.869374s] Trying to coalesce pfn 0x951 of order 0 with buddy_pfn 0x950
+[DEBUG 15.876056s] Coalescing pfn 0x951 with pfn 0x950
+[DEBUG 15.880974s] Trying to coalesce pfn 0x950 of order 1 with buddy_pfn 0x952
+[DEBUG 15.888089s] Trying to coalesce pfn 0x953 of order 0 with buddy_pfn 0x952
+[DEBUG 15.895201s] Trying to coalesce pfn 0x952 of order 0 with buddy_pfn 0x953
+[DEBUG 15.902310s] Coalescing pfn 0x952 with pfn 0x953
+[DEBUG 15.907228s] Trying to coalesce pfn 0x952 of order 1 with buddy_pfn 0x950
+[DEBUG 15.914339s] Coalescing pfn 0x952 with pfn 0x950
+[DEBUG 15.919257s] Trying to coalesce pfn 0x950 of order 2 with buddy_pfn 0x954
+[DEBUG 15.926368s] Coalescing pfn 0x950 with pfn 0x954
+[DEBUG 15.931287s] Trying to coalesce pfn 0x950 of order 3 with buddy_pfn 0x958
+[DEBUG 15.938397s] Coalescing pfn 0x950 with pfn 0x958
+[DEBUG 15.943316s] Trying to coalesce pfn 0x950 of order 4 with buddy_pfn 0x940
+[DEBUG 15.950623s] Trying to coalesce pfn 0x94B of order 0 with buddy_pfn 0x94A
+[DEBUG 15.957538s] Coalescing pfn 0x94B with pfn 0x94A
+[DEBUG 15.962456s] Trying to coalesce pfn 0x94A of order 1 with buddy_pfn 0x948
+[DEBUG 15.969776s] Trying to coalesce pfn 0x949 of order 0 with buddy_pfn 0x948
+Profiling memory starting from L0 '0xFFFF800000949000'
+	lv 3: Leaf node address: 0x94A000
+		Addr 0x94A000: [.ref = 0, .order = 0x1, .state = 0x0, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94E000
+		Addr 0x94E000: [.ref = 0, .order = 0x94C, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x94F000
+		Addr 0x94F000: [.ref = 0, .order = 0x94C, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x950000
+		Addr 0x950000: [.ref = 0, .order = 0x4, .state = 0x0, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x951000
+		Addr 0x951000: [.ref = 0, .order = 0x950, .state = 0x0, .flags = 0x1, cow = 0]
+Pages free: [259775/262144] | 99.096298%
+[DEBUG 16.055380s] Trying to coalesce pfn 0x93E of order 1 with buddy_pfn 0x93C
+cd .[DEBUG 20.206635s] Syscall Number: 135
+[DEBUG 20.209434s] Syscall Number: 135
+[DEBUG 20.212945s] Syscall Number: 220
+[DEBUG 20.216643s] CLONE L3[0] marked COW, PTE=0xA000000092CFCB
+[DEBUG 20.222256s] CLONE L3[1] marked COW, PTE=0xA0000000930FCB
+[DEBUG 20.227871s] CLONE L3[2] marked COW, PTE=0xA0000000931FCB
+[DEBUG 20.233578s] CLONE L3[3] marked COW, PTE=0xA0000000932FCB
+[DEBUG 20.239286s] CLONE L3[4] marked COW, PTE=0xA0000000933FCB
+[DEBUG 20.244993s] CLONE L3[5] marked COW, PTE=0xA0000000934FCB
+[DEBUG 20.250700s] CLONE L3[6] marked COW, PTE=0xA0000000935FCB
+[DEBUG 20.256407s] CLONE L3[7] marked COW, PTE=0xA0000000936FCB
+[DEBUG 20.262114s] CLONE L3[8] marked COW, PTE=0xA0000000937FCB
+[DEBUG 20.267831s] CLONE L3[31] marked COW, PTE=0xE0000000938FCB
+[DEBUG 20.273617s] CLONE L3[32] marked COW, PTE=0xE0000000939FCB
+[DEBUG 20.279412s] CLONE L3[33] marked COW, PTE=0xE000000091EFCB
+[DEBUG 20.286213s] CLONE L3[511] marked COW, PTE=0xE0000000948FCB
+[DEBUG 20.291905s] Parent process memprofile: 
+Profiling memory starting from L0 '0xFFFF80000092B000'
+	lv 3: Leaf node address: 0x92C000
+		Addr 0x92C000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x930000
+		Addr 0x930000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x931000
+		Addr 0x931000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x932000
+		Addr 0x932000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x933000
+		Addr 0x933000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x934000
+		Addr 0x934000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x935000
+		Addr 0x935000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x936000
+		Addr 0x936000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x937000
+		Addr 0x937000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x938000
+		Addr 0x938000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x939000
+		Addr 0x939000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x91E000
+		Addr 0x91E000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x948000
+		Addr 0x948000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+Pages free: [259769/262144] | 99.094009%
+[DEBUG 20.455173s] New child process memprofile: 
+Profiling memory starting from L0 '0xFFFF800000949000'
+	lv 3: Leaf node address: 0x92C000
+		Addr 0x92C000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x930000
+		Addr 0x930000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x931000
+		Addr 0x931000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x932000
+		Addr 0x932000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x933000
+		Addr 0x933000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x934000
+		Addr 0x934000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x935000
+		Addr 0x935000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x936000
+		Addr 0x936000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x937000
+		Addr 0x937000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x938000
+		Addr 0x938000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x939000
+		Addr 0x939000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x91E000
+		Addr 0x91E000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+	lv 3: Leaf node address: 0x948000
+		Addr 0x948000: [.ref = 2, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 1]
+Pages free: [259769/262144] | 99.094009%
+[DEBUG 20.619311s] EL0 fault @ 0x7FFFFF9C0 (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 20.626236s] VMAs found for process: 
+[INFO 20.630188s] 	[0x7FFFFE000, 0x800000000] -> true
+[INFO 20.635017s] 	[0x421000, 0x422000] -> false
+[DEBUG 20.639408s] L2 entry: type=1 (1=table, 3=block) value=0x944003
+[DEBUG 20.645641s] COW recognized at L3[511], PTE=0xE0000000948FCB
+[DEBUG 20.651648s] EL0 fault @ 0x7FFFFF9C0 (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 20.658547s] VMAs found for process: 
+[INFO 20.662499s] 	[0x7FFFFE000, 0x800000000] -> true
+[INFO 20.667328s] 	[0x421000, 0x422000] -> false
+[DEBUG 20.671720s] L2 entry: type=1 (1=table, 3=block) value=0x944003
+[DEBUG 20.677953s] COW recognized at L3[511], PTE=0xE000000094BFCB
+[DEBUG 20.683963s] Trying to coalesce pfn 0x94B of order 0 with buddy_pfn 0x94A
+[DEBUG 20.691039s] Syscall Number: 96
+[DEBUG 20.694461s] EL0 fault @ 0x420608 (idx0=0 idx1=0 idx2=2 idx3=32)
+[DEBUG 20.700781s] VMAs found for process: 
+[INFO 20.704733s] 	[0x7FFFFE000, 0x800000000] -> false
+[INFO 20.709650s] 	[0x421000, 0x422000] -> false
+[DEBUG 20.714041s] L2 entry: type=1 (1=table, 3=block) value=0x93D003
+[DEBUG 20.720274s] COW recognized at L3[32], PTE=0xE0000000939FCB
+[DEBUG 20.726200s] Syscall Number: 135
+[DEBUG 20.729672s] Syscall Number: 135
+[DEBUG 20.733184s] EL0 fault @ 0x7FFFFFAF0 (idx0=0 idx1=31 idx2=511 idx3=511)
+[DEBUG 20.740118s] VMAs found for process: 
+[INFO 20.744070s] 	[0x7FFFFE000, 0x800000000] -> true
+[INFO 20.748898s] 	[0x421000, 0x422000] -> false
+[DEBUG 20.753290s] L2 entry: type=1 (1=table, 3=block) value=0x93C003
+[DEBUG 20.759522s] COW recognized at L3[511], PTE=0xE0000000948FCB
+[DEBUG 20.765527s] Trying to coalesce pfn 0x948 of order 0 with buddy_pfn 0x949
+[DEBUG 20.772609s] Syscall Number: 95
+[INFO 20.776030s] Checking children for pid 5...
+[INFO 20.780420s] Child found: 5
+[DEBUG 20.783412s] EL0 fault @ 0x420608 (idx0=0 idx1=0 idx2=2 idx3=32)
+[DEBUG 20.789727s] VMAs found for process: 
+[INFO 20.793678s] 	[0x7FFFFE000, 0x800000000] -> false
+[INFO 20.798595s] 	[0x421000, 0x422000] -> false
+[DEBUG 20.802987s] L2 entry: type=1 (1=table, 3=block) value=0x93D003
+[DEBUG 20.809219s] COW recognized at L3[32], PTE=0xE000000094BFCB
+[DEBUG 20.815136s] Trying to coalesce pfn 0x94B of order 0 with buddy_pfn 0x94A
+[DEBUG 20.822219s] Syscall Number: 135
+[DEBUG 20.825729s] Syscall Number: 135
+[DEBUG 20.829291s] Syscall Number: 66
+Attempting to open binary '/bin/cd'
+[DEBUG 20.835921s] Syscall Number: 221
+[INFO 20.839425s] Opening path '/bin/cd'
+[INFO 20.843165s] Looking up 'bin'...
+[INFO 20.857852s] Found inode number: 7340033
+[INFO 20.872497s] Looking up 'cd'...
+[INFO 20.886369s] Found inode number: 7340037
+[INFO 20.901019s] '/bin/cd' resolved successfully.
+[INFO 20.904819s] ARG 0: cd
+[INFO 20.907347s] ARG 1: .
+[INFO 20.921134s] ELF Header:
+[INFO 20.923070s]   Type: 2
+[INFO 20.925617s]   Machine: 183
+[INFO 20.928602s]   Version: 1
+[INFO 20.931412s]   Entry point: 0x400240
+[INFO 20.935187s]   Program header offset: 64
+[INFO 20.939314s]   Section header offset: 123880
+[INFO 20.943792s]   Flags: 0x0
+[INFO 20.946602s]   ELF header size: 64
+[INFO 20.950202s]   Program header entry size: 56
+[INFO 20.954680s]   Program header entry count: 5
+[INFO 20.959158s]   Section header entry size: 64
+[INFO 20.963636s]   Section header entry count: 25
+[INFO 20.968201s]   Section header string table index: 24
+[INFO 20.973480s] Program header 1:
+[INFO 20.976631s]   Type: 1
+[INFO 20.979177s]   Flags: 0x5
+[INFO 20.981987s]   Offset: 0
+[INFO 20.984709s]   Virtual address: 0x400000
+[INFO 21.068734s] Program header 2:
+[INFO 21.071198s]   Type: 1
+[INFO 21.073744s]   Flags: 0x6
+[INFO 21.076554s]   Offset: 65400
+[INFO 21.079627s]   Virtual address: 0x41FF78
+[DEBUG 21.083794s] Allocated buffer block at 0xFFFF800000957000
+[DEBUG 21.123369s] Trying to coalesce pfn 0x957 of order 0 with buddy_pfn 0x956
+[INFO 21.129715s] Program header 3:
+[INFO 21.132945s]   Type: 4
+[INFO 21.135491s]   Flags: 0x4
+[INFO 21.138301s]   Offset: 344
+[INFO 21.141198s]   Virtual address: 0x400158
+[INFO 21.145326s] Program header 4:
+[INFO 21.148574s]   Type: 1685382481
+[INFO 21.151910s]   Flags: 0x6
+[INFO 21.154720s]   Offset: 0
+[INFO 21.157442s]   Virtual address: 0x0
+[INFO 21.161131s] Program header 5:
+[INFO 21.164379s]   Type: 1685382482
+[INFO 21.167715s]   Flags: 0x4
+[INFO 21.170525s]   Offset: 65400
+[INFO 21.173598s]   Virtual address: 0x41FF78
+[DEBUG 21.178066s] Trying to coalesce pfn 0x948 of order 0 with buddy_pfn 0x949
+[DEBUG 21.185036s] Trying to coalesce pfn 0x93D of order 0 with buddy_pfn 0x93C
+[DEBUG 21.192158s] Trying to coalesce pfn 0x93A of order 0 with buddy_pfn 0x93B
+[DEBUG 21.199492s] Trying to coalesce pfn 0x940 of order 0 with buddy_pfn 0x941
+[DEBUG 21.206178s] Trying to coalesce pfn 0x944 of order 0 with buddy_pfn 0x945
+[DEBUG 21.213290s] Trying to coalesce pfn 0x94A of order 0 with buddy_pfn 0x94B
+[DEBUG 21.220595s] Trying to coalesce pfn 0x943 of order 0 with buddy_pfn 0x942
+[DEBUG 21.227720s] Trying to coalesce pfn 0x949 of order 0 with buddy_pfn 0x948
+[DEBUG 21.234623s] Coalescing pfn 0x949 with pfn 0x948
+[DEBUG 21.239541s] Trying to coalesce pfn 0x948 of order 1 with buddy_pfn 0x94A
+Profiling memory starting from L0 '0xFFFF800000946000'
+	lv 3: Leaf node address: 0x947000
+		Addr 0x947000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94F000
+		Addr 0x94F000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x950000
+		Addr 0x950000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x951000
+		Addr 0x951000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x952000
+		Addr 0x952000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x953000
+		Addr 0x953000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x954000
+		Addr 0x954000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x955000
+		Addr 0x955000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x956000
+		Addr 0x956000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x957000
+		Addr 0x957000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+Pages free: [259758/262144] | 99.089813%
+[DEBUG 21.375775s] Syscall Number: 96
+[DEBUG 21.379191s] Syscall Number: 49
+[INFO 21.393910s] Opening path '/'
+[INFO 21.396343s] '/' resolved successfully.
+[DEBUG 21.400354s] Syscall Number: 94
+[INFO 21.403749s] Current running process number: 5
+Profiling memory starting from L0 '0xFFFF800000946000'
+	lv 3: Leaf node address: 0x947000
+		Addr 0x947000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x94F000
+		Addr 0x94F000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x950000
+		Addr 0x950000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x951000
+		Addr 0x951000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x952000
+		Addr 0x952000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x953000
+		Addr 0x953000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x954000
+		Addr 0x954000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x955000
+		Addr 0x955000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x956000
+		Addr 0x956000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x957000
+		Addr 0x957000: [.ref = 1, .order = 0x0, .state = 0x1, .flags = 0x2, cow = 0]
+Pages free: [259758/262144] | 99.089813%
+[DEBUG 21.537513s] Trying to coalesce pfn 0x947 of order 0 with buddy_pfn 0x946
+[DEBUG 21.544622s] Trying to coalesce pfn 0x94F of order 0 with buddy_pfn 0x94E
+[DEBUG 21.551734s] Trying to coalesce pfn 0x950 of order 0 with buddy_pfn 0x951
+[DEBUG 21.558846s] Trying to coalesce pfn 0x951 of order 0 with buddy_pfn 0x950
+[DEBUG 21.565954s] Coalescing pfn 0x951 with pfn 0x950
+[DEBUG 21.570872s] Trying to coalesce pfn 0x950 of order 1 with buddy_pfn 0x952
+[DEBUG 21.577987s] Trying to coalesce pfn 0x952 of order 0 with buddy_pfn 0x953
+[DEBUG 21.585099s] Trying to coalesce pfn 0x953 of order 0 with buddy_pfn 0x952
+[DEBUG 21.592207s] Coalescing pfn 0x953 with pfn 0x952
+[DEBUG 21.597125s] Trying to coalesce pfn 0x952 of order 1 with buddy_pfn 0x950
+[DEBUG 21.604236s] Coalescing pfn 0x952 with pfn 0x950
+[DEBUG 21.609155s] Trying to coalesce pfn 0x950 of order 2 with buddy_pfn 0x954
+[DEBUG 21.616270s] Trying to coalesce pfn 0x954 of order 0 with buddy_pfn 0x955
+[DEBUG 21.623392s] Trying to coalesce pfn 0x955 of order 0 with buddy_pfn 0x954
+[DEBUG 21.630489s] Coalescing pfn 0x955 with pfn 0x954
+[DEBUG 21.635408s] Trying to coalesce pfn 0x954 of order 1 with buddy_pfn 0x956
+[DEBUG 21.642523s] Trying to coalesce pfn 0x956 of order 0 with buddy_pfn 0x957
+[DEBUG 21.649827s] Trying to coalesce pfn 0x94E of order 0 with buddy_pfn 0x94F
+[DEBUG 21.656743s] Coalescing pfn 0x94E with pfn 0x94F
+[DEBUG 21.661661s] Trying to coalesce pfn 0x94E of order 1 with buddy_pfn 0x94C
+[DEBUG 21.668981s] Trying to coalesce pfn 0x94D of order 0 with buddy_pfn 0x94C
+[DEBUG 21.676314s] Trying to coalesce pfn 0x957 of order 0 with buddy_pfn 0x956
+[DEBUG 21.682996s] Coalescing pfn 0x957 with pfn 0x956
+[DEBUG 21.687915s] Trying to coalesce pfn 0x956 of order 1 with buddy_pfn 0x954
+[DEBUG 21.695025s] Coalescing pfn 0x956 with pfn 0x954
+[DEBUG 21.699944s] Trying to coalesce pfn 0x954 of order 2 with buddy_pfn 0x950
+[DEBUG 21.707055s] Coalescing pfn 0x954 with pfn 0x950
+[DEBUG 21.711974s] Trying to coalesce pfn 0x950 of order 3 with buddy_pfn 0x958
+[DEBUG 21.719088s] Trying to coalesce pfn 0x959 of order 0 with buddy_pfn 0x958
+[DEBUG 21.726200s] Trying to coalesce pfn 0x958 of order 0 with buddy_pfn 0x959
+[DEBUG 21.733308s] Coalescing pfn 0x958 with pfn 0x959
+[DEBUG 21.738226s] Trying to coalesce pfn 0x958 of order 1 with buddy_pfn 0x95A
+[DEBUG 21.745337s] Coalescing pfn 0x958 with pfn 0x95A
+[DEBUG 21.750256s] Trying to coalesce pfn 0x958 of order 2 with buddy_pfn 0x95C
+[DEBUG 21.757366s] Coalescing pfn 0x958 with pfn 0x95C
+[DEBUG 21.762285s] Trying to coalesce pfn 0x958 of order 3 with buddy_pfn 0x950
+[DEBUG 21.769396s] Coalescing pfn 0x958 with pfn 0x950
+[DEBUG 21.774315s] Trying to coalesce pfn 0x950 of order 4 with buddy_pfn 0x940
+[DEBUG 21.781622s] Trying to coalesce pfn 0x94C of order 0 with buddy_pfn 0x94D
+[DEBUG 21.788537s] Coalescing pfn 0x94C with pfn 0x94D
+[DEBUG 21.793455s] Trying to coalesce pfn 0x94C of order 1 with buddy_pfn 0x94E
+[DEBUG 21.800566s] Coalescing pfn 0x94C with pfn 0x94E
+[DEBUG 21.805484s] Trying to coalesce pfn 0x94C of order 2 with buddy_pfn 0x948
+[DEBUG 21.812805s] Trying to coalesce pfn 0x946 of order 0 with buddy_pfn 0x947
+[DEBUG 21.819707s] Coalescing pfn 0x946 with pfn 0x947
+[DEBUG 21.824626s] Trying to coalesce pfn 0x946 of order 1 with buddy_pfn 0x944
+Profiling memory starting from L0 '0xFFFF800000946000'
+	lv 3: Leaf node address: 0x947000
+		Addr 0x947000: [.ref = 0, .order = 0x946, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x94F000
+		Addr 0x94F000: [.ref = 0, .order = 0x94C, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x950000
+		Addr 0x950000: [.ref = 0, .order = 0x4, .state = 0x0, .flags = 0x2, cow = 0]
+	lv 3: Leaf node address: 0x951000
+		Addr 0x951000: [.ref = 0, .order = 0x950, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x952000
+		Addr 0x952000: [.ref = 0, .order = 0x950, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x953000
+		Addr 0x953000: [.ref = 0, .order = 0x950, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x954000
+		Addr 0x954000: [.ref = 0, .order = 0x950, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x955000
+		Addr 0x955000: [.ref = 0, .order = 0x950, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x956000
+		Addr 0x956000: [.ref = 0, .order = 0x950, .state = 0x0, .flags = 0x1, cow = 0]
+	lv 3: Leaf node address: 0x957000
+		Addr 0x957000: [.ref = 0, .order = 0x950, .state = 0x0, .flags = 0x1, cow = 0]
+Pages free: [259774/262144] | 99.095916%
+[DEBUG 21.962416s] Trying to coalesce pfn 0x93E of order 1 with buddy_pfn 0x93C
