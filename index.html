@@ -403,7 +403,8 @@ MESS:00:00:09.726843:0: Kernel relocated to 0x80000
 MESS:00:00:09.728610:0: Device tree loaded to 0x10000 (size 0xe1f9)
 MESS:00:00:09.736851:0: uart: Set PL011 baud rate to 103448.300000 Hz
 MESS:00:00:09.743681:0: uart: Baud rate change done...
-MESS:00:00:09.745703:0:[INFO 4.691811s] Logging enabled
+MESS:00:00:09.745703:0:
+[INFO 4.691811s] Logging enabled
 [DEBUG 4.694018s] _binary_font_psf_start: 0xFFFF80000009A7D0
 [DEBUG 4.699456s] _binary_font_psf_end: 0xFFFF80000009D351
 [DEBUG 4.704724s] _binary_font_psf_size: 0x2B81
@@ -507,7 +508,8 @@ Made it to MUSL main()
 [DEBUG 6.280364s] Syscall Number: 66
 Used malloc yippee (test = 0xd, *test = 100)
 [DEBUG 6.287602s] Syscall Number: 56
-ls hello_world[DEBUG 9.842387s] Syscall Number: 135
+ls hello_world
+[DEBUG 9.842387s] Syscall Number: 135
 [DEBUG 9.845098s] Syscall Number: 135
 [DEBUG 9.848522s] Syscall Number: 220
 [DEBUG 9.852121s] CLONE L3[0] marked COW, PTE=0xA000000092CFCB
@@ -779,7 +781,8 @@ Profiling memory starting from L0 '0xFFFF800000948000'
 		Addr 0x950000: [.ref = 0, .order = 0x4, .state = 0x0, .flags = 0x2, cow = 0]
 Pages free: [259776/262144] | 99.096679%
 [DEBUG 11.391633s] Trying to coalesce pfn 0x93E of order 1 with buddy_pfn 0x93C
-ls goodbye world[DEBUG 14.598742s] Syscall Number: 135
+ls goodbye world
+[DEBUG 14.598742s] Syscall Number: 135
 [DEBUG 14.601540s] Syscall Number: 135
 [DEBUG 14.605054s] Syscall Number: 220
 [DEBUG 14.608743s] CLONE L3[0] marked COW, PTE=0xA000000092CFCB
@@ -1036,7 +1039,8 @@ Profiling memory starting from L0 '0xFFFF800000949000'
 		Addr 0x951000: [.ref = 0, .order = 0x950, .state = 0x0, .flags = 0x1, cow = 0]
 Pages free: [259775/262144] | 99.096298%
 [DEBUG 16.055380s] Trying to coalesce pfn 0x93E of order 1 with buddy_pfn 0x93C
-cd .[DEBUG 20.206635s] Syscall Number: 135
+cd .
+[DEBUG 20.206635s] Syscall Number: 135
 [DEBUG 20.209434s] Syscall Number: 135
 [DEBUG 20.212945s] Syscall Number: 220
 [DEBUG 20.216643s] CLONE L3[0] marked COW, PTE=0xA000000092CFCB
@@ -1412,21 +1416,10 @@ Pages free: [259774/262144] | 99.095916%
     return s;
   }
 
-  /* ---------- build a big, seamless log block for the background ---------- */
+  /* ---------- render the log once as the background ---------- */
   function buildBackground(lines){
-    // repeat the trace enough times to comfortably cover a tall page,
-    // separated by a faint session marker so it reads as continuous operation.
-    var out = [], marker = "[ ---- ] --- rpos serial console · session continues ---";
-    // adaptive: fewer copies when the real log is already long (keeps the DOM light)
-    var copies = Math.max(1, Math.min(12, Math.ceil(1800 / lines.length)));
-    for (var c = 0; c < copies; c++){
-      for (var i = 0; i < lines.length; i++) out.push(highlight(lines[i]));
-      out.push('<span class="lt-ts">'+esc(marker)+'</span>');
-    }
-    var html = out.join("\n");
     var pre = document.getElementById("logpre");
-    // two identical halves -> we can modulo-wrap the transform for a seamless infinite scroll
-    pre.innerHTML = html + "\n" + html;
+    pre.innerHTML = lines.map(highlight).join("\n");
     startParallax(pre);
   }
 
@@ -1434,20 +1427,22 @@ Pages free: [259774/262144] | 99.095916%
   function startParallax(pre){
     var PARALLAX = reduce ? 0.12 : 0.34;   // how much the log moves per px of page scroll
     var DRIFT    = reduce ? 0 : 7;         // px/sec the log creeps on its own (feels "alive")
-    var half = pre.scrollHeight / 2 || 1;
     var t0 = null;
+    // a single copy of the log: stop once its last line reaches the bottom of the viewport
+    var maxY = 0;
+    function measure(){ maxY = Math.max(0, pre.scrollHeight - window.innerHeight); }
+    measure();
 
     function frame(t){
       if (reading) { requestAnimationFrame(frame); return; }
       if (t0 === null) t0 = t;
       var elapsed = (t - t0) / 1000;
-      var y = (window.scrollY * PARALLAX + elapsed * DRIFT) % half;
+      var y = Math.min(window.scrollY * PARALLAX + elapsed * DRIFT, maxY);
       pre.style.transform = "translateY(" + (-y) + "px)";
       requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
-    // keep the wrap point correct if the viewport/log size changes
-    window.addEventListener("resize", function(){ half = pre.scrollHeight / 2 || 1; });
+    window.addEventListener("resize", measure);
   }
 
   /* ---------- pick a log source ----------
